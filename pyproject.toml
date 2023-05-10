@@ -12,6 +12,7 @@ django = "^4.2.1"
 environ = "^1.0"
 psycopg2 = "^2.9.6"
 django-environ = "^0.10.0"
+pillow = "^9.5.0"
 
 
 [build-system]

@@ -1,0 +1,62 @@
+{% extends "contactapp/base.html" %}
+
+{% block content %}
+
+{% if messages %}
+<div>
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<div>
+    <h2>Sign Up</h2>
+</div>
+
+<form method="post" action="{% url 'users:signup' %}">
+    {% csrf_token %}
+    <div>
+        <label> Username:
+            {{ form.username }}
+        </label>
+        <span>{{ form.errors.username }}</span>
+    </div>
+    <div>
+        <label> First Name:
+            {{ form.first_name }}
+        </label>
+        <span>{{ form.errors.first_name }}</span>
+    </div>
+    <div>
+        <label> Last Name:
+            {{ form.last_name }}
+        </label>
+        <span>{{ form.errors.last_name }}</span>
+    </div>
+    <div>
+        <label> Email:
+            {{ form.email }}
+        </label>
+        <span>{{ form.errors.email }}</span>
+    </div>
+    <br>
+    <div>
+        <label> Password:
+            {{ form.password1 }}
+        </label>
+        <span>{{ form.errors.password1 }}</span>
+    </div>
+    <div>
+        <label> Password confirmation:
+            {{ form.password2 }}
+        </label>
+        <span>{{ form.errors.password2 }}</span>
+    </div>
+    <div class="grid">
+        <button type="submit">Submit</button>
+        <button type="reset" class="secondary">Reset</button>
+    </div>
+</form>
+
+{% endblock %}
