@@ -1,0 +1,18 @@
+{% extends "noteapp/base.html" %}
+
+{% block content %}
+
+<form method="POST" action="{% url 'noteapp:tag' %}">
+    {% csrf_token %}
+    <div style="padding: 10px">
+        <label for = "id_name">Enter the tag name: </label>
+        {{form.name}}
+        <span>{{form.errors.name}}</span>
+    </div>
+    <div class="grid">
+        <button type="submit">Submit</button>
+        <button type="reset" class="secondary">Reset</button>
+    </div>
+</form>
+
+{% endblock %}
