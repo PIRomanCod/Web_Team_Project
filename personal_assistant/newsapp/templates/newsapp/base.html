@@ -28,17 +28,17 @@
                 <ul class="navbar-nav me-right mb-2 mb-lg-0 ">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href=#>Logout</a>
+                        <a class="nav-link" href="{% url 'users:logout' %}">Logout</a>
                     </li>
                     <li class="nav-item">
-                        <span class="nav-link active"> User:</span>
+                        <a class="nav-link" href="{% url 'users:profile' %}">Profile</a>
                     </li>
                     {% else %}
                     <li class="nav-item ">
-                        <a class="nav-link" href=#>Sign Up</a>
+                        <a class="nav-link" href="{% url 'users:signup' %}">Sign Up</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=#>Sign In</a>
+                        <a class="nav-link" href="{% url 'users:login' %}">Sign In</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -57,7 +57,7 @@
                         <a class="nav-link" href=#>Create Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=#>Create Note</a>
+                        <a class="nav-link" href="{% url 'noteapp:main' %}">Create Note</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href=#>Find Contact</a>
