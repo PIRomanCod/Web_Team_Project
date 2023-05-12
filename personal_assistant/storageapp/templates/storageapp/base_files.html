@@ -1,0 +1,11 @@
+{% extends 'newsapp/base.html' %}
+
+{% block content %}
+<a href="{% url 'storageapp:upload_file' %}">Upload File</a>
+<a href="#">Filter</a>
+<a href="#">Sort by type</a>
+
+{% block in_files %}
+{% endblock %}
+
+{% endblock %}
