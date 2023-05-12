@@ -1,0 +1,13 @@
+{% extends 'storageapp/base_files.html' %}
+
+{% block in_files %}
+
+<div>
+    {% for file in files_list %}
+    <div>{{ file.file_name }}</div>
+    <a href="{% url 'storageapp:delete_file_warning' file_id=file.id %}">Delete file</a>
+    <br>
+    {% endfor %}
+</div>
+
+{% endblock %}
