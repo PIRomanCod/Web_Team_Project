@@ -30,18 +30,9 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = []
-DROPBOX_APP_KEY = env('DROPBOX_APP_KEY')
-DROPBOX_APP_SECRET = env('DROPBOX_APP_SECRET')
-DROPBOX_ACCESS_TOKEN = env('DROPBOX_ACCESS_TOKEN')
-DEFAULT_FILE_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 
-DROPBOX_OAUTH2_TOKENS = {
-    'access_token': DROPBOX_ACCESS_TOKEN,
-    'app_key': DROPBOX_APP_KEY,
-    'app_secret': DROPBOX_APP_SECRET,
-    'bearer_token': None,
-    'refresh_token': None,
-}
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -56,6 +47,7 @@ INSTALLED_APPS = [
     "users",
     "newsapp",
     "storageapp",
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -141,7 +133,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "static/"
+DROPBOX_OAUTH2_TOKEN = env('DROPBOX_OAUTH2_TOKEN')
+DROPBOX_ROOT_PATH = "/"
+DROPBOX_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
+
+STATIC_URL = "/static/"
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
