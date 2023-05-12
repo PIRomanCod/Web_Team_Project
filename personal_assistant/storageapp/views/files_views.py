@@ -32,13 +32,13 @@ class FileViews:
     @staticmethod
     def upload_file(request):
         if request.method == 'POST':
-            file_url, dropbox_file_name = FileServices.save_file_dropbox_and_get_url(request)
+            dropbox_file_name = FileServices.save_file_dropbox_and_get_url(request)
             owner_inst, type_inst, extension_inst, file_name = FileServices.get_info_from_file(request)
             File.objects.create(owner=owner_inst,
                                 file_type=type_inst,
                                 file_extension=extension_inst,
                                 file_name=file_name,
-                                file_url=file_url,
+
                                 dropbox_file_name=dropbox_file_name)
             return render(request, 'storageapp/upload_file.html')
         return render(request, 'storageapp/upload_file.html')

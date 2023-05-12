@@ -18,6 +18,5 @@ class File(models.Model):
     file_extension = models.ForeignKey(FileExtensions, on_delete=models.CASCADE)
     file_name = models.CharField(max_length=255)
     dropbox_file_name = models.CharField(max_length=255, null=True)
-    file_url = models.TextField()
     created_at = models.DateTimeField(default=timezone.now)
 

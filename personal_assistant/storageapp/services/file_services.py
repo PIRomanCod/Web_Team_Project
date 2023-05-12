@@ -3,7 +3,8 @@ from personal_assistant import settings
 from django.contrib.auth.models import User
 from django.core.files.storage import get_storage_class
 import re
-import dropbox
+
+
 class FileServices:
     reg_ex = r'\.[^./\\]+$'
     dbx_class = get_storage_class(settings.DROPBOX_STORAGE)
@@ -31,9 +32,7 @@ class FileServices:
     def save_file_dropbox_and_get_url(cls, request):
         file = request.FILES.get('file')
         dropbox_file_name = cls.dbx_storage.save(file.name, file)
-
-        url = cls.dbx_storage.url(file.name)
-        return url, dropbox_file_name
+        return dropbox_file_name
 
     @staticmethod
     def get_user_files_list(user_id):
