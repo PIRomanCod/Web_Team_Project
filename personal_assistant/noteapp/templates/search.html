@@ -1,0 +1,37 @@
+{% extends "newsapp/base.html" %}
+{% load extract_tags %}
+{% block content %}
+
+
+<form class="row row-cols-lg-auto g-3 align-items-center" method="get">
+  <div class="col-12">
+       {{ NoteSearchForm.as_p }}
+    <input type="text" class="form-control" id="id_keyword" name="keyword" value="{{ request.GET.keyword }}">
+    </div>
+
+  <div class="col-12">
+   <button type="submit" class="btn btn-primary">Search</button>
+  </div>
+</form>
+
+{% for note in notes %}
+    <ul>
+<!--Блок виводу нотаток-->
+        <li class="nav-item">
+            {%if not note.done%}
+            <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">"article:" {{note.name}},
+                "text:" - {{note.description}}, "tags": {{ note.tags|tags }}</a>
+            <a href="{% url 'noteapp:set_done' note.id %}" role="button" class="secondary">Mark Done</a>
+            <a href="{% url 'noteapp:delete' note.id %}" role="button" class="secondary">Delete note</a>
+            {% else %}
+
+            <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">"article:"<s>{{note.name}}</s></a>
+            <a href="{% url 'noteapp:set_active' note.id %}" role="button" class="secondary">Mark Active</a>
+            <a href="{% url 'noteapp:delete' note.id %}" role="button" class="contrast">Delete note</a>
+            {% endif %}
+        </li>
+      </ul>
+
+{% endfor %}
+
+{% endblock %}

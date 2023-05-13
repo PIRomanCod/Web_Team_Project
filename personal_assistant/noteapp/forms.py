@@ -1,4 +1,4 @@
-from django.forms import ModelForm, CharField, TextInput
+from django.forms import ModelForm, CharField, TextInput, Form
 from . import models
 
 
@@ -18,3 +18,13 @@ class NoteForm(ModelForm):
         model = models.Note
         fields = ['name', 'description']
         exclude = ['tags']
+
+
+class NoteSearchForm(Form):
+    keyword = CharField(max_length=100, required=False, widget=TextInput(attrs={'placeholder': 'Search'}))
+
+    def search(self, queryset):
+        keyword = self.cleaned_data.get('keyword')
+        if keyword:
+            queryset = queryset.filter(name__icontains=keyword) | queryset.filter(description__icontains=keyword)
+        return queryset

@@ -11,13 +11,13 @@ from .forms import RegisterForm, LoginForm, ProfileForm
 
 def signupuser(request):
     if request.user.is_authenticated:
-        return redirect(to='noteapp:main') # redirect to main page if user is authenticated
+        return redirect(to='root') # redirect to main page if user is authenticated
 
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(to='noteapp:main') # redirect to main page if user is authenticated
+            return redirect(to='root') # redirect to main page if user is authenticated
         else:
             return render(request, 'users/signup.html', context={"form": form})
 
@@ -26,7 +26,7 @@ def signupuser(request):
 
 def loginuser(request):
     if request.user.is_authenticated:
-        return redirect('noteapp:main') # redirect to main page if user is authenticated
+        return redirect('root') # redirect to main page if user is authenticated
 
     if request.method == 'POST':
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
@@ -35,7 +35,7 @@ def loginuser(request):
             return redirect(to='users:login')
 
         login(request, user)
-        return redirect(to='noteapp:main') # redirect to main page if user is authenticated
+        return redirect(to='root') # redirect to main page if user is authenticated
 
     return render(request, 'users/login.html', context={"form": LoginForm()})
 
@@ -43,7 +43,7 @@ def loginuser(request):
 @login_required
 def logoutuser(request):
     logout(request)
-    return redirect(to='noteapp:main') # redirect to main page if user is authenticated
+    return redirect(to='root') # redirect to main page if user is authenticated
 
 
 @login_required
