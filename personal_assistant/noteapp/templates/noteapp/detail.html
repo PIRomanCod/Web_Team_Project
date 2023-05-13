@@ -15,5 +15,7 @@
 {% endif %}
 
 <p>Tags: <small> {{ note.tags|tags }} </small></p>
+<a href="{% url 'noteapp:delete' note.id %}" role="button" class="secondary">Delete note</a>
 
+<a href="{% url 'noteapp:update_note' note_id=note.id %}" role="button" class="secondary">Update Note</a>
 {% endblock %}
