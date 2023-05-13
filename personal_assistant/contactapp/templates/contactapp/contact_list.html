@@ -1,0 +1,49 @@
+<head>
+	<title>Список контактів</title>
+</head>
+<body>
+	<h1>Список контактів</h1>
+	<form method="get">
+		<label for="search">Пошук:</label>
+		<input type="text" name="search" id="search">
+		<input type="submit" value="Шукати">
+	</form>
+	<table>
+		<thead>
+			<tr>
+				<th>Ім'я</th>
+				<th>Адреса</th>
+				<th>Номер телефону</th>
+				<th>Email</th>
+				<th>День народження</th>
+				<th>Опції</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for contact in contacts %}
+			<tr>
+				<td>{{ contact.name }}</td>
+				<td>{{ contact.address }}</td>
+				<td>{{ contact.phone_number }}</td>
+				<td>{{ contact.email }}</td>
+				<td>{{ contact.birth_date }}</td>
+				<td>
+					<a href="{% url 'edit_contact' contact.pk %}">Редагувати</a>
+					<a href="{% url 'delete_contact' contact.pk %}">Видалити</a>
+				</td>
+			</tr>
+			{% empty %}
+			<tr>
+				<td colspan="6">Немає контактів</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% if contacts.has_previous %}
+	<a href="?page={{ contacts.previous_page_number }}">Попередня</a>
+	{% endif %}
+	{% if contacts.has_next %}
+	<a href="?page={{ contacts.next_page_number }}">Наступна</a>
+	{% endif %}
+	<a href="{% url 'create_contact' %}">Додати контакт</a>
+</body>
