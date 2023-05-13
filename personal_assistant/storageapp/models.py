@@ -20,3 +20,7 @@ class File(models.Model):
     dropbox_file_name = models.CharField(max_length=255, null=True)
     created_at = models.DateTimeField(default=timezone.now)
 
+    @classmethod
+    def get_field_list(cls):
+        return {num: field.name for num, field in enumerate(cls._meta.fields) if field.name != 'owner'}
+
