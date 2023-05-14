@@ -2,9 +2,40 @@
 
 {% block content %}
 
-<div>
-    <h1>
-        News
-    </h1>
+<div class="container">
+    <div class="row">
+        <div class="col-10">
+            <h4 class="text-center my-2"><u>UNIAN News Now</u></h4>
+            {% for news_item in news %}
+            <div class="navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5">
+                    <li class="nav-item">
+                        <a class="nav-link" href={{news_item.url}} target="_blank" rel="noopener noreferrer">
+                            {{news_item.header}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            {% endfor %}
+        </div>
+        <div class="col-2">
+            {% for currency in exchange_rate %}
+            <div class="my-2">
+                <div class="badge bg-dark text-wrap fs-6">{{currency.ccy}}/{{currency.base_ccy}}</div>
+                <div>Buy:{{currency.buy}}</div>
+                <div>Sale:{{currency.sale}}</div>
+            </div>
+            {% endfor %}
+            <div>
+                <div class="badge bg-dark text-wrap fs-6">Current weather:</div>
+                <div>{{weather.name}}: {{weather.temp}}</div>
+                <div>
+                    <img src="{{weather.icon_url}}" class="img-thumbnail" height=64>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}
