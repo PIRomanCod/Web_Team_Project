@@ -21,6 +21,6 @@ class File(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
 
     @classmethod
-    def get_field_list(cls):
+    def get_fields_list(cls):
         return {num: field.name for num, field in enumerate(cls._meta.fields) if field.name != 'owner'}
 

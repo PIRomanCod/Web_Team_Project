@@ -55,13 +55,24 @@ class FileServices:
     @classmethod
     def save_file_dropbox_and_get_new_name(cls, request):
         file = request.FILES.get('file')
+        try:
+            re.sub('C:/', '', file.name)
+        except Exception as exc:
+            print(exc)
         dropbox_file_name = cls.dbx_storage.save(file.name, file)
         return dropbox_file_name
 
-    @staticmethod
-    def get_user_files_list(user_id, file_types):
-        files_list = File.objects.filter(owner=user_id).filter(file_type__in=file_types)
-        return files_list
+
+    @classmethod
+    def delete_file(cls, file):
+        cls.dbx_storage.delete(file.dropbox_file_name)
+        file.delete()
+        return 'File deleted'
+
+    @classmethod
+    def downlaod_file(cls, file):
+        url = cls.dbx_storage.url(file.dropbox_file_name)
+        return url
 
     @classmethod
     def create_tables(cls):
@@ -86,20 +97,9 @@ class FileServices:
                 for ext in cls.applications:
                     FileExtensions.objects.create(name=ext, category=inst)
 
-    @classmethod
-    def delete_file(cls, file):
-        cls.dbx_storage.delete(file.dropbox_file_name)
-        file.delete()
-        return 'File deleted'
-
-    @classmethod
-    def downlaod_file(cls, file):
-        url = cls.dbx_storage.url(file.dropbox_file_name)
-        return url
-
     @staticmethod
     def render_files_list(request):
-        fields = File.get_field_list()
+        fields = File.get_fields_list()
 
         all_files_types = [type.name for type in FileTypes.objects.all()]
 
