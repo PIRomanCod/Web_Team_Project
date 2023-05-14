@@ -11,6 +11,7 @@ pyproject.toml
 .env
 # Backup files #
 *.bak
+.gitignore
 
 # If you are using PyCharm #
 # User-specific stuff
