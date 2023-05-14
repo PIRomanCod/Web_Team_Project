@@ -129,7 +129,6 @@ USE_TZ = True
 
 DROPBOX_OAUTH2_TOKEN = env('DROPBOX_OAUTH2_TOKEN')
 DROPBOX_ROOT_PATH = "/"
-DROPBOX_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 
 STATIC_URL = "/static/"
 
