@@ -1,17 +1,15 @@
 import re
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.core.files.storage import get_storage_class
+from storages.backends.dropbox import DropBoxStorage
 
-from storageapp.services.dbx import dbx
 from storageapp.models import File, FileTypes, FileExtensions
-from personal_assistant import settings
+
 
 
 class FileServices:
     reg_ex_existance = r'\.[^./\\]+$'
-    dbx_class = get_storage_class(settings.DROPBOX_STORAGE)
-    dbx_storage = dbx_class()
+    dbx_storage = DropBoxStorage()
     file_types = ['other', 'images', 'videos', 'archives', 'docs', 'sound', 'applications']
     applications = ['.js', '.mjs', '.json', '.webmanifest', '.dot', '.wiz', '.bin', '.a', '.o',
                     '.obj', '.so', '.oda', '.p7c', '.ps', '.ai', '.eps', '.m3u', '.m3u8', '.xlb', '.pot', '.ppa',
@@ -56,12 +54,6 @@ class FileServices:
     @classmethod
     def save_file_dropbox_and_get_new_name(cls, request):
         file = request.FILES.get('file')
-
-        try:
-            re.sub(r'^\w+:', '', file.name)
-        except TypeError as exc:
-            if file.name[0] != '/':
-                file.name = f'/{file.name}'
 
         dropbox_file_name = cls.dbx_storage.save(file.name, file)
         return dropbox_file_name
