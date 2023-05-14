@@ -55,10 +55,13 @@ class FileServices:
     @classmethod
     def save_file_dropbox_and_get_new_name(cls, request):
         file = request.FILES.get('file')
+
         try:
-            re.sub('^C:', '', file.name)
-        except Exception as exc:
-            print(exc)
+            re.sub(r'^\w+:', '', file.name)
+        except TypeError as exc:
+            if file.name[0] != '/':
+                file.name = f'/{file.name}'
+
         dropbox_file_name = cls.dbx_storage.save(file.name, file)
         return dropbox_file_name
 
