@@ -119,7 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
-from django.utils._os import safe_join
+
 USE_I18N = True
 
 USE_TZ = True
@@ -130,7 +130,7 @@ USE_TZ = True
 DROPBOX_OAUTH2_TOKEN = env('DROPBOX_OAUTH2_TOKEN')
 DROPBOX_ROOT_PATH = "/"
 
-STATIC_URL = "/static/"
+STATIC_URL = "static/"
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
