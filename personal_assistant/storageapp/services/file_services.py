@@ -101,7 +101,8 @@ class FileServices:
 
     @staticmethod
     def render_files_list(request):
-        fields = File.get_fields_list()
+        fields_to_order = File.get_fields_list()
+        fields_to_choice = {2: 'Type', 3: 'Extension', 4: 'File Name',  6: 'Created at'}
 
         all_files_types = [type.name for type in FileTypes.objects.all()]
 
@@ -114,10 +115,10 @@ class FileServices:
         files_types_obj = [FileTypes.objects.get(name=name) for name in files_types_enabled if name != '-']
         files_list = (File.objects.filter(owner=request.user.id)
                       .filter(file_type__in=files_types_obj)
-                      .order_by(f'{reverse_order}{fields[how_order]}'))
+                      .order_by(f'{reverse_order}{fields_to_order[how_order]}'))
 
         return render(request, 'storageapp/files_list.html', context={'files_list': files_list,
                                                                       'files_types_enabled': files_types_enabled,
-                                                                      'file_fields': fields,
+                                                                      'file_fields': fields_to_choice,
                                                                       'all_files_types': all_files_types})
 
