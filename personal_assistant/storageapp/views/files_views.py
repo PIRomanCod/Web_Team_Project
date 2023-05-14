@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.models import User
 from storageapp.services.file_services import FileServices
 from storageapp.models import File
 
@@ -44,7 +44,7 @@ class FileViews:
                                 file_type=type_inst,
                                 file_extension=extension_inst,
                                 file_name=file_name,
-                                dropbox_file_name=dropbox_file_name)
+                                dropbox_file_name='dropbox_file_name')
 
             return FileServices.render_files_list(request)
         return render(request, 'storageapp/upload_file.html')

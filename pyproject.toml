@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "team-project-web"
+version = "0.1.0"
+description = ""
+authors = ["PIRomanCod <111997187+PIRomanCod@users.noreply.github.com>"]
+readme = "README.md"
+packages = [{include = "team_project_web"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.2.1"
+environ = "^1.0"
+django-environ = "^0.10.0"
+pillow = "^9.5.0"
+dropbox = "^11.36.0"
+django-storages = "^1.13.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
