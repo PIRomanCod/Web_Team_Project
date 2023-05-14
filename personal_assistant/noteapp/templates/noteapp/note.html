@@ -24,11 +24,14 @@
                 {% endfor %}
             </select>
         </label>
+        <a href="{% url 'noteapp:tag' %}" role="button"> Is there not enough tags? Add more  </a>
     </div>
     <div class="grid">
         <button type="submit">Submit</button>
         <button type="reset" class="secondary">Reset</button>
     </div>
 </form>
+
+
 
 {% endblock %}

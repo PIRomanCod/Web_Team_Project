@@ -1,48 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Organizer</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css"
-    />
-  </head>
-  <body>
-    <main class="container">
-      <nav style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px" >
+{% extends "newsapp/base.html" %}
+{% load extract_tags %}
+{% block content %}
+
+<main class="container">
+    <nav style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px">
+        <!--Поведінка авторизованого та ні користувача-->
         {% if user.is_authenticated %}
-        <ul>
-          <li><a href="{% url 'noteapp:note' %}" role="button">Add note</a></li>
-          <li><a href="{% url 'noteapp:tag' %}" role="button">Add tag</a></li>
-        </ul>
-        <ul>
-          <li>Welcome <b>{{user.username}}</b></li>
-          <li><a href="{% url 'users:profile' %}" role="button">Profile</a></li>
-          <li><a href="{% url 'users:logout' %}" role="button">Logout</a></li>
-        </ul>
-        {% else %}
-        <ul>
-          <li><a href="{% url 'users:signup' %}" role="button">Sign Up</a></li>
-          <li><a href="{% url 'users:login' %}" role="button">Login</a></li>
+        <ul class="row row-cols-lg-auto g-3 align-items-center">
+            <div class="col-12">
+                <li><a href="{% url 'noteapp:note' %}" role="button">Add note</a></li>
+            </div>
+            <div class="col-12">
+                <li><a href="{% url 'noteapp:tag' %}" role="button">Add tag</a></li>
+            </div>
+            <div class="col-12">
+                <li><a href="{% url 'noteapp:search' %}" role="button">Search</a></li>
+            </div>
+            <div class="col-12">
+                <li>
+                    <!--Блок фільтраціії за тегом-->
+                    <form method="GET" action="">
+                        <label for="tag">Tag:</label><select name="tag" id="tag">
+                        <option value="">All</option>
+                            {% for tag in tags %}
+                        <option value="{{ tag.name }}" {% if tag.name == tag %} selected {% endif %}>{{ tag.name }}</option>
+                            {% endfor %}
+                        </select><input type="submit" value="Filter">
+                    </form>
+                </li>
+            </div>
+
+
         </ul>
         {% endif %}
-      </nav>
+    </nav>
 
-      {% for note in notes%}
-      <ul>
-        <li>
-          {%if not note.done%}
-          <a href="{% url 'noteapp:detail' note.id %}" role="button" class="outline">{{note.name}}</a>
-          <a href="{% url 'noteapp:set_done' note.id %}" role="button">Mark Done</a>
-          <a href="{% url 'noteapp:delete' note.id %}" role="button" class="contrast">Delete note</a>
-          {% else %}
+    {% for note in page_obj %}
+    <ul>
+        <!--Блок виводу нотаток-->
+        <li class="nav-item">
+            {%if not note.done%}
+            <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">"article:" {{note.name}},
+                "text:" - {{note.description}}, "tags": {{ note.tags|tags }}</a>
+            <a href="{% url 'noteapp:set_done' note.id %}" role="button" class="secondary">Mark Done</a>
+            <a href="{% url 'noteapp:delete' note.id %}" role="button" class="secondary">Delete note</a>
+            {% else %}
 
-          <a href="{% url 'noteapp:detail' note.id %}" role="button" class="secondary" ><s>{{note.name}}</s></a>
-          {% endif %}
+            <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">"article:"<s>{{note.name}}</s></a>
+            <a href="{% url 'noteapp:set_active' note.id %}" role="button" class="secondary">Mark Active</a>
+            <a href="{% url 'noteapp:delete' note.id %}" role="button" class="contrast">Delete note</a>
+            {% endif %}
         </li>
-      </ul>
-      {% endfor %}
-    </main>
-  </body>
-</html>
+    </ul>
+    {% endfor %}
+    </div>
+
+
+</main>
+<!--Блок навігації по пагінації-->
+<div class="pagination">
+       <span class="step-links">
+       {% if page_obj.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+        {% if quotes.number == num %}
+            <strong>{{ num }}</strong>
+        {% else %}
+            <a href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            </span>
+    {% endif %}
+</div>
+
+{% endblock %}
