@@ -32,6 +32,7 @@
 </form>
 <div>
     {% for file in files_list %}
+    <img src="{{ file.img }}" >
     <div>{{ file.file_name }}</div>
     <form method="post" action="{% url 'storageapp:delete_file_warning' file_id=file.id %}">
         {% csrf_token %}

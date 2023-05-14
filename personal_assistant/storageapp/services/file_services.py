@@ -10,7 +10,9 @@ from storageapp.models import File, FileTypes, FileExtensions
 class FileServices:
     reg_ex_existance = r'\.[^./\\]+$'
     dbx_storage = DropBoxStorage()
-    file_types = ['other', 'images', 'videos', 'archives', 'docs', 'sound', 'applications']
+    file_types = {'other': 'icons/other.jpeg', 'images': 'icons/image.png', 'videos': 'icons/video.png',
+                  'archives': 'icons/archive.png', 'docs': 'icons/docs.png', 'sound': 'icons/audio.png',
+                  'applications': 'icons/applications.jpg'}
     applications = ['.js', '.mjs', '.json', '.webmanifest', '.dot', '.wiz', '.bin', '.a', '.o',
                     '.obj', '.so', '.oda', '.p7c', '.ps', '.ai', '.eps', '.m3u', '.m3u8', '.xlb', '.pot', '.ppa',
                     '.pps',
@@ -72,8 +74,8 @@ class FileServices:
 
     @classmethod
     def create_tables(cls):
-        for type in cls.file_types:
-            inst = FileTypes.objects.create(name=type)
+        for type, img in cls.file_types.items():
+            inst = FileTypes.objects.create(name=type, img=img)
             if type == 'images':
                 for ext in cls.images:
                     FileExtensions.objects.create(name=ext, category=inst)
