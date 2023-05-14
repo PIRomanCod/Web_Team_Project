@@ -31,6 +31,7 @@ class FileServices:
             ".ini"],
     videos = ['.mp4', '.mpeg', '.m1v', '.mpa', '.mpe', '.mpg', '.mov', '.qt', '.webm', '.avi', '.movie', '.wav', ".mkv"]
     archives = [".zip", ".tar", ".tgz", ".gz", ".7zip", ".7z", ".iso", ".rar"]
+    other = ['unknown']
 
     @classmethod
     def get_file_info(cls, request):
@@ -93,6 +94,9 @@ class FileServices:
                     FileExtensions.objects.create(name=ext, category=inst)
             elif type == 'applications':
                 for ext in cls.applications:
+                    FileExtensions.objects.create(name=ext, category=inst)
+            elif type == 'other':
+                for ext in cls.other:
                     FileExtensions.objects.create(name=ext, category=inst)
 
     @staticmethod
