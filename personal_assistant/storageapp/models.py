@@ -12,8 +12,8 @@ class FileTypes(models.Model):
 
         img = Image.open(self.img.path)
 
-        if img.height > 50 or img.width > 50:
-            new_img = (50, 50)
+        if img.height > 100 or img.width > 100:
+            new_img = (100, 100)
             img.thumbnail(new_img)
             img.save(self.img.path)
 class FileExtensions(models.Model):
