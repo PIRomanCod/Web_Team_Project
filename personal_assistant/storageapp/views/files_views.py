@@ -44,7 +44,7 @@ class FileViews:
                                 file_type=type_inst,
                                 file_extension=extension_inst,
                                 file_name=file_name,
-                                dropbox_file_name='dropbox_file_name')
+                                dropbox_file_name=dropbox_file_name)
 
             return FileServices.render_files_list(request)
         return render(request, 'storageapp/upload_file.html')
