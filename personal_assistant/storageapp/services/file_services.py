@@ -12,7 +12,7 @@ class FileServices:
     dbx_storage = DropBoxStorage()
     file_types = {'other': 'icons/other.jpeg', 'images': 'icons/image.png', 'videos': 'icons/video.png',
                   'archives': 'icons/archive.png', 'docs': 'icons/docs.png', 'sound': 'icons/audio.png',
-                  'applications': 'icons/applications.jpg'}
+                  'applications': 'icons/applications.jpg', 'message': 'icons/message.png'}
     applications = ['.js', '.mjs', '.json', '.webmanifest', '.dot', '.wiz', '.bin', '.a', '.o',
                     '.obj', '.so', '.oda', '.p7c', '.ps', '.ai', '.eps', '.m3u', '.m3u8', '.xlb', '.pot', '.ppa',
                     '.pps',
@@ -25,10 +25,10 @@ class FileServices:
              '.opus', '.aif', '.aifc', '.aiff', '.ra', ".ogg", ".amr"]
     images = ['.bmp', '.gif', '.ief', '.jpg', '.jpe', '.jpeg', '.heic', '.heif', '.png', '.svg', '.tiff', '.tif',
               '.ico', '.ras', '.pnm', '.pbm', '.pgm', '.ppm', '.rgb', '.xbm', '.xpm', '.xwd']
-    message = ['.eml', '.mht', '.mhtml', '.nws'],
+    message = ['.eml', '.mht', '.mhtml', '.nws']
     docs = ['.css', '.csv', '.html', '.htm', '.txt', '.bat', '.c', '.h', '.ksh', '.pl', '.rtx', '.tsv', '.py', '.etx',
             '.sgm', '.sgml', '.vcf', ".doc", ".docx", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx", ".rtf", ".xml",
-            ".ini"],
+            ".ini"]
     videos = ['.mp4', '.mpeg', '.m1v', '.mpa', '.mpe', '.mpg', '.mov', '.qt', '.webm', '.avi', '.movie', '.wav', ".mkv"]
     archives = [".zip", ".tar", ".tgz", ".gz", ".7zip", ".7z", ".iso", ".rar"]
     other = ['unknown']
@@ -69,7 +69,7 @@ class FileServices:
         return 'File deleted'
 
     @classmethod
-    def downlaod_file(cls, file):
+    def download_file(cls, file):
         url = cls.dbx_storage.url(file.dropbox_file_name)
         return url
 
@@ -85,6 +85,9 @@ class FileServices:
                     FileExtensions.objects.create(name=ext, category=inst)
             elif type == 'archives':
                 for ext in cls.archives:
+                    FileExtensions.objects.create(name=ext, category=inst)
+            elif type == 'message':
+                for ext in cls.message:
                     FileExtensions.objects.create(name=ext, category=inst)
             elif type == 'docs':
                 for ext in cls.docs:
