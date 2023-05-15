@@ -25,5 +25,5 @@ urlpatterns = [
     path('', include('newsapp.urls')),
     path('notes/', include('noteapp.urls')),
     path('users/', include('users.urls')),
-    path('contacts/', include('contactsapp.urls')),
+    path('contacts/', include('contactapp.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
