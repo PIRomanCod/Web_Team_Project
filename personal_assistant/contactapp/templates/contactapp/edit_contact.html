@@ -1,0 +1,26 @@
+<head>
+    <title>Edit Contact</title>
+</head>
+<body>
+    <h1>Edit Contact</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" value="{{ contact.name }}" required><br>
+
+        <label for="address">Address:</label>
+        <input type="text" name="address" id="address" value="{{ contact.address }}" required><br>
+
+        <label for="phone_number">Phone Number:</label>
+        <input type="text" name="phone_number" id="phone_number" value="{{ contact.phone_number }}" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" value="{{ contact.email }}" required><br>
+
+        <label for="birth_date">Birth Date:</label>
+        <input type="date" name="birth_date" id="birth_date" value="{{ contact.birth_date }}" required><br>
+
+        <button type="submit">Save</button>
+    </form>
+</body>
