@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.db import models
 
+
 from .models import Contact
 from .forms import ContactForm
 
