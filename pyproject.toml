@@ -19,6 +19,7 @@ beautifulsoup4 = "^4.12.2"
 lxml = "^4.9.2"
 
 
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

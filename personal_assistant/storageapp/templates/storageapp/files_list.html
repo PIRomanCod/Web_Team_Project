@@ -1,7 +1,8 @@
 {% extends 'storageapp/base_files.html' %}
 
 {% block in_files %}
-{{ filter_type }}
+{% load static %}
+<link rel="stylesheet" href="{% static 'storageapp/style.css' %}">
 <form action="{% url 'storageapp:files_list' %}" method="get">
     {% for type in all_files_types %}
     {% if type in files_types_enabled %}
@@ -14,7 +15,7 @@
     <label for="category">Select a category to sort:</label>
     <select name="category" id="category">
         {% for num, field in file_fields.items %}
-        {% if num == 1 %}
+        {% if num == 4 %}
         <option value="{{ num }}" selected>{{ field }}</option>
         {% else %}
         <option value="{{ num }}">{{ field }}</option>
@@ -27,21 +28,27 @@
     <input type="checkbox" name="filter_type" value="-">Reverse
     {% endif %}
     <div>
-        <button type="submit">Submit filters and sort category</button>
+        <button type="submit" class="upper-buttons">Submit filters and sort category</button>
     </div>
 </form>
 <div>
     {% for file in files_list %}
-    <div>{{ file.file_name }}</div>
-    <form method="post" action="{% url 'storageapp:delete_file_warning' file_id=file.id %}">
-        {% csrf_token %}
-        <button type="submit">Delete file</button>
-    </form>
-    <form method="post" action="{% url 'storageapp:download_file' file_id=file.id %}">
-        {% csrf_token %}
-        <button type="submit">Download</button>
-    </form>
-    <br>
+    <div class="file-row">
+        <div class="file-name-container" title="{{ file.file_name }}">
+            <img src="{{ file.file_type.img.url }}" alt="File Type IMG">
+            <span class="file-name">{{ file.file_name }}</span>
+        </div>
+        <div class="button-container">
+            <form method="post" action="{% url 'storageapp:download_file' file_id=file.id %}">
+                {% csrf_token %}
+                <button type="submit" class="download-button">Download</button>
+            </form>
+            <form method="post" action="{% url 'storageapp:delete_file_warning' file_id=file.id %}">
+                {% csrf_token %}
+                <button type="submit" class="delete-button">Delete file</button>
+            </form>
+        </div>
+    </div>
     {% endfor %}
 </div>
 

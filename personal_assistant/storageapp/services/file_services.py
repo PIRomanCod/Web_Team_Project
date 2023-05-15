@@ -10,7 +10,9 @@ from storageapp.models import File, FileTypes, FileExtensions
 class FileServices:
     reg_ex_existance = r'\.[^./\\]+$'
     dbx_storage = DropBoxStorage()
-    file_types = ['other', 'images', 'videos', 'archives', 'docs', 'sound', 'applications']
+    file_types = {'other': 'icons/other.jpeg', 'images': 'icons/image.png', 'videos': 'icons/video.png',
+                  'archives': 'icons/archive.png', 'docs': 'icons/docs.png', 'sound': 'icons/audio.png',
+                  'applications': 'icons/applications.jpg', 'message': 'icons/message.png'}
     applications = ['.js', '.mjs', '.json', '.webmanifest', '.dot', '.wiz', '.bin', '.a', '.o',
                     '.obj', '.so', '.oda', '.p7c', '.ps', '.ai', '.eps', '.m3u', '.m3u8', '.xlb', '.pot', '.ppa',
                     '.pps',
@@ -23,12 +25,13 @@ class FileServices:
              '.opus', '.aif', '.aifc', '.aiff', '.ra', ".ogg", ".amr"]
     images = ['.bmp', '.gif', '.ief', '.jpg', '.jpe', '.jpeg', '.heic', '.heif', '.png', '.svg', '.tiff', '.tif',
               '.ico', '.ras', '.pnm', '.pbm', '.pgm', '.ppm', '.rgb', '.xbm', '.xpm', '.xwd']
-    message = ['.eml', '.mht', '.mhtml', '.nws'],
+    message = ['.eml', '.mht', '.mhtml', '.nws']
     docs = ['.css', '.csv', '.html', '.htm', '.txt', '.bat', '.c', '.h', '.ksh', '.pl', '.rtx', '.tsv', '.py', '.etx',
             '.sgm', '.sgml', '.vcf', ".doc", ".docx", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx", ".rtf", ".xml",
-            ".ini"],
+            ".ini"]
     videos = ['.mp4', '.mpeg', '.m1v', '.mpa', '.mpe', '.mpg', '.mov', '.qt', '.webm', '.avi', '.movie', '.wav', ".mkv"]
     archives = [".zip", ".tar", ".tgz", ".gz", ".7zip", ".7z", ".iso", ".rar"]
+    other = ['unknown']
 
     @classmethod
     def get_file_info(cls, request):
@@ -66,14 +69,14 @@ class FileServices:
         return 'File deleted'
 
     @classmethod
-    def downlaod_file(cls, file):
+    def download_file(cls, file):
         url = cls.dbx_storage.url(file.dropbox_file_name)
         return url
 
     @classmethod
     def create_tables(cls):
-        for type in cls.file_types:
-            inst = FileTypes.objects.create(name=type)
+        for type, img in cls.file_types.items():
+            inst = FileTypes.objects.create(name=type, img=img)
             if type == 'images':
                 for ext in cls.images:
                     FileExtensions.objects.create(name=ext, category=inst)
@@ -82,6 +85,9 @@ class FileServices:
                     FileExtensions.objects.create(name=ext, category=inst)
             elif type == 'archives':
                 for ext in cls.archives:
+                    FileExtensions.objects.create(name=ext, category=inst)
+            elif type == 'message':
+                for ext in cls.message:
                     FileExtensions.objects.create(name=ext, category=inst)
             elif type == 'docs':
                 for ext in cls.docs:
@@ -92,10 +98,14 @@ class FileServices:
             elif type == 'applications':
                 for ext in cls.applications:
                     FileExtensions.objects.create(name=ext, category=inst)
+            elif type == 'other':
+                for ext in cls.other:
+                    FileExtensions.objects.create(name=ext, category=inst)
 
     @staticmethod
     def render_files_list(request):
-        fields = File.get_fields_list()
+        fields_to_order = File.get_fields_list()
+        fields_to_choice = {2: 'Type', 3: 'Extension', 4: 'File Name',  6: 'Created at'}
 
         all_files_types = [type.name for type in FileTypes.objects.all()]
 
@@ -108,10 +118,10 @@ class FileServices:
         files_types_obj = [FileTypes.objects.get(name=name) for name in files_types_enabled if name != '-']
         files_list = (File.objects.filter(owner=request.user.id)
                       .filter(file_type__in=files_types_obj)
-                      .order_by(f'{reverse_order}{fields[how_order]}'))
+                      .order_by(f'{reverse_order}{fields_to_order[how_order]}'))
 
         return render(request, 'storageapp/files_list.html', context={'files_list': files_list,
                                                                       'files_types_enabled': files_types_enabled,
-                                                                      'file_fields': fields,
+                                                                      'file_fields': fields_to_choice,
                                                                       'all_files_types': all_files_types})
 

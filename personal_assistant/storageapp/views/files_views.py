@@ -54,7 +54,7 @@ class FileViews:
     def download_file(request, file_id):
         if request.method == 'POST':
             file = File.objects.get(id=file_id)
-            url = FileServices.downlaod_file(file)
+            url = FileServices.download_file(file)
             return redirect(to=url)
 
         return FileServices.render_files_list(request)

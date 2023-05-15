@@ -1,8 +1,13 @@
 {% extends 'newsapp/base.html' %}
 
 {% block content %}
-<a href="{% url 'storageapp:upload_file' %}">Upload File</a>
-<!--<a href="{% url 'storageapp:create_tables' %}">Create Tables</a>-->
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'storageapp/style.css' %}">
+
+<a href="{% url 'storageapp:upload_file' %}" class="upper-buttons">Upload File</a>
+<a href="{% url 'storageapp:create_tables' %}" class="upper-buttons">Create Tables</a>
+
 {% block in_files %}
 {% endblock %}
 
