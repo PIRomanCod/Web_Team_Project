@@ -1,14 +1,11 @@
-<head>
-    <title>Delete Contact</title>
-</head>
-<body>
-    <h1>Delete Contact</h1>
+{% extends "newsapp/base.html" %}
 
+{% block content %}
+    <h2>Delete Contact</h2>
     <p>Are you sure you want to delete the contact "{{ contact.name }}"?</p>
-
-    <form method="POST">
+    <form method="POST" action="{% url 'contactapp:delete_contact' contact.id %}">
         {% csrf_token %}
         <button type="submit">Delete</button>
-        <a href="{% url 'contact_list' %}">Cancel</a>
     </form>
-</body>
+{% endblock %}
+

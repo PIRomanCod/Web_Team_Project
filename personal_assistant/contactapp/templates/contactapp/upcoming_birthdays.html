@@ -1,25 +1,22 @@
+{% extends "newsapp/base.html" %}
 
-<head>
-    <title>Upcoming Birthdays</title>
-</head>
-<body>
-    <h1>Upcoming Birthdays</h1>
+{% block content %}
+  <h1>Upcoming Birthdays</h1>
+  <form method="POST" action="{% url 'contactapp:upcoming_birthdays' %}">
+    {% csrf_token %}
+    <label for="days">Number of days:</label>
+    <input type="number" name="days" id="days">
+    <button type="submit">Search</button>
+  </form>
 
-    <form method="POST">
-        {% csrf_token %}
-        <label for="days">Number of days:</label>
-        <input type="number" name="days" id="days" required>
-        <button type="submit">Search</button>
-    </form>
-
-    {% if contacts %}
-        <h2>Contacts with upcoming birthdays:</h2>
-        <ul>
-            {% for contact in contacts %}
-                <li>{{ contact.name }} - {{ contact.birth_date }}</li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No contacts found.</p>
-    {% endif %}
-</body>
+  <h2>Contacts with Upcoming Birthdays:</h2>
+  {% if contacts %}
+    <ul>
+      {% for contact in contacts %}
+        <li>{{ contact.name }} - {{ contact.birth_date }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No contacts with upcoming birthdays.</p>
+  {% endif %}
+{% endblock %}
