@@ -55,3 +55,11 @@ https://docs.google.com/document/d/1bUUMeaFmykmLw1PX6nAtBGu6k14mvYX8ukmBIPLw1AU/
 - python manage.py runserver - start app
 - python manage.py makemigrations  - create migration
 - python manage.py migrate - applying migration
+
+- documentation link - http://localhost:63342/Team_project_Web/personal_assistant/docs/_build/html/index.html
+- personal_assistant/docs/modules - documentation files by modules - треба кожному свій файл перевірити 
+- \personal_assistant\docs>make.bat html - create/update documentation - команда для оновлення документації
+  - варіант для автоматичного написання документації:
+    Полегшити написання рядків документації може допомогти плагін для PyCharm 
+    Trelent - AI Docstrings on Demand. Він за допомогою AI дозволяє створювати досить 
+    хороші рядки документації для популярних мов програмування. (комбінація клавіш Alt-D на імені кожної функції)
