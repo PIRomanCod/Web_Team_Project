@@ -56,19 +56,19 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=#>Create Contact</a>
+                        <a class="nav-link" href="{% url 'contactapp:create_contact' %}">Create Contact</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'noteapp:note' %}">Create Note</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=#>Find Contact</a>
+                        <a class="nav-link" href="{% url 'contactapp:search_contacts' %}">Find Contact</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'noteapp:main' %}">Find Note</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href=#>Birthday List</a>
+                        <a class="nav-link" href="{% url 'contactapp:upcoming_birthdays' %}">Birthday List</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'storageapp:files_list' %}">My Files</a>
