@@ -3,81 +3,108 @@
 {% block content %}
 
 <main class="container">
-    <nav style="margin-bottom: 20px; border-bottom: 2px solid; padding-left: 30px">
+    <nav class="navbar-nav navbar-expand-lg bg-body-tertiary me-auto mt-2 mb-20 pl-30 pb-3">
         <!--Поведінка авторизованого та ні користувача-->
         {% if user.is_authenticated %}
-        <ul class="row row-cols-lg-auto g-3 align-items-center">
-            <div class="col-12">
-                <li><a href="{% url 'noteapp:note' %}" role="button">Add note</a></li>
+        <div class="collapse navbar-collapse border">
+                <div class="container-fluid d-flex align-items-center">
+                <ul class="navbar-nav me-auto bg-body-tertiary">
+                    <li class="nav-item my-2 mx-2"><a class="nav-link" href="{% url 'noteapp:note' %}" role="button">Add note</a></li>
+                    <li class="nav-item my-2 mx-2"><a class="nav-link" href="{% url 'noteapp:tag' %}" role="button">Add tag</a></li>
+                    <li class="nav-item my-2 mx-2"><a class="nav-link" href="{% url 'noteapp:search' %}" role="button">Search</a></li>
+                    <li>
+                        <!--Блок фільтраціії за тегом-->
+                        <form class="form-control d-flex flex-row my-1" method="GET" action="">
+                            <label class="form-label mt-1" for="tag">Tag:</label>
+                            <select class="form-select mx-3"  name="tag" id="tag">
+                                <option value="">All</option>
+                                    {% for tag in tags %}
+                                    <option value="{{ tag.name }}" {% if tag.name == tag %} selected {% endif %}>{{ tag.name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                            <input class="btn btn-secondary mx-3" type="submit" value="Filter">
+                        </form>
+                    </li>
+                </ul>
             </div>
-            <div class="col-12">
-                <li><a href="{% url 'noteapp:tag' %}" role="button">Add tag</a></li>
-            </div>
-            <div class="col-12">
-                <li><a href="{% url 'noteapp:search' %}" role="button">Search</a></li>
-            </div>
-            <div class="col-12">
-                <li>
-                    <!--Блок фільтраціії за тегом-->
-                    <form method="GET" action="">
-                        <label for="tag">Tag:</label><select name="tag" id="tag">
-                        <option value="">All</option>
-                            {% for tag in tags %}
-                        <option value="{{ tag.name }}" {% if tag.name == tag %} selected {% endif %}>{{ tag.name }}</option>
-                            {% endfor %}
-                        </select><input type="submit" value="Filter">
-                    </form>
-                </li>
-            </div>
-
-
-        </ul>
+        </div>
         {% endif %}
     </nav>
 
     {% for note in page_obj %}
-    <ul>
+    <div class="container">
         <!--Блок виводу нотаток-->
-        <li class="nav-item">
+        <div class="form-control d-flex flex-row">
             {%if not note.done%}
-            <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">"article:" {{note.name}},
-                "text:" - {{note.description}}, "tags": {{ note.tags|tags }}</a>
-            <a href="{% url 'noteapp:set_done' note.id %}" role="button" class="secondary">Mark Done</a>
-            <a href="{% url 'noteapp:delete' note.id %}" role="button" class="secondary">Delete note</a>
+            <div class="flex-fill">
+                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">Article: {{note.name}},</a>
+                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">Note: {{note.description}}</a>
+                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">Tags: {{ note.tags|tags }}</a>
+            </div>
+            <div class="d-flex align-items-center">
+                <a class="btn btn-success mx-2" href="{% url 'noteapp:set_done' note.id %}" role="button">Mark Done</a>
+                <a class="btn btn-danger mx-2" href="{% url 'noteapp:delete' note.id %}" role="button" >Delete note</a>
+            </div>
             {% else %}
-
-            <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">"article:"<s>{{note.name}}</s></a>
-            <a href="{% url 'noteapp:set_active' note.id %}" role="button" class="secondary">Mark Active</a>
-            <a href="{% url 'noteapp:delete' note.id %}" role="button" class="contrast">Delete note</a>
+            <div class="flex-fill">
+                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">"article:"<s>{{note.name}}</s></a>
+            </div>
+            <div class="d-flex align-items-center">
+                <a class="btn btn-warning align-items-center" href="{% url 'noteapp:set_active' note.id %}" role="button">Mark Active</a>
+                <a class="btn btn-danger mx-2" href="{% url 'noteapp:delete' note.id %}" role="button">Delete note</a>
+            </div>
             {% endif %}
-        </li>
-    </ul>
+        </div>
+    </div>
     {% endfor %}
     </div>
 
 
 </main>
 <!--Блок навігації по пагінації-->
-<div class="pagination">
-       <span class="step-links">
-       {% if page_obj.has_previous %}
-        <a href="?page=1">First</a>
-        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-    {% endif %}
-
-    {% for num in page_obj.paginator.page_range %}
-        {% if quotes.number == num %}
-            <strong>{{ num }}</strong>
-        {% else %}
-            <a href="?page={{ num }}">{{ num }}</a>
+<nav class="nav justify-content-center mt-2" >
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="page-link text-dark-emphasis border border-dark-subtle rounded-left-3" href="?page=1">First</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link text-dark-emphasis border border-dark-subtle rounded-left-3" href="?page={{ page_obj.previous_page_number }}">
+                Previous
+            </a>
+        </li>
         {% endif %}
-    {% endfor %}
 
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Next</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-            </span>
-    {% endif %}
-</div>
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <li class="page-item active" aria-current="page">
+                <span class="page-link text-dark-emphasis bg-secondary-subtle border border-dark-subtle rounded-left-3">
+                    {{ num }}
+                </span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link text-dark-emphasis border border-dark-subtle rounded-left-3" href="?page={{ num }}">
+                        {{ num }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link text-dark-emphasis border border-dark-subtle rounded-left-3" href="?page={{ page_obj.next_page_number }}">
+                    Next
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link text-dark-emphasis border border-dark-subtle rounded-left-3" href="?page={{ page_obj.paginator.num_pages }}">
+                    Last
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>
 
 {% endblock %}
