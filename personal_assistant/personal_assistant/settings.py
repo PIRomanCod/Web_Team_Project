@@ -142,7 +142,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-DROPBOX_OAUTH2_TOKEN = env('DROPBOX_OAUTH2_TOKEN')
+DROPBOX_APP_KEY=env('DROPBOX_APP_KEY')
+DROPBOX_APP_SECRET=env('DROPBOX_APP_SECRET')
+DROPBOX_OAUTH2_REFRESH_TOKEN=env('DROPBOX_REFRESH_TOKEN')
+
 DROPBOX_ROOT_PATH = "/"
 DROPBOX_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
 
