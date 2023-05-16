@@ -44,7 +44,7 @@ class FileViews:
                                 file_type=type_inst,
                                 file_extension=extension_inst,
                                 file_name=file_name,
-                                dropbox_file_name='dropbox_file_name')
+                                dropbox_file_name=dropbox_file_name)
 
             return FileServices.render_files_list(request)
         return render(request, 'storageapp/upload_file.html')
@@ -54,7 +54,7 @@ class FileViews:
     def download_file(request, file_id):
         if request.method == 'POST':
             file = File.objects.get(id=file_id)
-            url = FileServices.downlaod_file(file)
+            url = FileServices.download_file(file)
             return redirect(to=url)
 
         return FileServices.render_files_list(request)

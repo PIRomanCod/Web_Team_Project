@@ -1,29 +1,31 @@
-<head>
-    <title>Search Contacts</title>
-</head>
-<body>
-    <h1>Search Contacts</h1>
+{% extends "newsapp/base.html" %}
 
-    <form method="GET" action="{% url 'search_contacts' %}">
-     <input type="text" name="search_query" placeholder="Search contacts" value="{{ search_query }}">
-        <button type="submit">Search</button>
-    </form>
+{% block content %}
+  <h1>Search Contacts</h1>
+  <form method="GET" action="{% url 'contactapp:search_contacts' %}">
+    <input type="text" name="search_query" placeholder="Search by name, address, phone number, email, or birth date">
+    <button type="submit">Search</button>
+  </form>
 
-    <h2>Search Results</h2>
-
+  {% if search_query %}
+    <h2>Search Results for "{{ search_query }}"</h2>
     {% if search_results %}
-        <ul>
+      <ul>
         {% for contact in search_results %}
-            <li>
+          <li>
             <strong>Name:</strong> {{ contact.name }}<br>
             <strong>Address:</strong> {{ contact.address }}<br>
             <strong>Phone Number:</strong> {{ contact.phone_number }}<br>
             <strong>Email:</strong> {{ contact.email }}<br>
             <strong>Birth Date:</strong> {{ contact.birth_date }}<br>
-            </li>
+            <a href="{% url 'contactapp:edit_contact' contact.id %}">Edit</a> |
+            <a href="{% url 'contactapp:delete_contact' contact.id %}">Delete</a>
+          </li>
         {% endfor %}
-        </ul>
+      </ul>
     {% else %}
-        <p>No contacts found.</p>
+      <p>No contacts found.</p>
     {% endif %}
-</body>
+  {% endif %}
+{% endblock %}
+
