@@ -20,6 +20,9 @@ lxml = "^4.9.2"
 
 
 
+[tool.poetry.group.dev.dependencies]
+sphinx = "^7.0.1"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

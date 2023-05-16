@@ -34,19 +34,34 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# INSTALLED_APPS = [
+#     "django.contrib.admin",
+#     "django.contrib.auth",
+#     "django.contrib.contenttypes",
+#     "django.contrib.sessions",
+#     "django.contrib.messages",
+#     "django.contrib.staticfiles",
+#     "noteapp",
+#     "contactapp",
+#     "users",
+#     "newsapp",
+#     "storageapp",
+#     'storages',
+# ]
 
+DJANGO_SETTINGS_MODULE = env('DJANGO_SETTINGS_MODULE')
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "noteapp",
-    "contactapp",
-    "users",
-    "newsapp",
-    "storageapp",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'noteapp',
+    'contactapp',
+    'users',
+    'newsapp',
+    'storageapp',
     'storages',
 ]
 
