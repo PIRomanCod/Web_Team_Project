@@ -1,37 +1,102 @@
-"# Web_Team_Project" 
+# What is Personal Assistant?
+- Personal Assistant is a web application that allows you to store contacts, notes, and files in one place.
+- Personal Assistant is a web application that you can adjust for yourself.
+- Personal Assistant is a cloud storage in which you can be sure of the safety of your data.
+- Personal Assistant is coded by Django and Python.
 
-Технічне завдання на створення застосунку “Personal Assistant” (Web application)
+# What is the purpose of Personal Assistant?
+- The purpose of Personal Assistant is to make your life easier.
+- The purpose of Personal Assistant is to make your life more organized.
+- The purpose of Personal Assistant is to make your life more productive.
+- The purpose of Personal Assistant is to make your life more secure.
 
-Основний функціонал Web application виконаний на Django
+# How to deploy Personal Assistant?
+- Clone this repository to your computer.
+- Install Python 3.10 or higher.
+- Install poetry and create environment.
+- Create .env file by env.example.
+- Repeat steps from First Start of application.
+- Enjoy!
 
-Завдання:
-Студентам пропонується виконати апдейт “персонального помічника”, реалізованого по завершенню курсу Python Core,  для чого необхідно створити web-інтерфейс та розширити можливості основного додатка.
+# First Start of application:
+- by env.example create .env file
+- for creating dropbox variables you need to create app in dropbox and get access token:
+  - https://www.dropbox.com/developers/apps
+  - in your app give permissions for read and write
+  - add to .env DROPBOX_APP_KEY=APPKEYHERE
+  - add to .env DROPBOX_APP_SECRET=APPSECRETHERE
+  - by this link you can get access token, only replace APPKEYHERE with your app key
+  - https://www.dropbox.com/oauth2/authorize?client_id=APPKEYHERE&response_type=code&token_access_type=offline
+  - in the result you'll get AUTHORIZATIONCODEHERE, replace it in next CURL and run it in terminal:
+    curl https://api.dropbox.com/oauth2/token \
+      -d code=AUTHORIZATIONCODEHERE \
+      -d grant_type=authorization_code \
+      -u APPKEYHERE:APPSECRETHERE
+  - it will turn you answer in dictionary type, take there refresh token and use it as DROPBOX_REFRESH_TOKEN in .env 
+  
+- for correct working application on Windows you need to adjust DropBox library:
+  - find file: services/file_services.py
+  - find function: save_file_dropbox_and_get_new_name 
+  - this function save file in dropbox by Django services, but incorrect(it is adding Disc letter (C: or other) to path)
+  - so now you know why you need to correct this function
+  - on top the same file find import: from storages.backends.dropbox import DropBoxStorage
+  - with Ctrl + click on DropBoxStorage you are going to DropBox library 
+  - find ~line 115 with next code:
+      def _full_path(self, name):
+          if name == '/':
+              name = ''
+          return safe_join(self.root_path, name).replace('\\', '/')
+  - and change it to:
+      def _full_path(self, name):
+          if name == '/':
+              name = '' 
+          from os.path import join
+          final_path = join(self.root_path, name)
+          return final_path.replace('\\', '/')
+  - 
+- python manage.py makemigrations  - create migrations
+- python manage.py migrate - applying migrations
+- python manage.py create_storageapp_tables - create tables for dropbox
+- python manage.py createsuperuser - create superuser
+- python manage.py runserver - start app
 
-Основні вимоги до проекту “Personal Assistant”:
+# For next starts:
+- python manage.py runserver - start app
 
-1.	Зберігати контакти з іменами, адресами, номерами телефонів, email та днями народження до книги контактів;
-2.	Виводити список контактів, у яких день народження через задану кількість днів від поточної дати;
-3.	Перевіряти правильність введеного номера телефону та email під час створення або редагування запису та повідомляти користувача у разі некоректного введення;
-4.	Здійснювати пошук контактів серед контактів книги;
-5.	Редагувати та видаляти записи з книги контактів;
-6.	Зберігати нотатки з текстовою інформацією;
-7.	Проводити пошук за нотатками;
-8.	Редагувати та видаляти нотатки;
-9.	Додавати в нотатки "теги", ключові слова, що описують тему та предмет запису;
-10.	Здійснювати пошук та сортування нотаток за ключовими словами (тегами).
-11.	Виконувати завантаження файлів користувача на хмарний сервіс, та мати доступ до них. Користувач повинен мати можливість через web-інтерфейс завантажити на сервер будь-який файл та завантажити його.
-12.	Сортувати файли користувача за категоріями (зображення, документи, відео та ін.) і відображати тільки обрану категорію (фільтр файлів за категорією).
-13.	Надавати коротке зведення новин за день. Для цього ви повинні вибрати будь-яку цікаву вам область (фінанси, спорт, політика, погода) та кілька інформаційних ресурсів на задану тематику. З вибраних ресурсів збирати на запит користувача інформацію (заголовки новин, курси валют, результати спортивних подій тощо) і відображати на сторінці результатів. Що саме збирати та як можете визначити самостійно.
+# How to use application:
+- go to http://localhost:8000/
+- read fresh news
+- prepare yourself for any weather's joke
+- cry about exchange rates
+- check your salary offers and cry again
+- ??????? ask GPT chat for help ????
+- login or register for more features
+- only logined users can:
+  - add contacts, notes, files
+  - edit contacts, notes, files
+  - delete contacts, notes, files
+  - search contacts, notes, files
+  - sort contacts, notes, files
+  - filter contacts, notes, files
+  - download files
+  - upload files
+- other user never can see your data
+- enjoy!
 
-Вимоги до Аутентифікації
-
-1.	Реалізуйте механізм авторизації користувача для “Personal Assistant”. Web-інтерфейс повинен давати доступ до своїх функцій лише зареєстрованим користувачам. 
-2.	Кожен зареєстрований користувач повинен мати доступ лише до своїх даних та файлів. 
-3.	Реалізуйте механізми відновлення пароля для користувача за email
 
 
-Критерії прийому:
+# How to use documentation (it will be delete):
+- documentation link - http://localhost:63342/Team_project_Web/personal_assistant/docs/_build/html/index.html
+- personal_assistant/docs/modules - documentation files by modules - треба кожному свій файл перевірити 
+- \personal_assistant\docs>make.bat html - create/update documentation - команда для оновлення документації
+  - варіант для автоматичного написання документації:
+    Полегшити написання рядків документації може допомогти плагін для PyCharm 
+    Trelent - AI Docstrings on Demand. Він за допомогою AI дозволяє створювати досить 
+    хороші рядки документації для популярних мов програмування. (комбінація клавіш Alt-D на імені кожної функції)
 
+
+
+# Критерії прийому (it will be delete):
 1.	Web-інтерфейс може бути реалізований на фреймворку Django.
 2.	Проєкт має бути збережений в окремому репозиторії та бути загальнодоступним (GitHub, GitLab або BitBucket).
 3.	Проєкт містить докладну інструкцію щодо встановлення та використання.
@@ -43,23 +108,9 @@
 P.S.: Ви можете розширити функціонал проєкту на свій розсуд обов'язково проконсультувавшись з ментором перед цим. Розглядайте цей проєкт, як частину вашого портфоліо і корисний вам інструмент. З цієї причини ініціатива у розширенні та доповненні вимог до проєкту вітається. Наприклад ви можете додати файл Dockerfile, щоб програма могла бути розміщена в контейнері Docker та образ завантажений на dockerhub.
 
 
-# Links:
+# Links (it will be delete):
 
 https://trello.com/b/pUA5sy8P/web-personal-assistant - Board
 
 https://docs.google.com/document/d/1bUUMeaFmykmLw1PX6nAtBGu6k14mvYX8ukmBIPLw1AU/edit?usp=sharing - Questions
 
-
-
-# Start:
-- python manage.py runserver - start app
-- python manage.py makemigrations  - create migration
-- python manage.py migrate - applying migration
-
-- documentation link - http://localhost:63342/Team_project_Web/personal_assistant/docs/_build/html/index.html
-- personal_assistant/docs/modules - documentation files by modules - треба кожному свій файл перевірити 
-- \personal_assistant\docs>make.bat html - create/update documentation - команда для оновлення документації
-  - варіант для автоматичного написання документації:
-    Полегшити написання рядків документації може допомогти плагін для PyCharm 
-    Trelent - AI Docstrings on Demand. Він за допомогою AI дозволяє створювати досить 
-    хороші рядки документації для популярних мов програмування. (комбінація клавіш Alt-D на імені кожної функції)

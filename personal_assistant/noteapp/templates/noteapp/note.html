@@ -5,7 +5,7 @@
    <form class="container mt-2" method="POST" action="{% url 'noteapp:note' %}">
     {% csrf_token %}
     <div style="container me-2">
-        <label class="form-label"> Note name:</label>
+        <label class="form-label"> Note article:</label>
         <div class="row col-4">{{form.name}}</div>
         <span>{{form.errors.name}}</span>
     </div>
