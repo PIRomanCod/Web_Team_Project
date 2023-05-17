@@ -1,8 +1,10 @@
-{% extends 'newsapp/base.html' %}
+{% extends 'storageapp/base_files.html' %}
 
-{% block content %}
+{% block in_files %}
+
 {% load static %}
 <link rel="stylesheet" href="{% static 'storageapp/style.css' %}">
+
 <form action="{% url 'storageapp:upload_file' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div>
