@@ -6,14 +6,13 @@ from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.db import models
 
-
 from .models import Contact
 from .forms import ContactForm
 
 
 def contact_list(request):
     contacts = Contact.objects.filter(user=request.user).order_by('name')
-    paginator = Paginator(contacts, 10)  # Показувати не більше 10 контактів на сторінці
+    paginator = Paginator(contacts, 10)
     page_number = request.GET.get('page')
     page_contacts = paginator.get_page(page_number)
     return render(request, 'contactapp/contact_list.html', {'contacts': page_contacts})
@@ -58,7 +57,8 @@ def delete_contact(request, pk):
 @login_required
 def search_contacts(request):
     search_query = request.GET.get('search_query', '')
-    search_results = Contact.objects.filter(
+    user_contacts = Contact.objects.filter(user=request.user)
+    search_results = user_contacts.filter(
         models.Q(name__icontains=search_query) |
         models.Q(address__icontains=search_query) |
         models.Q(phone_number__icontains=search_query) |
@@ -77,15 +77,22 @@ def search_contacts(request):
 @login_required
 def upcoming_birthdays(request):
     if request.method == 'POST':
-        days = int(request.POST.get('days', 0))
+        days = request.POST.get('days', 0)
+        days = int(days) if days else 0
         current_date = date.today()
         end_date = current_date + timedelta(days=days)
 
-        contacts = Contact.objects.filter(
-            birth_date__month=current_date.month,
-            birth_date__day__range=[current_date.day, end_date.day]
-        )
-    else:
-        contacts = []
+        result = []
 
-    return render(request, 'contactapp/upcoming_birthdays.html', {'contacts': contacts})
+        contacts = Contact.objects.filter(user=request.user)
+        for contact in contacts:
+            birthday_date = date(year=date.today().year, month=contact.birth_date.month, day=contact.birth_date.day)
+            birthday_date_next_year = date(year=date.today().year + 1, month=contact.birth_date.month,
+                                           day=contact.birth_date.day)
+            if date.today() < birthday_date <= end_date or date.today() < birthday_date_next_year <= end_date:
+                result.append(contact)
+
+    else:
+        result = []
+
+    return render(request, 'contactapp/upcoming_birthdays.html', {'contacts': result})
