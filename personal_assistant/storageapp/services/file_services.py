@@ -18,9 +18,10 @@ class FileServices:
 
         try:
             extension = re.findall(cls.reg_ex_existance, file.name)[0]
-            extension_inst: FileExtensions = FileExtensions.objects.get(name=extension)
+            extension_inst = FileExtensions.objects.get(name=extension)
+
         except FileExtensions.DoesNotExist:
-            extension_inst: FileExtensions = FileExtensions.objects.get(id=1)
+            extension_inst = FileExtensions.objects.get(id=1)
 
         type_inst: FileTypes = extension_inst.category
 
@@ -40,12 +41,14 @@ class FileServices:
 
     @classmethod
     def delete_file(cls, file):
+
         cls.dbx_storage.delete(file.dropbox_file_name)
         file.delete()
         return 'File deleted'
 
     @classmethod
     def download_file(cls, file):
+
         url = cls.dbx_storage.url(file.dropbox_file_name)
         return url
 
