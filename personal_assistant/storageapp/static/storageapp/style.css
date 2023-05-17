@@ -100,3 +100,9 @@
   display: flex;
 }
 
+.form-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 80%;
+}
+

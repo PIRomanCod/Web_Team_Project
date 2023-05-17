@@ -1,1 +1,1 @@
-from .commands import create_storageapp_tables_content
+from .commands import create_storageapp_tables

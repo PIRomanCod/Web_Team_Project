@@ -5,8 +5,21 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'storageapp/style.css' %}">
 
-<a href="{% url 'storageapp:upload_file' %}" class="upper-buttons">Upload File</a>
-<a href="{% url 'storageapp:create_tables' %}" class="upper-buttons">Create Tables</a>
+<!--<a href="{% url 'storageapp:create_tables' %}" class="upper-buttons">Create Tables</a>-->
+
+<div>
+    <a href="{% url 'storageapp:upload_file' %}" class="upper-buttons">Go To Upload</a>
+    <form action="{% url 'storageapp:search_by_name' %}" method="get" class="form-wrapper">
+        <div>
+            <input type="text" id="text_input" name="user_input" placeholder="Enter a word to search by this word">
+        </div>
+        <div>
+            <button type="submit" class="upper-buttons">Submit</button>
+            <button type="reset" class="upper-buttons">Reset</button>
+        </div>
+    </form>
+
+</div>
 
 {% block in_files %}
 {% endblock %}

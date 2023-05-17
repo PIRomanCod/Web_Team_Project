@@ -1,13 +1,15 @@
-{% extends 'newsapp/base.html' %}
+{% extends 'storageapp/base_files.html' %}
 
-{% block content %}
+{% block in_files %}
+
 {% load static %}
 <link rel="stylesheet" href="{% static 'storageapp/style.css' %}">
+
 <form action="{% url 'storageapp:upload_file' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div>
-        <label for="text_input">Input file name (can be empty - will save original file name)</label>
-        <input type="text" id="text_input" name="user_input">
+        <label for="text_input">Input file name</label>
+        <input type="text" id="text_input" name="user_input" placeholder="Field can be empty, it will save the original file name.">
     </div>
     <div>
         <label for="file">Select a file:</label>

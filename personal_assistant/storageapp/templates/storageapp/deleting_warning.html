@@ -1,10 +1,12 @@
 {% extends 'storageapp/base_files.html' %}
 
 {% block in_files %}
-<form action="{% url 'storageapp:delete_file' file_id=file.id %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'storageapp/style.css' %}">
+<div>
     <label>YOU WANT TO DELETE FILE {{ file.file_name }}. Are You suer?</label>
-    <button type="submit">Delete file</button>
-    <a href="{% url 'storageapp:files_list' %}"><button>Return to files</button></a>
-</form>
+    <a href="{% url 'storageapp:delete_file' file_id=file.id %}" class="upper-buttons">Delete file</a>
+    <a href="{% url 'storageapp:files_list' %}" class="upper-buttons">Return to files</a>
+</div>
 {% endblock %}
