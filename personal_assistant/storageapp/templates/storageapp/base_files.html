@@ -5,8 +5,6 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'storageapp/style.css' %}">
 
-<!--<a href="{% url 'storageapp:create_tables' %}" class="upper-buttons">Create Tables</a>-->
-
 <div>
     <a href="{% url 'storageapp:upload_file' %}" class="upper-buttons">Go To Upload</a>
     <form action="{% url 'storageapp:search_by_name' %}" method="get" class="form-wrapper">
