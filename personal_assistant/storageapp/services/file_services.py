@@ -7,7 +7,7 @@ from storageapp.models import File, FileTypes, FileExtensions
 
 
 class FileServices:
-    reg_ex_existance = r'\.[^./\\]+$'
+    reg_ex_extension = r'\.[^./\\]+$'
     dbx_storage = DropBoxStorage()
 
     @classmethod
@@ -17,7 +17,7 @@ class FileServices:
         user_file_name = request.POST.get('user_input')
 
         try:
-            extension = re.findall(cls.reg_ex_existance, file.name)[0]
+            extension = re.findall(cls.reg_ex_extension, file.name)[0]
             extension_inst = FileExtensions.objects.get(name=extension)
 
         except FileExtensions.DoesNotExist:
