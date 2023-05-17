@@ -6,7 +6,6 @@
 .idea
 __pycache__
 db.sqlite3
-media
 poetry.lock
 pyproject.toml
 .env
