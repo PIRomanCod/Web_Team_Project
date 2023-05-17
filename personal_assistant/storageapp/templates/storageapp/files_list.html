@@ -7,11 +7,11 @@
 
 <form action="{% url 'storageapp:files_list' %}" method="get">
     {% for type in all_files_types %}
-    {% if type in files_types_enabled %}
-    <input type="checkbox" name="filter_type" value="{{ type }}" checked>{{ type.capitalize }}
-    {% else %}
-    <input type="checkbox" name="filter_type" value="{{ type }}">{{ type.capitalize }}
-    {% endif %}
+        {% if type in files_types_enabled %}
+            <input type="checkbox" name="filter_type" value="{{ type }}" checked>{{ type.capitalize }}
+        {% else %}
+            <input type="checkbox" name="filter_type" value="{{ type }}">{{ type.capitalize }}
+        {% endif %}
     {% endfor %}
     <br>
     <label for="category">Select a category to sort:</label>
