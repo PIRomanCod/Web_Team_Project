@@ -74,16 +74,6 @@ object the first time, the query is executed.</p>
 object the first time, the query is executed.</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="contactapp.models.Contact.get_next_by_birth_date">
-<span class="sig-name descname"><span class="pre">get_next_by_birth_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">birth_date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#contactapp.models.Contact.get_next_by_birth_date" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="contactapp.models.Contact.get_previous_by_birth_date">
-<span class="sig-name descname"><span class="pre">get_previous_by_birth_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.fields.DateField:</span> <span class="pre">birth_date&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_next=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">**kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#contactapp.models.Contact.get_previous_by_birth_date" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="contactapp.models.Contact.id">
 <span class="sig-name descname"><span class="pre">id</span></span><a class="headerlink" href="#contactapp.models.Contact.id" title="Permalink to this definition">¶</a></dt>
@@ -109,6 +99,11 @@ object the first time, the query is executed.</p>
 <dd><p>A wrapper for a deferred-loading field. When the value is read from this
 object the first time, the query is executed.</p>
 </dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="contactapp.models.Contact.phone_regex">
+<span class="sig-name descname"><span class="pre">phone_regex</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;django.core.validators.RegexValidator</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#contactapp.models.Contact.phone_regex" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="contactapp.models.Contact.user">
@@ -194,7 +189,7 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="contactapp.forms.ContactForm.declared_fields">
-<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></em><a class="headerlink" href="#contactapp.forms.ContactForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">declared_fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'birth_date':</span> <span class="pre">&lt;django.forms.fields.DateField</span> <span class="pre">object&gt;,</span> <span class="pre">'name':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;,</span> <span class="pre">'phone_number':</span> <span class="pre">&lt;django.forms.fields.CharField</span> <span class="pre">object&gt;}</span></em><a class="headerlink" href="#contactapp.forms.ContactForm.declared_fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py property">
