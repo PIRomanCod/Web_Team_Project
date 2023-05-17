@@ -13,6 +13,7 @@ class FileViews:
         return FileServices.render_files_list(request)
 
     @staticmethod
+    @login_required
     def create_tables(request):
         FileServices.create_tables()
         return FileServices.render_files_list(request)
@@ -38,8 +39,11 @@ class FileViews:
         if request.method == 'POST':
             if not request.FILES.get('file'):
                 return render(request, 'storageapp/upload_file.html')
+
             dropbox_file_name = FileServices.save_file_dropbox_and_get_new_name(request)
+
             owner_inst, type_inst, extension_inst, file_name = FileServices.get_file_info(request)
+
             File.objects.create(owner=owner_inst,
                                 file_type=type_inst,
                                 file_extension=extension_inst,

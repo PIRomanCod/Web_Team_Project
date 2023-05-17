@@ -9,28 +9,6 @@ from storageapp.models import File, FileTypes, FileExtensions
 class FileServices:
     reg_ex_existance = r'\.[^./\\]+$'
     dbx_storage = DropBoxStorage()
-    file_types = {'other': 'icons/other.jpeg', 'images': 'icons/image.png', 'videos': 'icons/video.png',
-                  'archives': 'icons/archive.png', 'docs': 'icons/docs.png', 'sound': 'icons/audio.png',
-                  'applications': 'icons/applications.jpg', 'message': 'icons/message.png'}
-    applications = ['.js', '.mjs', '.json', '.webmanifest', '.dot', '.wiz', '.bin', '.a', '.o',
-                    '.obj', '.so', '.oda', '.p7c', '.ps', '.ai', '.eps', '.m3u', '.m3u8', '.xlb', '.pot', '.ppa',
-                    '.pps',
-                    '.pwz', '.wasm', '.bcpio', '.cpio', '.csh', '.dvi', '.gtar',
-                    '.hdf', '.h5', '.latex', '.mif', '.cdf', '.nc', '.p12', '.pfx', '.ram', '.pyc', '.pyo', '.sh',
-                    '.shar', '.swf', '.sv4cpio', '.sv4crc', '.tcl', '.tex', '.texi', '.texinfo', '.roff', '.t',
-                    '.tr', '.man', '.me', '.ms', '.ustar', '.src', '.xsl', '.rdf', '.wsdl', '.xpdl', '.exe',
-                    '.msi', '.dll']
-    sound = ['.3gp', '.3gpp', '.3g2', '.3gpp2', '.aac', '.adts', '.loas', '.ass', '.au', '.snd', '.mp3', '.mp2',
-             '.opus', '.aif', '.aifc', '.aiff', '.ra', ".ogg", ".amr"]
-    images = ['.bmp', '.gif', '.ief', '.jpg', '.jpe', '.jpeg', '.heic', '.heif', '.png', '.svg', '.tiff', '.tif',
-              '.ico', '.ras', '.pnm', '.pbm', '.pgm', '.ppm', '.rgb', '.xbm', '.xpm', '.xwd']
-    message = ['.eml', '.mht', '.mhtml', '.nws']
-    docs = ['.css', '.csv', '.html', '.htm', '.txt', '.bat', '.c', '.h', '.ksh', '.pl', '.rtx', '.tsv', '.py', '.etx',
-            '.sgm', '.sgml', '.vcf', ".doc", ".docx", ".pdf", ".xls", ".xlsx", ".ppt", ".pptx", ".rtf", ".xml",
-            ".ini"]
-    videos = ['.mp4', '.mpeg', '.m1v', '.mpa', '.mpe', '.mpg', '.mov', '.qt', '.webm', '.avi', '.movie', '.wav', ".mkv"]
-    archives = [".zip", ".tar", ".tgz", ".gz", ".7zip", ".7z", ".iso", ".rar"]
-    other = ['unknown']
 
     @classmethod
     def get_file_info(cls, request):
@@ -70,35 +48,6 @@ class FileServices:
     def download_file(cls, file):
         url = cls.dbx_storage.url(file.dropbox_file_name)
         return url
-
-    @classmethod
-    def create_tables(cls):
-        for type, img in cls.file_types.items():
-            inst = FileTypes.objects.create(name=type, img=img)
-            if type == 'images':
-                for ext in cls.images:
-                    FileExtensions.objects.create(name=ext, category=inst)
-            elif type == 'videos':
-                for ext in cls.videos:
-                    FileExtensions.objects.create(name=ext, category=inst)
-            elif type == 'archives':
-                for ext in cls.archives:
-                    FileExtensions.objects.create(name=ext, category=inst)
-            elif type == 'message':
-                for ext in cls.message:
-                    FileExtensions.objects.create(name=ext, category=inst)
-            elif type == 'docs':
-                for ext in cls.docs:
-                    FileExtensions.objects.create(name=ext, category=inst)
-            elif type == 'sound':
-                for ext in cls.sound:
-                    FileExtensions.objects.create(name=ext, category=inst)
-            elif type == 'applications':
-                for ext in cls.applications:
-                    FileExtensions.objects.create(name=ext, category=inst)
-            elif type == 'other':
-                for ext in cls.other:
-                    FileExtensions.objects.create(name=ext, category=inst)
 
     @staticmethod
     def render_files_list(request, files_list=None, message='This is your files.'):
