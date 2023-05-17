@@ -216,47 +216,197 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="noteapp.views.delete_note">
 <span class="sig-prename descclassname"><span class="pre">noteapp.views.</span></span><span class="sig-name descname"><span class="pre">delete_note</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">note_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#noteapp.views.delete_note" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The delete_note function takes in a request and note_id, then deletes the Note object with that id.
+It redirects to the main noteapp page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Get the user who is logged in</p></li>
+<li><p><strong>note_id</strong> – Find the note to delete</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirect to the main page</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="noteapp.views.detail">
 <span class="sig-prename descclassname"><span class="pre">noteapp.views.</span></span><span class="sig-name descname"><span class="pre">detail</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">note_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#noteapp.views.detail" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The detail function is used to display a single note.
+It takes the request and the id of the note as parameters,
+and returns an HTML page with that specific note.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Get the current user</p></li>
+<li><p><strong>note_id</strong> – Find the specific note that is being requested</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A view with the note that was requested</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="noteapp.views.main">
 <span class="sig-prename descclassname"><span class="pre">noteapp.views.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#noteapp.views.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The main function is the main page of the noteapp.
+It displays all notes and tags, as well as a pagination system.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Get the request object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered index</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="noteapp.views.note">
 <span class="sig-prename descclassname"><span class="pre">noteapp.views.</span></span><span class="sig-name descname"><span class="pre">note</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#noteapp.views.note" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="simple">
+<dt>The note function is used to create a new note.</dt><dd><p>It takes the request as an argument and returns a rendered template with the form for creating notes.
+If the method of request is POST, then it checks if form data is valid and saves it in database.
+Then it adds tags to this note from choice_tags list (choice_tags contains all tags that were chosen by user).</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Get the user from the request</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The form for creating a new note</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="noteapp.views.search">
 <span class="sig-prename descclassname"><span class="pre">noteapp.views.</span></span><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#noteapp.views.search" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="simple">
+<dt>The search function takes a request and returns a rendered search.html template with the form, notes, and keyword</dt><dd><p>variables passed to it. The function first creates an instance of NoteSearchForm using the request’s GET data as
+its argument. It then assigns the value of ‘keyword’ in that same GET data to a variable called keyword (or None if
+there is no such key). Next, it queries all notes belonging to the user making this request and assigns them to
+another variable called notes. If there is indeed a value for keyword in our GET data (i.e., if someone has entered</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Get the current request object, which contains all of the information about the current http request</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of notes that match the search term</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="noteapp.views.set_active">
 <span class="sig-prename descclassname"><span class="pre">noteapp.views.</span></span><span class="sig-name descname"><span class="pre">set_active</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">note_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#noteapp.views.set_active" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The set_active function takes a request and note_id as parameters.
+It then filters the Note objects by the primary key of note_id, and updates it to be active (done=False).
+Finally, it redirects to the main noteapp page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Get the user that is currently logged in</p></li>
+<li><p><strong>note_id</strong> – Find the note that is being updated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The redirect function, which</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="noteapp.views.set_done">
 <span class="sig-prename descclassname"><span class="pre">noteapp.views.</span></span><span class="sig-name descname"><span class="pre">set_done</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">note_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#noteapp.views.set_done" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The set_done function takes a request and note_id as parameters.
+It then filters the Note objects by the primary key of note_id, and only returns those that belong to the user making
+the request. It then updates those notes field “done”=True.
+Finally, it redirects to the main noteapp page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Get the user from the request object</p></li>
+<li><p><strong>note_id</strong> – Find the note in the database</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The redirect function, which returns an http response redirect object</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="noteapp.views.tag">
 <span class="sig-prename descclassname"><span class="pre">noteapp.views.</span></span><span class="sig-name descname"><span class="pre">tag</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#noteapp.views.tag" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="simple">
+<dt>The tag function is used to create a new tag.</dt><dd><p>It takes in the request and returns a redirect to the note page if successful,
+or renders an error message if not.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Get the request object</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The tag</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="noteapp.views.update_note">
 <span class="sig-prename descclassname"><span class="pre">noteapp.views.</span></span><span class="sig-name descname"><span class="pre">update_note</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">note_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#noteapp.views.update_note" title="Permalink to this definition">¶</a></dt>
-<dd><p>Updated on May 13th, 2023 to include the ability to update notes.</p>
+<dd><p>The update_note function is responsible for updating a note.
+It takes in the request and the id of the note to be updated as parameters.
+The function first gets the note object from Note model using get_object_or_404 method, which returns an error if no such object exists.
+Then it checks whether there is a POST request or not, and if so, it creates a form instance with that data and saves it to database after checking its validity.
+If there was no POST request then we just render an empty form.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Get the request from the user</p></li>
+<li><p><strong>note_id</strong> – Get the note that we want to update</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirect to the detail view</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -329,7 +479,28 @@ one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="noteapp.forms.NoteSearchForm.search">
 <span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#noteapp.forms.NoteSearchForm.search" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><dl class="simple">
+<dt>The search function takes a queryset and returns the same queryset, but filtered by keyword.</dt><dd><p>The search function is called in the view with:
+form = SearchForm(request.GET)
+if form.is_valid():
+query = form.search(query)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>self</strong> – Refer to the class itself, in this case it is used to access the cleaned_data dictionary</p></li>
+<li><p><strong>queryset</strong> – Filter the results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A queryset which is the result of filtering the original queryset</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
