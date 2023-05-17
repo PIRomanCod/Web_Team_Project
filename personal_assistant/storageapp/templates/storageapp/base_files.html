@@ -5,8 +5,13 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'storageapp/style.css' %}">
 
-<a href="{% url 'storageapp:upload_file' %}" class="upper-buttons">Upload File</a>
-<a href="{% url 'storageapp:create_tables' %}" class="upper-buttons">Create Tables</a>
+
+<!--<a href="{% url 'storageapp:create_tables' %}" class="upper-buttons">Create Tables</a>-->
+<div>
+    <a href="{% url 'storageapp:upload_file' %}" class="upper-buttons">Upload File</a>
+    <input type="text" id="text_input" name="user_input" placeholder="Enter a word to search by this word">
+    <a href="{% url 'storageapp:files_list' %}" class="upper-buttons">Search in files by names</a>
+</div>
 
 {% block in_files %}
 {% endblock %}
