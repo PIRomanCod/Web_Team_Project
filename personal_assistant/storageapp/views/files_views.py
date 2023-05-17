@@ -58,3 +58,13 @@ class FileViews:
             return redirect(to=url)
 
         return FileServices.render_files_list(request)
+
+    @staticmethod
+    @login_required
+    def search_by_name(request):
+        word = request.GET.get('user_input')
+        search_result = File.objects.filter(owner=request.user.id).filter(file_name__contains=word)
+        message = f'Search result by "{word}":'
+        if not search_result:
+            message = f'I cant find something with "{word}"'
+        return FileServices.render_files_list(request, files_list=search_result, message=message)
