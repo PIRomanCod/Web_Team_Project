@@ -23,12 +23,8 @@ class FileServices:
         except FileExtensions.DoesNotExist:
             extension_inst = FileExtensions.objects.get(id=1)
 
-        type_inst: FileTypes = extension_inst.category
-
-        if user_file_name:
-            file_name = user_file_name
-        else:
-            file_name = file.name
+        type_inst = extension_inst.category
+        file_name = user_file_name if user_file_name else file.name
 
         return owner_inst, type_inst, extension_inst, file_name
 
@@ -41,10 +37,10 @@ class FileServices:
 
     @classmethod
     def delete_file(cls, file):
-
+        name = file.file_name
         cls.dbx_storage.delete(file.dropbox_file_name)
         file.delete()
-        return 'File deleted'
+        return f'File >{name}< deleted'
 
     @classmethod
     def download_file(cls, file):
@@ -55,9 +51,8 @@ class FileServices:
     @staticmethod
     def render_files_list(request, files_list=None, message='This is your files.'):
 
-        fields_to_order = File.get_fields_list()
-        fields_to_choice = {2: 'Type', 3: 'Extension', 4: 'File Name', 6: 'Created at'}
 
+        fields = {'file_type': 'Type', 'file_extension': 'Extension', 'file_name': 'File Name', 'created_at': 'Created at'}
         all_files_types = [type.name for type in FileTypes.objects.all()]
 
         if not request.GET.getlist('filter_type'):
@@ -65,22 +60,25 @@ class FileServices:
         else:
             files_types_enabled = request.GET.getlist('filter_type')
 
-        how_order = int(request.GET.get('category')) if request.GET.get('category') else 0
-        reverse_order = '-' if '-' in files_types_enabled else ''
+        field_to_order = request.GET.get('category') if request.GET.get('category') else 'file_name'
+        order_rules = f'-{field_to_order}' if '-' in files_types_enabled else field_to_order
+
         files_types_obj = [FileTypes.objects.get(name=name) for name in files_types_enabled if name != '-']
 
         if files_list:
             return render(request, 'storageapp/files_list.html', context={'files_list': files_list,
                                                                           'files_types_enabled': files_types_enabled,
-                                                                          'file_fields': fields_to_choice,
+                                                                          'file_fields': fields,
                                                                           'all_files_types': all_files_types,
                                                                           'message': message})
+
+
         files_list = (File.objects.filter(owner=request.user.id)
                       .filter(file_type__in=files_types_obj)
-                      .order_by(f'{reverse_order}{fields_to_order[how_order]}'))
+                      .order_by(order_rules))
 
         return render(request, 'storageapp/files_list.html', context={'files_list': files_list,
                                                                       'files_types_enabled': files_types_enabled,
-                                                                      'file_fields': fields_to_choice,
+                                                                      'file_fields': fields,
                                                                       'all_files_types': all_files_types,
                                                                       'message': message})
