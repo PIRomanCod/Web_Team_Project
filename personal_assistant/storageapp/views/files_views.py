@@ -23,9 +23,9 @@ class FileViews:
     @login_required
     def delete_file(request, file_id):
 
-
-        file = File.objects.get(id=file_id)
-        FileViews.services.delete_file(file=file)
+        if request.method == 'POST':
+            file = File.objects.get(id=file_id)
+            FileViews.services.delete_file(file=file)
 
         return FileViews.services.render_files_list(request)
 
@@ -66,7 +66,7 @@ class FileViews:
     def search_by_name(request):
 
         word = request.GET.get('user_input')
-        message = f'Search result by "{word}":'
+        message = f'Search result for "{word}":'
 
         search_result = File.objects.filter(owner=request.user.id).filter(file_name__contains=word)
 
