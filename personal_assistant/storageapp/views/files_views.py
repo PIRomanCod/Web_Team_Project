@@ -25,10 +25,11 @@ class FileViews:
 
         if request.method == 'POST':
             file = File.objects.get(id=file_id)
-            FileViews.services.delete_file(file=file)
+            message = FileViews.services.delete_file(file=file)
 
+            return FileViews.services.render_files_list(request, message=message)
         return FileViews.services.render_files_list(request)
-
+    
     @login_required
     def upload_file(request):
 
