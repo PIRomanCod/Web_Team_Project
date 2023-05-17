@@ -1,37 +1,34 @@
 {% extends "noteapp/base.html" %}
 
 {% block content %}
-
-<form method="POST" action="{% url 'noteapp:note' %}">
+<div class="container me-2 pe-3">
+   <form class="container mt-2" method="POST" action="{% url 'noteapp:note' %}">
     {% csrf_token %}
-    <div style="padding: 10px">
-        <label> Note name:
-            {{form.name}}
-        </label>
+    <div style="container me-2">
+        <label class="form-label"> Note name:</label>
+        <div class="row col-4">{{form.name}}</div>
         <span>{{form.errors.name}}</span>
     </div>
-    <div style="padding: 10px">
-        <label> Note description:
-            {{form.description}}
-        </label>
-        <span>{{form.errors.description}}</span>
+    <div style="container me-2">
+        <label class="form-label"> Note description:</label>
+            <div class="row col-4" >{{form.description}}</div>
+            <span>{{form.errors.description}}</span>
     </div>
-    <div style="padding: 10px">
-        <label> Select tags:
-            <select name="tags" multiple="multiple" required>
+    <div style="container me-2">
+        <label class="form-label"> Select tags:</label>
+        <div class="row col-4">
+            <select class="form-select-secondary form-select-indicator-color-gray-800" multiple name="tags">
                 {% for tag in tags %}
                 <option value="{{tag.name}}">{{tag.name}}</option>
                 {% endfor %}
             </select>
-        </label>
-        <a href="{% url 'noteapp:tag' %}" role="button"> Is there not enough tags? Add more  </a>
+        </div>
     </div>
-    <div class="grid">
-        <button type="submit">Submit</button>
-        <button type="reset" class="secondary">Reset</button>
+    <div class="grid mt-2">
+        <a class="btn btn-secondary" href="{% url 'noteapp:tag' %}" role="button">New Tag</a>
+        <button class="btn btn-success mx-3" type="submit">Submit</button>
+        <button class="btn btn-danger" type="reset">Reset</button>
     </div>
 </form>
-
-
-
+</div>
 {% endblock %}
