@@ -51,10 +51,10 @@
         <div class="container-fluid">
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="/">Home</a>
                     </li>
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'contactapp:create_contact' %}">Create Contact</a>
                     </li>
@@ -75,7 +75,7 @@
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <span class="navbar-text fs-5">Login for use all features</span>
+                        <span class="nav-link active">Login for use all features</span>
                     </li>
                     {% endif %}
                 </ul>

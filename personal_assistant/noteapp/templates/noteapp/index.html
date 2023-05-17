@@ -2,12 +2,12 @@
 {% load extract_tags %}
 {% block content %}
 
-<main class="container">
+<main class="container d-flex flex-column min-vh-100">
     <nav class="navbar-nav navbar-expand-lg bg-body-tertiary me-auto mt-2 mb-20 pl-30 pb-3">
         <!--Поведінка авторизованого та ні користувача-->
         {% if user.is_authenticated %}
         <div class="collapse navbar-collapse border">
-                <div class="container-fluid d-flex align-items-center">
+                <div class="container-fluid align-items-center">
                 <ul class="navbar-nav me-auto bg-body-tertiary">
                     <li class="nav-item my-2 mx-2"><a class="nav-link" href="{% url 'noteapp:note' %}" role="button">Add note</a></li>
                     <li class="nav-item my-2 mx-2"><a class="nav-link" href="{% url 'noteapp:tag' %}" role="button">Add tag</a></li>

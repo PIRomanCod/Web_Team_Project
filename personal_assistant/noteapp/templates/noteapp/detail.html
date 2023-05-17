@@ -2,20 +2,39 @@
 {% load extract_tags %}
 
 {% block content %}
+<div class="container">
+    <div class="fs-5 my-2">Article:</div>
+    <div class="mx-3">{{note.name}}</div>
+    <div class="fs-5 my-2">Description:
+        <div class="fs-6 container d-flex">{{note.description}}</div>
+    </div>
+    <div class="fs-5 my-2">Time of creation:
+        <span class="fs-6 border border-secondary-subtle px-3 rounded-3">
+        {{note.created}}
+        </span>
+    </div>
+    {% if note.done %}
+    <div class="fs-5 my-2">Status:
+        <span class=" fs-6 text-success-emphasis bg-success-subtle border border-success-subtle px-3 rounded-3">
+        Completed
+        </span>
+    </div>
+    {% else %}
+    <div class="fs-5 my-2">Status:
+        <span class="fs-6 text-warning-emphasis bg-warning-subtle border border-warning-subtle px-3 rounded-3">
+            Not implemented
+        </span>
+    </div>
+    {% endif %}
 
-<h1>{{note.name}}</h1>
-<p>Description: <b>{{note.description}}</b></p>
-<p>Time of creation: <kbd>{{note.created}}</kbd></p>
-{% if note.done %}
-<p>Status:
-    <ins>Completed</ins>
-</p>
-{% else %}
-<p>Status: <i>Not implemented</i></p>
-{% endif %}
+    <div class="fs-5 my-2">Tags: <small> {{ note.tags|tags }} </small></div>
+    <a class="btn btn-danger mx-1" href="{% url 'noteapp:delete' note.id %}" role="button">
+        Delete note
+    </a>
+    <a class="btn btn-warning mx-1" href="{% url 'noteapp:update_note' note_id=note.id %}" role="button">
+        Update Note
+    </a>
+</div>
 
-<p>Tags: <small> {{ note.tags|tags }} </small></p>
-<a href="{% url 'noteapp:delete' note.id %}" role="button" class="secondary">Delete note</a>
 
-<a href="{% url 'noteapp:update_note' note_id=note.id %}" role="button" class="secondary">Update Note</a>
 {% endblock %}

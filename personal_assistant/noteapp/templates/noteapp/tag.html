@@ -2,16 +2,16 @@
 
 {% block content %}
 
-<form method="POST" action="{% url 'noteapp:tag' %}">
+<form class="form-control d-flex flex-row my-1" method="POST" action="{% url 'noteapp:tag' %}">
     {% csrf_token %}
-    <div style="padding: 10px">
-        <label for = "id_name">Enter the tag name: </label>
+    <div >
+        <label class="form-label my-2 px-3 align-items-center" for = "id_name">Enter the tag name: </label>
         {{form.name}}
         <span>{{form.errors.name}}</span>
     </div>
     <div class="grid">
-        <button type="submit">Submit</button>
-        <button type="reset" class="secondary">Reset</button>
+        <button class="btn btn-success mx-3" type="submit">Submit</button>
+        <button class="btn btn-danger" type="reset">Reset</button>
     </div>
 </form>
 
