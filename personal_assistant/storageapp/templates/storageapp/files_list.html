@@ -1,8 +1,10 @@
 {% extends 'storageapp/base_files.html' %}
 
 {% block in_files %}
+
 {% load static %}
 <link rel="stylesheet" href="{% static 'storageapp/style.css' %}">
+
 <form action="{% url 'storageapp:files_list' %}" method="get">
     {% for type in all_files_types %}
     {% if type in files_types_enabled %}
@@ -15,22 +17,27 @@
     <label for="category">Select a category to sort:</label>
     <select name="category" id="category">
         {% for num, field in file_fields.items %}
-        {% if num == 4 %}
-        <option value="{{ num }}" selected>{{ field }}</option>
-        {% else %}
-        <option value="{{ num }}">{{ field }}</option>
-        {% endif %}
+            {% if num == 4 %}
+                <option value="{{ num }}" selected>{{ field }}</option>
+            {% else %}
+                <option value="{{ num }}">{{ field }}</option>
+            {% endif %}
         {% endfor %}
     </select>
+
     {% if '-' in files_types_enabled %}
-    <input type="checkbox" name="filter_type" value="-" checked>Reverse
+        <input type="checkbox" name="filter_type" value="-" checked>Reverse
     {% else %}
-    <input type="checkbox" name="filter_type" value="-">Reverse
+        <input type="checkbox" name="filter_type" value="-">Reverse
     {% endif %}
+
     <div>
         <button type="submit" class="upper-buttons">Submit filters and sort category</button>
     </div>
 </form>
+<div>
+    <span>{{ message }}</span>
+</div>
 <div>
     {% for file in files_list %}
     <div class="file-row">
