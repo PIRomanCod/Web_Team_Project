@@ -1,4 +1,4 @@
-from django.forms import ModelForm, CharField, TextInput, Form
+from django.forms import ModelForm, CharField, TextInput, Textarea, Form
 from . import models
 
 
@@ -12,7 +12,7 @@ class TagForm(ModelForm):
 
 class NoteForm(ModelForm):
     name = CharField(min_length=5, max_length=50, required=True, widget=TextInput())
-    description = CharField(min_length=10, max_length=150, required=True, widget=TextInput())
+    description = CharField(min_length=10, max_length=150, required=True, widget=Textarea(attrs={"rows":"3"}))
 
     class Meta:
         model = models.Note

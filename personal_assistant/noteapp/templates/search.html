@@ -2,35 +2,43 @@
 {% load extract_tags %}
 {% block content %}
 
+<div class="container border my-2">
+    <form class="d-flex my-1" method="get">
+        <div class="col-6 mx-2">
+            {{ NoteSearchForm.as_p }}
+            <input type="text" class="form-control" id="id_keyword" name="keyword" value="{{ request.GET.keyword }}">
+        </div>
+        <div>
+            <button class="btn btn-success" type="submit" >Search</button>
+        </div>
+    </form>
+</div>
 
-<form class="row row-cols-lg-auto g-3 align-items-center" method="get">
-  <div class="col-12">
-       {{ NoteSearchForm.as_p }}
-    <input type="text" class="form-control" id="id_keyword" name="keyword" value="{{ request.GET.keyword }}">
-    </div>
-
-  <div class="col-12">
-   <button type="submit" class="btn btn-primary">Search</button>
-  </div>
-</form>
-
-{% for note in notes %}
-    <ul>
 <!--Блок виводу нотаток-->
-        <li class="nav-item">
-            {%if not note.done%}
-            <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">"article:" {{note.name}},
-                "text:" - {{note.description}}, "tags": {{ note.tags|tags }}</a>
-            <a href="{% url 'noteapp:set_done' note.id %}" role="button" class="secondary">Mark Done</a>
-            <a href="{% url 'noteapp:delete' note.id %}" role="button" class="secondary">Delete note</a>
-            {% else %}
-
+{% for note in notes %}
+ <div class="container">
+    <div class="form-control d-flex flex-row">
+        {%if not note.done%}
+        <div class="flex-fill">
+            <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">Article: {{note.name}},</a>
+            <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">Note: {{note.description}}</a>
+            <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">Tags: {{ note.tags|tags }}</a>
+        </div>
+        <div class="d-flex align-items-center">
+            <a class="btn btn-success mx-2" href="{% url 'noteapp:set_done' note.id %}" role="button">Mark Done</a>
+            <a class="btn btn-danger mx-2" href="{% url 'noteapp:delete' note.id %}" role="button" >Delete note</a>
+        </div>
+        {% else %}
+        <div class="flex-fill">
             <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">"article:"<s>{{note.name}}</s></a>
-            <a href="{% url 'noteapp:set_active' note.id %}" role="button" class="secondary">Mark Active</a>
-            <a href="{% url 'noteapp:delete' note.id %}" role="button" class="contrast">Delete note</a>
-            {% endif %}
-        </li>
-      </ul>
+        </div>
+        <div class="d-flex align-items-center">
+            <a class="btn btn-warning align-items-center" href="{% url 'noteapp:set_active' note.id %}" role="button">Mark Active</a>
+            <a class="btn btn-danger mx-2" href="{% url 'noteapp:delete' note.id %}" role="button">Delete note</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
 
 {% endfor %}
 
