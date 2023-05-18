@@ -31,7 +31,6 @@ class FileServices:
         :param cls: Pass the class of the model to be created
         :param request: Get the file from the request
         :return: A tuple with the following information:
-        :doc-author: Trelent
         """
 
         file = request.FILES.get('file')
@@ -58,7 +57,6 @@ class FileServices:
         :param cls: Refer to the class that is being used
         :param request: Get the file from the request
         :return: The name of the file that was saved to dropbox
-        :doc-author: Trelent
         """
         file = request.FILES.get('file')
 
@@ -74,7 +72,6 @@ class FileServices:
         :param cls: Specify the class that is being used to call the function
         :param file: Identify the file to be deleted
         :return: The string 'file {name} deleted'
-        :doc-author: Trelent
         """
         name = file.file_name
         cls.dbx_storage.delete(file.dropbox_file_name)
@@ -90,7 +87,6 @@ class FileServices:
         :param cls: Pass the class to a method
         :param file: Find the file in the database
         :return: The url of the file
-        :doc-author: Trelent
         """
         url = cls.dbx_storage.url(file.dropbox_file_name)
         return url
@@ -107,7 +103,6 @@ class FileServices:
         :param files_list: Pass the list of files to be displayed
         :param message: Pass a message to the user
         :return: A rendered storageapp/files_list.html template with the context
-        :doc-author: Trelent
         """
 
         fields = {'file_type': 'Type', 'file_extension': 'Extension', 'file_name': 'File Name',

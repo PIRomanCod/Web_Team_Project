@@ -27,7 +27,6 @@ class FileTypes(models.Model):
         :param args: Send a non-keyworded variable length argument list to the function
         :param kwargs: Pass keyworded, variable-length argument list to a function
         :return: The save method of the super class
-        :doc-author: Trelent
         """
         super().save()
 

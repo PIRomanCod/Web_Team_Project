@@ -21,6 +21,5 @@ class Command(BaseCommand):
         :param args: Pass a variable number of arguments to a function
         :param options: Pass in the options that are passed to the command
         :return: A string that is printed in the console
-        :doc-author: Trelent
         """
         create_tables()
