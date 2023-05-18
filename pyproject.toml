@@ -17,6 +17,7 @@ django-storages = "^1.13.2"
 requests = "^2.30.0"
 beautifulsoup4 = "^4.12.2"
 lxml = "^4.9.2"
+sphinx = "^7.0.1"
 
 
 

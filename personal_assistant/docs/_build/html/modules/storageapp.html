@@ -118,17 +118,143 @@ is greater than 100 pixels and if so we resize it using thumbnail() method which
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></p>
 </dd></dl>
 
+</dd></dl>
+
+</section>
+<section id="module-storageapp.views.files_views">
+<span id="storageapp-s-views"></span><h2>Storageapp’s views<a class="headerlink" href="#module-storageapp.views.files_views" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="storageapp.views.files_views.FileViews">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">storageapp.views.files_views.</span></span><span class="sig-name descname"><span class="pre">FileViews</span></span><a class="headerlink" href="#storageapp.views.files_views.FileViews" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class contains views for files.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="storageapp.models.File.get_fields_list">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_fields_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#storageapp.models.File.get_fields_list" title="Permalink to this definition">¶</a></dt>
-<dd><p>The get_fields_list function returns a dictionary of the form {num: field.name} for each field in the model,
-where num is an integer and field.name is a string representing the name of that particular model’s fields.</p>
+<dt class="sig sig-object py" id="storageapp.views.files_views.FileViews.delete_file">
+<span class="sig-name descname"><span class="pre">delete_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storageapp.views.files_views.FileViews.delete_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The delete_file function is called when the user clicks on the delete button
+on a file. It takes in a request and an id of the file to be deleted, then it
+gets that file from the database and calls services.delete_file() to delete it.
+It then returns files_list which is rendered by render_files_list().</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>cls</strong> – Pass in the class that is being used to call this function</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Get the request object, which is used to access information about the current http request</p></li>
+<li><p><strong>file_id</strong> – Identify the file to be deleted</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary with the field number as key and the field name as value</p>
+<dd class="field-even"><p>render files_list.html in FileServices.render_files_list() with incoming data</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="storageapp.views.files_views.FileViews.delete_file_warning">
+<span class="sig-name descname"><span class="pre">delete_file_warning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storageapp.views.files_views.FileViews.delete_file_warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>The delete_file_warning function is called when the user clicks on the &amp;quot;Delete&amp;quot; button in
+the file_detail.html template.  The function takes a request and a file_id as parameters,
+and returns an HTML response that renders the deleting_warning.html template with context
+containing the File object whose id matches that of the passed-in file_id parameter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Get the request object, which contains information about the current web request</p></li>
+<li><p><strong>file_id</strong> – Get the file object from the database</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>render the deleting_warning.html with the context</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="storageapp.views.files_views.FileViews.download_file">
+<span class="sig-name descname"><span class="pre">download_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storageapp.views.files_views.FileViews.download_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The download_file function is called when the user clicks on a file in the list of files.
+It takes in a request and an id for the file to be downloaded, then it gets that file from
+the database and calls download_file() from services.py to get its url, which is returned as
+a redirect.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Get the request object, which is used to check if the method is post</p></li>
+<li><p><strong>file_id</strong> – Identify the file that is to be downloaded</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirect to the url of the file if the request method is ‘POST’.
+Otherwise, it renders the file list.</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="storageapp.views.files_views.FileViews.search_by_name">
+<span class="sig-name descname"><span class="pre">search_by_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#storageapp.views.files_views.FileViews.search_by_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>The search_by_name function searches for files by name.
+It takes a request object as an argument and returns the result of the search_by_name function from
+FileViews.services module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Get the user input from the search bar</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>render files_list.html in FileServices.render_files_list() with incoming data</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="storageapp.views.files_views.FileViews.services">
+<span class="sig-name descname"><span class="pre">services</span></span><a class="headerlink" href="#storageapp.views.files_views.FileViews.services" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#storageapp.services.file_services.FileServices" title="storageapp.services.file_services.FileServices"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileServices</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="storageapp.views.files_views.FileViews.show_user_files">
+<span class="sig-name descname"><span class="pre">show_user_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#storageapp.views.files_views.FileViews.show_user_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>The show_user_files function is a view that renders the user’s files list.
+It takes in a request object and returns an HttpResponse object with the rendered template.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Get the current user, and then pass it to the render_files_list function in fileviews</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>render files_list.html in FileServices.render_files_list() with incoming data</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="storageapp.views.files_views.FileViews.upload_file">
+<span class="sig-name descname"><span class="pre">upload_file</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#storageapp.views.files_views.FileViews.upload_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>The upload_file function is responsible for handling the POST request that comes from the upload_file.html page
+when a user submits a file to be uploaded. The function first checks if there is actually a file attached to the
+request, and if not it renders an empty upload_file.html page so that users can try again with another file. If there
+is indeed a file attached, then we call save_file_dropbox() in services which saves the submitted file into our Dropbox
+account and returns its new name (which will be used later when we create an instance of File). We also get some other info</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Get the file from the request</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>render files_list.html in FileServices.render_files_list() with incoming data</p>
 </dd>
 <dt class="field-odd">Doc-author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Trelent</p>
@@ -138,14 +264,6 @@ where num is an integer and field.name is a string representing the name of that
 
 </dd></dl>
 
-</section>
-<section id="storageapp-s-views">
-<h2>Storageapp’s views<a class="headerlink" href="#storageapp-s-views" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="module-storageapp.forms">
-<span id="storageapp-s-forms"></span><h2>Storageapp’s forms<a class="headerlink" href="#module-storageapp.forms" title="Permalink to this heading">¶</a></h2>
-<p>This module contains the forms for the storageapp.</p>
-<p>But for now, there are no forms in this app.</p>
 </section>
 <section id="module-storageapp.urls">
 <span id="storageapp-s-urls"></span><h2>Storageapp’s urls<a class="headerlink" href="#module-storageapp.urls" title="Permalink to this heading">¶</a></h2>
@@ -181,7 +299,7 @@ It also deletes the file from Dropbox, using the dropbox_file_name attribute of 
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The string ‘file deleted’</p>
+<dd class="field-even"><p>The string ‘file {name} deleted’</p>
 </dd>
 <dt class="field-odd">Doc-author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Trelent</p>
@@ -192,10 +310,8 @@ It also deletes the file from Dropbox, using the dropbox_file_name attribute of 
 <dl class="py method">
 <dt class="sig sig-object py" id="storageapp.services.file_services.FileServices.download_file">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">download_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storageapp.services.file_services.FileServices.download_file" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="simple">
-<dt>The download_file function takes a file object as an argument and returns the url of that file.</dt><dd><p>The function uses the dropbox_storage class to get the url of a given file.</p>
-</dd>
-</dl>
+<dd><p>The download_file function takes a file object as an argument and returns the url of that file.
+The function uses the dropbox_storage class to get the url of a given file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -238,17 +354,17 @@ the original file name as our file name variable. We also check if</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="storageapp.services.file_services.FileServices.reg_ex_existance">
-<span class="sig-name descname"><span class="pre">reg_ex_existance</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\\.[^./\\\\]+$'</span></em><a class="headerlink" href="#storageapp.services.file_services.FileServices.reg_ex_existance" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="storageapp.services.file_services.FileServices.reg_ex_extension">
+<span class="sig-name descname"><span class="pre">reg_ex_extension</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\\.[^./\\\\]+$'</span></em><a class="headerlink" href="#storageapp.services.file_services.FileServices.reg_ex_extension" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="storageapp.services.file_services.FileServices.render_files_list">
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">render_files_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'This</span> <span class="pre">is</span> <span class="pre">your</span> <span class="pre">files.'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#storageapp.services.file_services.FileServices.render_files_list" title="Permalink to this definition">¶</a></dt>
 <dd><p>The render_files_list function is used to render the files_list.html template, which displays a list of all
-files belonging to the user who is currently logged in. The function takes two arguments: request and files_list,
-which are both required for rendering the template. The optional message argument can be used to display a custom
-message on top of the page.</p>
+files belonging to the user who is currently logged in. The function takes two arguments: request and
+files_list, which are both required for rendering the template. The optional message argument can be used
+to display a custom message on top of the page.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -258,7 +374,7 @@ message on top of the page.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A rendered template with the context</p>
+<dd class="field-even"><p>A rendered storageapp/files_list.html template with the context</p>
 </dd>
 <dt class="field-odd">Doc-author<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Trelent</p>
@@ -371,8 +487,7 @@ from your project directory.</p>
 <li class="toctree-l1"><a class="reference internal" href="noteapp.html">Noteapp functionality</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Storageapp functionality</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#module-storageapp.models">Storageapp’s models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#storageapp-s-views">Storageapp’s views</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-storageapp.forms">Storageapp’s forms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-storageapp.views.files_views">Storageapp’s views</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-storageapp.urls">Storageapp’s urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-storageapp.tests">Storageapp’s tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-storageapp.services.file_services">Storageapp’s services</a></li>
