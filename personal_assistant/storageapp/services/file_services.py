@@ -1,6 +1,7 @@
 """
 This module contains the FileServices class.
 """
+
 import re
 from django.shortcuts import render
 from django.contrib.auth.models import User
@@ -13,7 +14,8 @@ class FileServices:
     """
     This class contains methods for working with files.
     """
-    reg_ex_existance = r'\.[^./\\]+$'
+
+    reg_ex_extension = r'\.[^./\\]+$'
     dbx_storage = DropBoxStorage()
 
     @classmethod
@@ -36,18 +38,14 @@ class FileServices:
         user_file_name = request.POST.get('user_input')
 
         try:
-            extension = re.findall(cls.reg_ex_existance, file.name)[0]
+            extension = re.findall(cls.reg_ex_extension, file.name)[0]
             extension_inst = FileExtensions.objects.get(name=extension)
 
         except FileExtensions.DoesNotExist:
             extension_inst = FileExtensions.objects.get(id=1)
 
-        type_inst: FileTypes = extension_inst.category
-
-        if user_file_name:
-            file_name = user_file_name
-        else:
-            file_name = file.name
+        type_inst = extension_inst.category
+        file_name = user_file_name if user_file_name else file.name
 
         return owner_inst, type_inst, extension_inst, file_name
 
@@ -75,19 +73,20 @@ class FileServices:
 
         :param cls: Specify the class that is being used to call the function
         :param file: Identify the file to be deleted
-        :return: The string 'file deleted'
+        :return: The string 'file {name} deleted'
         :doc-author: Trelent
         """
+        name = file.file_name
         cls.dbx_storage.delete(file.dropbox_file_name)
         file.delete()
-        return 'File deleted'
+        return f'File >{name}< deleted'
 
     @classmethod
     def download_file(cls, file):
 
         """
         The download_file function takes a file object as an argument and returns the url of that file.
-            The function uses the dropbox_storage class to get the url of a given file.
+        The function uses the dropbox_storage class to get the url of a given file.
 
         :param cls: Pass the class to a method
         :param file: Find the file in the database
@@ -102,42 +101,44 @@ class FileServices:
 
         """
         The render_files_list function is used to render the files_list.html template, which displays a list of all
-        files belonging to the user who is currently logged in. The function takes two arguments: request and files_list,
-        which are both required for rendering the template. The optional message argument can be used to display a custom
-        message on top of the page.
+        files belonging to the user who is currently logged in. The function takes two arguments: request and
+        files_list, which are both required for rendering the template. The optional message argument can be used
+         to display a custom message on top of the page.
 
         :param request: Pass the request object to the function
         :param files_list: Pass the list of files to be displayed
         :param message: Pass a message to the user
-        :return: A rendered template with the context
+        :return: A rendered storageapp/files_list.html template with the context
         :doc-author: Trelent
         """
-        fields_to_order = File.get_fields_list()
-        fields_to_choice = {2: 'Type', 3: 'Extension', 4: 'File Name', 6: 'Created at'}
 
-        all_files_types = [type.name for type in FileTypes.objects.all()]
+        fields = {'file_type': 'Type', 'file_extension': 'Extension', 'file_name': 'File Name',
+                  'created_at': 'Created at'}
+        all_files_types = [f_type.name for f_type in FileTypes.objects.all()]
 
         if not request.GET.getlist('filter_type'):
             files_types_enabled = all_files_types
         else:
             files_types_enabled = request.GET.getlist('filter_type')
 
-        how_order = int(request.GET.get('category')) if request.GET.get('category') else 0
-        reverse_order = '-' if '-' in files_types_enabled else ''
+        field_to_order = request.GET.get('category') if request.GET.get('category') else 'file_name'
+        order_rules = f'-{field_to_order}' if '-' in files_types_enabled else field_to_order
+
         files_types_obj = [FileTypes.objects.get(name=name) for name in files_types_enabled if name != '-']
 
         if files_list:
             return render(request, 'storageapp/files_list.html', context={'files_list': files_list,
                                                                           'files_types_enabled': files_types_enabled,
-                                                                          'file_fields': fields_to_choice,
+                                                                          'file_fields': fields,
                                                                           'all_files_types': all_files_types,
                                                                           'message': message})
+
         files_list = (File.objects.filter(owner=request.user.id)
                       .filter(file_type__in=files_types_obj)
-                      .order_by(f'{reverse_order}{fields_to_order[how_order]}'))
+                      .order_by(order_rules))
 
         return render(request, 'storageapp/files_list.html', context={'files_list': files_list,
                                                                       'files_types_enabled': files_types_enabled,
-                                                                      'file_fields': fields_to_choice,
+                                                                      'file_fields': fields,
                                                                       'all_files_types': all_files_types,
                                                                       'message': message})

@@ -42,20 +42,22 @@
     <div>
         <div class="d-flex flex-row my-1">
             <label class="form-label col-2 px-2 my-2 align-items-center" for="category">Select a category to sort:</label>
-            <select class="form-select" name="category" id="category">
-                {% for num, field in file_fields.items %}
-                {% if num == 4 %}
-                <option value="{{ num }}" selected>{{ field }}</option>
-                {% else %}
-                <option value="{{ num }}">{{ field }}</option>
-                {% endif %}
-                {% endfor %}
-            </select>
+            <div class="col-2">
+                <select class="form-select" name="category" id="category">
+                    {% for num, field in file_fields.items %}
+                    {% if num == 4 %}
+                    <option value="{{ num }}" selected>{{ field }}</option>
+                    {% else %}
+                    <option value="{{ num }}">{{ field }}</option>
+                    {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
             <div class="form-label my-1 align-items-center col-1">
                 {% if '-' in files_types_enabled %}
-                <input class="form-label px-2 my-2 align-items-center" type="checkbox" name="filter_type" value="-" checked>Reverse
+                <input class="form-label px-2 my-2 align-items-center ms-1" type="checkbox" name="filter_type" value="-" checked>Reverse
                 {% else %}
-                <input class="form-label px-2 my-2 align-items-center" type="checkbox" name="filter_type" value="-">Reverse
+                <input class="form-label px-2 my-2 align-items-center ms-1" type="checkbox" name="filter_type" value="-">Reverse
                 {% endif %}
             </div>
         </div>

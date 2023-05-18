@@ -57,16 +57,3 @@ class File(models.Model):
     file_name = models.CharField(max_length=255)
     dropbox_file_name = models.CharField(max_length=255, null=True)
     created_at = models.DateTimeField(default=timezone.now)
-
-    @classmethod
-    def get_fields_list(cls):
-        """
-        The get_fields_list function returns a dictionary of the form {num: field.name} for each field in the model,
-        where num is an integer and field.name is a string representing the name of that particular model's fields.
-
-        :param cls: Pass in the class that is being used to call this function
-        :return: A dictionary with the field number as key and the field name as value
-        :doc-author: Trelent
-        """
-        return {num: field.name for num, field in enumerate(cls._meta.fields) if field.name != 'owner'}
-
