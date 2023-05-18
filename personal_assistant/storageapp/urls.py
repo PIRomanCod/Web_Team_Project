@@ -1,3 +1,6 @@
+"""
+This module contains all the urls for the storageapp app.
+"""
 from django.urls import path
 from .views.files_views import FileViews
 app_name = 'storageapp'

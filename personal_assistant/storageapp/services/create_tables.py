@@ -1,7 +1,17 @@
+"""
+This module is used to create tables in the database.
+"""
 from storageapp.models import FileExtensions, FileTypes
 
 
 def create_tables():
+    """
+    The create_tables function creates the tables in the database.
+    It is called by manage.py when you run python manage.py create_storageapp_tables
+
+    :return: Nothing
+    :doc-author: Trelent
+    """
     file_types = {'other': 'icons/other.jpeg', 'images': 'icons/image.png', 'videos': 'icons/video.png',
                   'archives': 'icons/archive.png', 'docs': 'icons/docs.png', 'sound': 'icons/audio.png',
                   'applications': 'icons/applications.jpg', 'message': 'icons/message.png'}

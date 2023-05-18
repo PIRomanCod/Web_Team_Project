@@ -1,3 +1,5 @@
+"""This module contains functions for getting news, exchange rate and weather."""
+
 import configparser
 from pathlib import Path
 
@@ -19,6 +21,13 @@ key_api = env('OPENWEATHER_API_KEY')
 
 
 def unian_news():
+    """
+    The unian_news function returns a list of dictionaries, each dictionary containing the header and url for
+    the top 10 news articles on unian.ua
+
+    :return: A list of dictionaries
+    :doc-author: Trelent
+    """
     url = 'https://www.unian.ua/detail/all_news'
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'lxml')
@@ -30,12 +39,30 @@ def unian_news():
 
 
 def exchange_rate():
+    """
+    The exchange_rate function returns the current exchange rate of USD and EUR to UAH.
+    The function uses the PrivatBank API to get a JSON response with all available currencies,
+    then it parses this response and returns only two values: USD and EUR.
+
+    :return: A list of dictionaries
+    :doc-author: Trelent
+    """
     response = requests.get('https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11')
     exch_rate = response.json()
     return exch_rate
 
 
 def weather_current():
+    """
+    The weather_current function returns a dictionary with the current weather in Kyiv.
+    The dictionary contains three keys: name, icon_url and temp.
+    name - city name;
+    icon_url - url to the image of the current weather;
+    temp - temperature in Celsius degrees.
+
+    :return: The current weather in the city
+    :doc-author: Trelent
+    """
     city_index = f'{city},ua'
     response = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={city_index}&appid={key_api}')
     res = response.json()
