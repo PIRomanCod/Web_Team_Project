@@ -1,3 +1,7 @@
+"""
+This module contains the FileServices class.
+"""
+
 import re
 from django.shortcuts import render
 from django.contrib.auth.models import User
