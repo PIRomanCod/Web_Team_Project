@@ -1,7 +1,9 @@
 {% extends "noteapp/base.html" %}
 
 {% block content %}
+
 <div class="container me-2 pe-3">
+    <h4 class="text-center">Create Note</h4>
    <form class="container mt-2" method="POST" action="{% url 'noteapp:note' %}">
     {% csrf_token %}
     <div style="container me-2">
