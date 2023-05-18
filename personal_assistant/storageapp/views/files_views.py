@@ -9,8 +9,8 @@ class FileViews:
     """
     This class contains views for files.
     """
-    services = FileServices
 
+    services = FileServices
 
     @login_required
     def show_user_files(request):
@@ -19,14 +19,14 @@ class FileViews:
         It takes in a request object and returns an HttpResponse object with the rendered template.
 
         :param request: Get the current user, and then pass it to the render_files_list function in fileviews
-        :return: A list of files that the user has access to
+        :return: render files_list.html in FileServices.render_files_list() with incoming data
         :doc-author: Trelent
         """
+
         return FileViews.services.render_files_list(request)
 
     @login_required
     def delete_file_warning(request, file_id):
-
         """
         The delete_file_warning function is called when the user clicks on the &quot;Delete&quot; button in
         the file_detail.html template.  The function takes a request and a file_id as parameters,
@@ -35,9 +35,10 @@ class FileViews:
 
         :param request: Get the request object, which contains information about the current web request
         :param file_id: Get the file object from the database
-        :return: The deleting_warning
+        :return: render the deleting_warning.html with the context
         :doc-author: Trelent
         """
+
         file = File.objects.get(id=file_id)
         return render(request, 'storageapp/deleting_warning.html', context={'file': file})
 
@@ -52,7 +53,7 @@ class FileViews:
 
         :param request: Get the request object, which is used to access information about the current http request
         :param file_id: Identify the file to be deleted
-        :return: The files_list
+        :return: render files_list.html in FileServices.render_files_list() with incoming data
         :doc-author: Trelent
         """
 
@@ -65,7 +66,6 @@ class FileViews:
 
     @login_required
     def upload_file(request):
-
         """
         The upload_file function is responsible for handling the POST request that comes from the upload_file.html page
         when a user submits a file to be uploaded. The function first checks if there is actually a file attached to the
@@ -74,7 +74,7 @@ class FileViews:
         account and returns its new name (which will be used later when we create an instance of File). We also get some other info
 
         :param request: Get the file from the request
-        :return: The files_list
+        :return: render files_list.html in FileServices.render_files_list() with incoming data
         :doc-author: Trelent
         """
 
@@ -105,12 +105,12 @@ class FileViews:
 
         :param request: Get the request object, which is used to check if the method is post
         :param file_id: Identify the file that is to be downloaded
-        :return: A redirect to the url of the file
+        :return: A redirect to the url of the file if the request method is 'POST'.
+                 Otherwise, it renders the file list.
         :doc-author: Trelent
         """
 
         if request.method == 'POST':
-
             file = File.objects.get(id=file_id)
             url = FileViews.services.download_file(file)
 
@@ -118,18 +118,18 @@ class FileViews:
 
         return FileViews.services.render_files_list(request)
 
-
     @login_required
     def search_by_name(request):
-
         """
         The search_by_name function searches for files by name.
-            It takes a request object as an argument and returns the result of the search_by_name function from FileViews.services module.
+        It takes a request object as an argument and returns the result of the search_by_name function from
+        FileViews.services module.
 
         :param request: Get the user input from the search bar
-        :return: A list of files whose name contains the word entered by the user
+        :return: render files_list.html in FileServices.render_files_list() with incoming data
         :doc-author: Trelent
         """
+
         word = request.GET.get('user_input')
         message = f'Search result for "{word}":'
 
