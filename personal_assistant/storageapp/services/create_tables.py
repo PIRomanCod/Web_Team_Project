@@ -10,7 +10,6 @@ def create_tables():
     It is called by manage.py when you run python manage.py create_storageapp_tables
 
     :return: Nothing
-    :doc-author: Trelent
     """
     file_types = {'other': 'icons/other.jpeg', 'images': 'icons/image.png', 'videos': 'icons/video.png',
                   'archives': 'icons/archive.png', 'docs': 'icons/docs.png', 'sound': 'icons/audio.png',

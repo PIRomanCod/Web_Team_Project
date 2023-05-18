@@ -20,7 +20,6 @@ class FileViews:
 
         :param request: Get the current user, and then pass it to the render_files_list function in fileviews
         :return: render files_list.html in FileServices.render_files_list() with incoming data
-        :doc-author: Trelent
         """
 
         return FileViews.services.render_files_list(request)
@@ -36,7 +35,6 @@ class FileViews:
         :param request: Get the request object, which contains information about the current web request
         :param file_id: Get the file object from the database
         :return: render the deleting_warning.html with the context
-        :doc-author: Trelent
         """
 
         file = File.objects.get(id=file_id)
@@ -54,7 +52,6 @@ class FileViews:
         :param request: Get the request object, which is used to access information about the current http request
         :param file_id: Identify the file to be deleted
         :return: render files_list.html in FileServices.render_files_list() with incoming data
-        :doc-author: Trelent
         """
 
         if request.method == 'POST':
@@ -75,7 +72,6 @@ class FileViews:
 
         :param request: Get the file from the request
         :return: render files_list.html in FileServices.render_files_list() with incoming data
-        :doc-author: Trelent
         """
 
         if request.method == 'POST':
@@ -107,7 +103,6 @@ class FileViews:
         :param file_id: Identify the file that is to be downloaded
         :return: A redirect to the url of the file if the request method is 'POST'.
                  Otherwise, it renders the file list.
-        :doc-author: Trelent
         """
 
         if request.method == 'POST':
@@ -127,7 +122,6 @@ class FileViews:
 
         :param request: Get the user input from the search bar
         :return: render files_list.html in FileServices.render_files_list() with incoming data
-        :doc-author: Trelent
         """
 
         word = request.GET.get('user_input')
