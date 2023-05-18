@@ -11,9 +11,14 @@ Noteapp functionality
 Noteapp's models
 ========================================
 .. automodule:: noteapp.models
-   :members:
+.. autoclass:: Tag
    :undoc-members:
    :show-inheritance:
+
+.. autoclass:: Note
+   :undoc-members:
+   :show-inheritance:
+
 
 
 Noteapp's views
@@ -27,6 +32,15 @@ Noteapp's views
 Noteapp's forms
 ========================================
 .. automodule:: noteapp.forms
+.. autoclass:: TagForm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+.. autoclass:: NoteForm
+   :members:
+   :undoc-members:
+   :show-inheritance:
+.. autoclass:: NoteSearchForm
    :members:
    :undoc-members:
    :show-inheritance:
@@ -48,25 +62,10 @@ Noteapp's tests
    :show-inheritance:
 
 
-Noteapp's admin
+Noteapp's templatetags
 ========================================
-.. automodule:: noteapp.admin
+.. automodule:: noteapp.templatetags.extract_tags
    :members:
    :undoc-members:
    :show-inheritance:
 
-
-Noteapp's templates
-========================================
-.. automodule:: noteapp.templates.noteapp
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Noteapp's apps
-========================================
-.. automodule:: noteapp.apps
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -2,33 +2,35 @@
 
 {% block content %}
 
-<div>
-    <h1>Profile page: {{user.username}}</h1>
+<div class="container me-2 pe-3">
+    <div style="container me-2">
+    <h3 class="text-center">Profile page: {{user.username}}</h3>
     <img src="{{ user.profile.avatar.url }}" alt="avatar of user"/>
+    </div>
 </div>
 
 {% if messages %}
-<div>
+<div style="container me-2">
     {% for message in messages %}
     <div {% if message.tags %} class="alert-{{ message.tags }}" {% endif %}>{{ message }}</div>
     {% endfor %}
 </div>
 {% endif %}
 
-<form method="post" enctype="multipart/form-data">
+<form class="container mt-2" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="form-row">
-        <div class="col-md-5">
-            <div class="form-group">
-                <label class="small mb-1">Change Avatar:</label>
-                {{ profile_form.avatar }}
+    <div class="form-label">
+        <div class="row col-12">
+            <div>
+                <label class="form-label">Change Avatar:</label>
+                    <div class="row col-4" >  {{ profile_form.avatar }} </div>
                 <span>{{ profile_form.errors.avatar }}</span>
             </div>
         </div>
     </div>
-    <div class="grid">
-        <button type="submit">Save Changes</button>
-        <button type="reset" class="secondary">Reset</button>
+    <div class="grid mt-2">
+        <button class="btn btn-success mx-3" type="submit">Save Changes</button>
+        <button class="btn btn-danger" type="reset">Reset</button>
     </div>
 
 </form>

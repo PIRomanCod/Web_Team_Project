@@ -1,3 +1,10 @@
+"""
+    The module view is contents the function that will be called when the user types the url.
+    The view function will return a response to the user.
+    The response can be a html page.
+    The view function can also call other functions to process the request.
+"""
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -10,6 +17,17 @@ from .forms import RegisterForm, LoginForm, ProfileForm
 
 
 def signupuser(request):
+    """
+    The signupuser function is a view that handles the signup process for users.
+        If the user is already authenticated, they are redirected to the main page.
+        If not, and if it's a POST request (i.e., if they've submitted their information),
+        then we check whether or not their form data was valid;
+        if so, we save it and redirect them to the main page; otherwise, we render an error message.
+
+    :param request: Get the request from the client
+    :return: A redirect to the root page if the user is authenticated
+    :doc-author: Trelent
+    """
     if request.user.is_authenticated:
         return redirect(to='root') # redirect to main page if user is authenticated
 
@@ -25,6 +43,16 @@ def signupuser(request):
 
 
 def loginuser(request):
+    """
+    The loginuser function is a view that handles the login of users.
+        It checks if the user is already authenticated, and if so redirects them to the main page.
+        If not, it checks whether or not they are using POST data (i.e., submitting a form).
+        If they are, it authenticates their username and password against Django's built-in authentication system.
+
+    :param request: Get the request object from the view
+    :return: A redirect to the root page if the user is authenticated
+    :doc-author: Trelent
+    """
     if request.user.is_authenticated:
         return redirect('root') # redirect to main page if user is authenticated
 
@@ -42,12 +70,28 @@ def loginuser(request):
 
 @login_required
 def logoutuser(request):
+    """
+    The logoutuser function logs out the user and redirects them to the root page.
+
+    :param request: Get the current user
+    :return: A redirect to the root url
+    :doc-author: Trelent
+    """
     logout(request)
     return redirect(to='root') # redirect to main page if user is authenticated
 
 
 @login_required
 def profile(request):
+    """
+    The profile function is used to update the user's profile.
+        It takes a request as an argument and returns a render of the users/profile.html template
+        with the profile_form variable passed in.
+
+    :param request: Get the request object from the user
+    :return: A rendered html page with the profile form
+    :doc-author: Trelent
+    """
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if profile_form.is_valid():

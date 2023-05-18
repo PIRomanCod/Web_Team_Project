@@ -65,13 +65,16 @@
                         <a class="nav-link" href="{% url 'contactapp:create_contact' %}">Create Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'noteapp:note' %}">Create Note</a>
+                        <a class="nav-link" href="{% url 'contactapp:contact_list' %}">Contacts List</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'contactapp:search_contacts' %}">Find Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'noteapp:main' %}">Find Note</a>
+                        <a class="nav-link" href="{% url 'noteapp:note' %}">Create Note</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'noteapp:main' %}">Notes List</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'contactapp:upcoming_birthdays' %}">Birthday List</a>
@@ -88,6 +91,11 @@
             </div>
         </div>
     </nav>
+{% if form.errors %}
+<div class="alert alert-danger" role="alert">
+    <span>Error{{ form.non_field_errors }}{{ form.errors }}</span>
+</div>
+{% endif %}
     {% block content %}
     {% endblock %}
 </div>

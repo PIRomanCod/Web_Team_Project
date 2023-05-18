@@ -11,6 +11,7 @@ Contactapp functionality
 Contactapp's models
 ========================================
 .. automodule:: contactapp.models
+.. autoclass:: Contact
    :members:
    :undoc-members:
    :show-inheritance:
@@ -27,6 +28,7 @@ Contactapp's views
 Contactapp's forms
 ========================================
 .. automodule:: contactapp.forms
+.. autoclass:: ContactForm
    :members:
    :undoc-members:
    :show-inheritance:
@@ -48,25 +50,4 @@ Contactapp's tests
    :show-inheritance:
 
 
-Contactapp's admin
-========================================
-.. automodule:: contactapp.admin
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
-
-Contactapp's templates
-========================================
-.. automodule:: contactapp.templates.contactapp
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Contactapp's apps
-========================================
-.. automodule:: contactapp.apps
-   :members:
-   :undoc-members:
-   :show-inheritance:

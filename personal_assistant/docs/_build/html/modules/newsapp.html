@@ -37,66 +37,92 @@
 </div>
 <section id="module-newsapp.models">
 <span id="newsapp-s-models"></span><h2>Newsapp’s models<a class="headerlink" href="#module-newsapp.models" title="Permalink to this heading">¶</a></h2>
+<p>This module contains the models for the newsapp.</p>
+<p>But currently, there are no models for the newsapp.</p>
 </section>
 <section id="module-newsapp.views">
 <span id="newsapp-s-views"></span><h2>Newsapp’s views<a class="headerlink" href="#module-newsapp.views" title="Permalink to this heading">¶</a></h2>
+<p>In this module, the main page of the application is generated.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="newsapp.views.main">
 <span class="sig-prename descclassname"><span class="pre">newsapp.views.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#newsapp.views.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The main function is the main page of the site.
+It displays exchange rate, weather and news from unian.net</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Pass the http request that triggered the view</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value of the render function</p>
+</dd>
+<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-newsapp.utils">
 <span id="newsapp-s-utils"></span><h2>Newsapp’s utils<a class="headerlink" href="#module-newsapp.utils" title="Permalink to this heading">¶</a></h2>
+<p>This module contains functions for getting news, exchange rate and weather.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="newsapp.utils.exchange_rate">
 <span class="sig-prename descclassname"><span class="pre">newsapp.utils.</span></span><span class="sig-name descname"><span class="pre">exchange_rate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#newsapp.utils.exchange_rate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The exchange_rate function returns the current exchange rate of USD and EUR to UAH.
+The function uses the PrivatBank API to get a JSON response with all available currencies,
+then it parses this response and returns only two values: USD and EUR.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of dictionaries</p>
+</dd>
+<dt class="field-even">Doc-author<span class="colon">:</span></dt>
+<dd class="field-even"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="newsapp.utils.unian_news">
 <span class="sig-prename descclassname"><span class="pre">newsapp.utils.</span></span><span class="sig-name descname"><span class="pre">unian_news</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#newsapp.utils.unian_news" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The unian_news function returns a list of dictionaries, each dictionary containing the header and url for
+the top 10 news articles on unian.ua</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of dictionaries</p>
+</dd>
+<dt class="field-even">Doc-author<span class="colon">:</span></dt>
+<dd class="field-even"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="newsapp.utils.weather_current">
 <span class="sig-prename descclassname"><span class="pre">newsapp.utils.</span></span><span class="sig-name descname"><span class="pre">weather_current</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#newsapp.utils.weather_current" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>The weather_current function returns a dictionary with the current weather in Kyiv.
+The dictionary contains three keys: name, icon_url and temp.
+name - city name;
+icon_url - url to the image of the current weather;
+temp - temperature in Celsius degrees.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The current weather in the city</p>
+</dd>
+<dt class="field-even">Doc-author<span class="colon">:</span></dt>
+<dd class="field-even"><p>Trelent</p>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="module-newsapp.urls">
 <span id="newsapp-s-urls"></span><h2>Newsapp’s urls<a class="headerlink" href="#module-newsapp.urls" title="Permalink to this heading">¶</a></h2>
+<p>This module is used to define the urls for the newsapp.</p>
 </section>
 <section id="module-newsapp.tests">
 <span id="newsapp-s-tests"></span><h2>Newsapp’s tests<a class="headerlink" href="#module-newsapp.tests" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="module-newsapp.admin">
-<span id="newsapp-s-admin"></span><h2>Newsapp’s admin<a class="headerlink" href="#module-newsapp.admin" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="module-newsapp.templates.newsapp">
-<span id="newsapp-s-templates"></span><h2>Newsapp’s templates<a class="headerlink" href="#module-newsapp.templates.newsapp" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="module-newsapp.static.newsapp">
-<span id="newsapp-s-static"></span><h2>Newsapp’s static<a class="headerlink" href="#module-newsapp.static.newsapp" title="Permalink to this heading">¶</a></h2>
-</section>
-<section id="module-newsapp.apps">
-<span id="newsapp-s-apps"></span><h2>Newsapp’s apps<a class="headerlink" href="#module-newsapp.apps" title="Permalink to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="newsapp.apps.NewsappConfig">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">newsapp.apps.</span></span><span class="sig-name descname"><span class="pre">NewsappConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#newsapp.apps.NewsappConfig" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="newsapp.apps.NewsappConfig.default_auto_field">
-<span class="sig-name descname"><span class="pre">default_auto_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'django.db.models.BigAutoField'</span></em><a class="headerlink" href="#newsapp.apps.NewsappConfig.default_auto_field" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="newsapp.apps.NewsappConfig.name">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'newsapp'</span></em><a class="headerlink" href="#newsapp.apps.NewsappConfig.name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+<p>This module is used to test the newsapp.</p>
+<p>Currently, there are no tests for the newsapp.</p>
 </section>
 </section>
 
@@ -127,10 +153,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#module-newsapp.utils">Newsapp’s utils</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-newsapp.urls">Newsapp’s urls</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-newsapp.tests">Newsapp’s tests</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-newsapp.admin">Newsapp’s admin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-newsapp.templates.newsapp">Newsapp’s templates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-newsapp.static.newsapp">Newsapp’s static</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-newsapp.apps">Newsapp’s apps</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="contactapp.html">Contactapp functionality</a></li>

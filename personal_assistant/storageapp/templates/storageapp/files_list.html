@@ -1,62 +1,92 @@
-{% extends 'storageapp/base_files.html' %}
+{% extends 'newsapp/base.html' %}
 
-{% block in_files %}
+{% block content %}
+<div xmlns="http://www.w3.org/1999/html">
+    <!--Поведінка авторизованого та ні користувача-->
+    {% if user.is_authenticated %}
+    <div class="d-flex flex-row justify-content-between my-2">
+        <div>
+            <a class="btn btn-secondary mx-3" href="{% url 'storageapp:upload_file' %}">Go To Upload</a>
+        </div>
+        <div class="content-end">
+            <form class="d-flex" action="{% url 'storageapp:search_by_name' %}" method="get">
+                <div class="mx-1">
+                    <input class="form-control me-2" type="text" id="text_input" name="user_input"
+                           placeholder="Enter to search">
+                </div>
+                <div>
+                    <button class="btn btn-secondary" type="submit">Submit</button>
+                    <button class="btn btn-secondary" type="reset">Reset</button>
+                </div>
+            </form>
+        </div>
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'storageapp/style.css' %}">
-
-<form action="{% url 'storageapp:files_list' %}" method="get">
-    {% for type in all_files_types %}
-        {% if type in files_types_enabled %}
-            <input type="checkbox" name="filter_type" value="{{ type }}" checked>{{ type.capitalize }}
-        {% else %}
-            <input type="checkbox" name="filter_type" value="{{ type }}">{{ type.capitalize }}
-        {% endif %}
-    {% endfor %}
-    <br>
-    <label for="category">Select a category to sort:</label>
-    <select name="category" id="category">
-        {% for num, field in file_fields.items %}
-            {% if num == 4 %}
-                <option value="{{ num }}" selected>{{ field }}</option>
-            {% else %}
-                <option value="{{ num }}">{{ field }}</option>
-            {% endif %}
-        {% endfor %}
-    </select>
-
-    {% if '-' in files_types_enabled %}
-        <input type="checkbox" name="filter_type" value="-" checked>Reverse
-    {% else %}
-        <input type="checkbox" name="filter_type" value="-">Reverse
+    </div>
     {% endif %}
+</div>
+<p>
+
+</p>
+
+<form class="container my-2" action="{% url 'storageapp:files_list' %}" method="get">
+    <div class="mt-2">
+        {% for type in all_files_types %}
+        {% if type in files_types_enabled %}
+        <input type="checkbox" name="filter_type" value="{{ type }}" checked>{{ type.capitalize }}
+        {% else %}
+        <input type="checkbox" name="filter_type" value="{{ type }}">{{ type.capitalize }}
+        {% endif %}
+        {% endfor %}
+    </div>
 
     <div>
-        <button type="submit" class="upper-buttons">Submit filters and sort category</button>
+        <div class="d-flex flex-row my-1">
+            <label class="form-label col-2 px-2 my-2 align-items-center" for="category">Select a category to sort:</label>
+            <select class="form-select" name="category" id="category">
+                {% for num, field in file_fields.items %}
+                {% if num == 4 %}
+                <option value="{{ num }}" selected>{{ field }}</option>
+                {% else %}
+                <option value="{{ num }}">{{ field }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            <div class="form-label my-1 align-items-center col-1">
+                {% if '-' in files_types_enabled %}
+                <input class="form-label px-2 my-2 align-items-center" type="checkbox" name="filter_type" value="-" checked>Reverse
+                {% else %}
+                <input class="form-label px-2 my-2 align-items-center" type="checkbox" name="filter_type" value="-">Reverse
+                {% endif %}
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-secondary col-3" type="submit">Submit filters and sort category</button>
+        </div>
     </div>
+
+
 </form>
 <div>
-    <span>{{ message }}</span>
+    <div class="fs-5 text-center"><u>{{ message }}</u></div>
 </div>
 <div>
     {% for file in files_list %}
-    <div class="file-row">
-        <div class="file-name-container" title="{{ file.file_name }}">
+        <div class="form-control d-flex flex-row my-1">
+        <div class="flex-fill">
             <img src="{{ file.file_type.img.url }}" alt="File Type IMG">
-            <span class="file-name">{{ file.file_name }}</span>
+            <strong>Name:</strong> {{ file.file_name }}<br>
         </div>
-        <div class="button-container">
+        <div class="d-flex align-items-center">
             <form method="post" action="{% url 'storageapp:download_file' file_id=file.id %}">
                 {% csrf_token %}
-                <button type="submit" class="download-button">Download</button>
+                <button class="btn btn-success mx-2" type="submit">Download</button>
             </form>
             <form method="post" action="{% url 'storageapp:delete_file_warning' file_id=file.id %}">
                 {% csrf_token %}
-                <button type="submit" class="delete-button">Delete file</button>
+                <button class="btn btn-danger mx-2" type="submit">Delete</button>
             </form>
         </div>
     </div>
     {% endfor %}
 </div>
-
 {% endblock %}

@@ -48,33 +48,3 @@ Newsapp's tests
    :show-inheritance:
 
 
-Newsapp's admin
-========================================
-.. automodule:: newsapp.admin
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Newsapp's templates
-========================================
-.. automodule:: newsapp.templates.newsapp
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Newsapp's static
-========================================
-.. automodule:: newsapp.static.newsapp
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Newsapp's apps
-========================================
-.. automodule:: newsapp.apps
-   :members:
-   :undoc-members:
-   :show-inheritance:

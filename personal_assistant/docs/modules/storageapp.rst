@@ -11,16 +11,22 @@ Storageapp functionality
 Storageapp's models
 ========================================
 .. automodule:: storageapp.models
+.. autoclass:: FileTypes
    :members:
-   :undoc-members:
+   :show-inheritance:
+.. autoclass:: FileExtensions
+   :members:
+   :show-inheritance:
+.. autoclass:: File
+   :members:
    :show-inheritance:
 
 
 Storageapp's views
 ========================================
-.. automodule:: storageapp.views
+.. automodule:: storageapp.views.file_views
+.. autoclass:: FileViews
    :members:
-   :undoc-members:
    :show-inheritance:
 
 
@@ -29,7 +35,6 @@ Storageapp's forms
 .. automodule:: storageapp.forms
    :members:
    :undoc-members:
-   :show-inheritance:
 
 
 Storageapp's urls
@@ -37,7 +42,6 @@ Storageapp's urls
 .. automodule:: storageapp.urls
    :members:
    :undoc-members:
-   :show-inheritance:
 
 
 Storageapp's tests
@@ -45,44 +49,24 @@ Storageapp's tests
 .. automodule:: storageapp.tests
    :members:
    :undoc-members:
-   :show-inheritance:
-
-
-Storageapp's admin
-========================================
-.. automodule:: storageapp.admin
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Storageapp's templates
-========================================
-.. automodule:: storageapp.templates.storageapp
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Storageapp's static
-========================================
-.. automodule:: storageapp.static.storageapp
-   :members:
-   :undoc-members:
-   :show-inheritance:
 
 
 Storageapp's services
 ========================================
 .. automodule:: storageapp.services.file_services
+.. autoclass:: FileServices
+   :members:
+   :undoc-members:
+.. automodule:: storageapp.services.create_tables
    :members:
    :undoc-members:
    :show-inheritance:
 
 
-Storageapp's apps
+Storageapp's management commands
 ========================================
-.. automodule:: storageapp.apps
+.. automodule:: storageapp.management.commands.create_storageapp_tables
+.. autoclass:: Command
    :members:
    :undoc-members:
-   :show-inheritance:
+
