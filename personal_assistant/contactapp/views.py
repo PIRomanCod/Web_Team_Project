@@ -10,6 +10,7 @@ from .models import Contact
 from .forms import ContactForm
 
 
+@login_required
 def contact_list(request):
     contacts = Contact.objects.filter(user=request.user).order_by('name')
     paginator = Paginator(contacts, 10)
@@ -86,11 +87,12 @@ def upcoming_birthdays(request):
 
         contacts = Contact.objects.filter(user=request.user)
         for contact in contacts:
-            birthday_date = date(year=date.today().year, month=contact.birth_date.month, day=contact.birth_date.day)
-            birthday_date_next_year = date(year=date.today().year + 1, month=contact.birth_date.month,
-                                           day=contact.birth_date.day)
-            if date.today() < birthday_date <= end_date or date.today() < birthday_date_next_year <= end_date:
-                result.append(contact)
+            if contact.birth_date:
+                birthday_date = date(year=date.today().year, month=contact.birth_date.month, day=contact.birth_date.day)
+                birthday_date_next_year = date(year=date.today().year + 1, month=contact.birth_date.month,
+                                               day=contact.birth_date.day)
+                if date.today() < birthday_date <= end_date or date.today() < birthday_date_next_year <= end_date:
+                    result.append(contact)
 
     else:
         result = []

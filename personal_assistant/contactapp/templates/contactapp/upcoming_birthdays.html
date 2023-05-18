@@ -1,22 +1,37 @@
 {% extends "newsapp/base.html" %}
 
 {% block content %}
-  <h1>Upcoming Birthdays</h1>
-  <form method="POST" action="{% url 'contactapp:upcoming_birthdays' %}">
-    {% csrf_token %}
-    <label for="days">Number of days:</label>
-    <input type="number" name="days" id="days">
-    <button type="submit">Search</button>
-  </form>
+<div class="pt-10 text-center fs-4">Upcoming Birthdays</div>
+<div class="container my-2">
+    <form class="form-control" method="POST" action="{% url 'contactapp:upcoming_birthdays' %}">
+        {% csrf_token %}
+        <div class="d-flex my-1">
+            <label class="nav-link fs-6 mt-1 mx-2" for="days">Number of days:</label>
+            <input type="number" name="days" id="days" min="1" max="365">
+            <button class="btn btn-success mx-2" type="submit">Search</button>
+        </div>
+    </form>
+{% if contacts %}
+    {% for contact in contacts %}
+    <div class="form-control d-flex flex-row my-1">
+        <div class="flex-fill">
+            <strong>Name:</strong> {{ contact.name }}<br>
+            <strong>Address:</strong> {{ contact.address }}<br>
+            <strong>Phone Number:</strong> {{ contact.phone_number }}<br>
+            <strong>Email:</strong> {{ contact.email }}<br>
+            <strong>Birth Date:</strong> {{ contact.birth_date }}<br>
+        </div>
+        <div class="d-flex align-items-center">
+            <a class="btn btn-warning mx-2" href="{% url 'contactapp:edit_contact' contact.id %}">Edit Contact</a>
+            <a class="btn btn-danger mx-2" href="{% url 'contactapp:delete_contact' contact.id %}">Delete</a>
+        </div>
+    </div>
+    {% endfor %}
+{% else %}
+<div class="pt-10 text-center fs-4"><u>No contacts found.</u></div>
+{% endif %}
+</div>
 
-  <h2>Contacts with Upcoming Birthdays:</h2>
-  {% if contacts %}
-    <ul>
-      {% for contact in contacts %}
-        <li>{{ contact.name }} - {{ contact.birth_date }}</li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No contacts with upcoming birthdays.</p>
-  {% endif %}
+
+
 {% endblock %}

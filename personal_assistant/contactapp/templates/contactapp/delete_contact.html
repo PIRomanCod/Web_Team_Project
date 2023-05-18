@@ -1,11 +1,14 @@
 {% extends "newsapp/base.html" %}
 
 {% block content %}
-    <h2>Delete Contact</h2>
-    <p>Are you sure you want to delete the contact "{{ contact.name }}"?</p>
-    <form method="POST" action="{% url 'contactapp:delete_contact' contact.id %}">
+    <h4 class="pt-10 text-center fs-4">Delete Contact</h4>
+    <form class="form-control border" method="POST" action="{% url 'contactapp:delete_contact' contact.id %}">
         {% csrf_token %}
-        <button type="submit">Delete</button>
+        <div class="d-flex flex-column align-items-center">
+            <div class="my-2">Are you sure you want to delete the contact "{{ contact.name }}"?</div>
+            <button class="btn btn-danger mx-2 col-2" type="submit">Delete</button>
+        </div>
+
     </form>
 {% endblock %}
 

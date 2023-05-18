@@ -1,10 +1,35 @@
 {% extends "newsapp/base.html" %}
 
 {% block content %}
-    <h2>Create Contact</h2>
-    <form method="POST" action="{% url 'contactapp:create_contact' %}">
+<h4 class="text-center">Create Contact</h4>
+<div class="container-fluid me-2 pe-3">
+    <form class="container me-2" method="POST" action="{% url 'contactapp:create_contact' %}">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Create</button>
+        <div style="container me-2">
+            <label class="form-label">Contact Name:</label>
+            <div class="row col-4">{{form.name}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Contact address:</label>
+            <div class="row col-4">{{form.address}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Contact phone_number:</label>
+            <div class="row col-4">{{form.phone_number}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Contact email:</label>
+            <div class="row col-4">{{form.email}}</div>
+        </div>
+        <div style="container me-2">
+            <label class="form-label">Contact birth_date:</label>
+            <div class="row col-4">{{form.birth_date}}</div>
+        </div>
+        <div class="grid mt-2">
+            <button class="btn btn-success mx-3" type="submit">Submit</button>
+            <button class="btn btn-danger" type="reset">Reset</button>
+        </div
     </form>
+</div>
+
 {% endblock %}

@@ -1,41 +1,72 @@
 {% extends "newsapp/base.html" %}
 
 {% block content %}
-    <h2>Contacts</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Birth Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for contact in contacts %}
-                <tr>
-                    <td>{{ contact.name }}</td>
-                    <td>{{ contact.address }}</td>
-                    <td>{{ contact.phone_number }}</td>
-                    <td>{{ contact.email }}</td>
-                    <td>{{ contact.birth_date }}</td>
-                    <td>
-                        <a href="{% url 'contactapp:edit_contact' contact.id %}">Edit</a>
-                        <a href="{% url 'contactapp:delete_contact' contact.id %}">Delete</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <div class="pagination">
+<main class="container d-flex flex-column min-vh-100">
+    {% if contacts %}
+        {% for contact in contacts %}
+        <div class="container my-1">
+            <!--Блок виводу нотаток-->
+            <div class="form-control d-flex flex-row">
+                <div class="flex-fill">
+                    <strong>Name:</strong> {{ contact.name }}<br>
+                    <strong>Address:</strong> {{ contact.address }}<br>
+                    <strong>Phone Number:</strong> {{ contact.phone_number }}<br>
+                    <strong>Email:</strong> {{ contact.email }}<br>
+                    <strong>Birth Date:</strong> {{ contact.birth_date }}<br>
+                </div>
+                <div class="d-flex align-items-center">
+                    <a class="btn btn-warning mx-2" href="{% url 'contactapp:edit_contact' contact.id %}">Edit Contact</a>
+                    <a class="btn btn-danger mx-2" href="{% url 'contactapp:delete_contact' contact.id %}">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+    <div class="pt-10 text-center fs-4"><u>No contacts found.</u></div>
+    {% endif %}
+</main>
+
+<nav class="nav justify-content-center mt-2" >
+    <ul class="pagination">
         {% if contacts.has_previous %}
-            <a href="?page={{ contacts.previous_page_number }}">Previous</a>
+        <li class="page-item">
+            <a class="page-link text-dark-emphasis border border-dark-subtle rounded-left-3" href="?page=1">First</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link text-dark-emphasis border border-dark-subtle rounded-left-3" href="?page={{ contacts.previous_page_number }}">
+                Previous
+            </a>
+        </li>
         {% endif %}
-        <span class="current-page">{{ contacts.number }}</span>
+
+        {% for num in contacts.paginator.page_range %}
+            {% if contacts.number == num %}
+                <li class="page-item active" aria-current="page">
+                <span class="page-link text-dark-emphasis bg-secondary-subtle border border-dark-subtle rounded-left-3">
+                    {{ num }}
+                </span>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link text-dark-emphasis border border-dark-subtle rounded-left-3" href="?page={{ num }}">
+                        {{ num }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
         {% if contacts.has_next %}
-            <a href="?page={{ contacts.next_page_number }}">Next</a>
+            <li class="page-item">
+                <a class="page-link text-dark-emphasis border border-dark-subtle rounded-left-3" href="?page={{ contacts.next_page_number }}">
+                    Next
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link text-dark-emphasis border border-dark-subtle rounded-left-3" href="?page={{ contacts.paginator.num_pages }}">
+                    Last
+                </a>
+            </li>
         {% endif %}
-    </div>
+    </ul>
+</nav>
 {% endblock %}

@@ -33,14 +33,14 @@
     </nav>
 
     {% for note in page_obj %}
-    <div class="container">
+    <div class="container mb-1">
         <!--Блок виводу нотаток-->
         <div class="form-control d-flex flex-row">
             {%if not note.done%}
             <div class="flex-fill">
-                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">Article: {{note.name}},</a>
-                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">Note: {{note.description}}</a>
-                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">Tags: {{ note.tags|tags }}</a>
+                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}"><strong>Article: </strong>{{note.name}},</a>
+                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}"><strong>Note: </strong>{{note.description}}</a>
+                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}"><strong>Tags: </strong>Tags: {{ note.tags|tags }}</a>
             </div>
             <div class="d-flex align-items-center">
                 <a class="btn btn-success mx-2" href="{% url 'noteapp:set_done' note.id %}" role="button">Mark Done</a>
@@ -58,10 +58,8 @@
         </div>
     </div>
     {% endfor %}
-    </div>
-
-
 </main>
+
 <!--Блок навігації по пагінації-->
 <nav class="nav justify-content-center mt-2" >
     <ul class="pagination">
@@ -106,5 +104,4 @@
         {% endif %}
     </ul>
 </nav>
-
 {% endblock %}

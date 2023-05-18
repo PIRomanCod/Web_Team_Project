@@ -2,7 +2,7 @@
 
 {% block content %}
 <div>
-  <h3>Update Note</h3>
+  <h4 class="text-center">Update Note</h4>
   <form  class="form-control" rows="3" method="post">
     {% csrf_token %}
     {{ form.as_p }}
