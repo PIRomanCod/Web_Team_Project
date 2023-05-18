@@ -11,15 +11,13 @@ Users functionality
 Users' models
 ========================================
 .. automodule:: users.models
-   :members:
+.. autoclass:: Profile
    :undoc-members:
-   :show-inheritance:
 
 
 Users' views
 ========================================
 .. automodule:: users.views
-   :members:
    :undoc-members:
    :show-inheritance:
 
@@ -27,7 +25,12 @@ Users' views
 Users' forms
 ========================================
 .. automodule:: users.forms
-   :members:
+.. autoclass:: RegisterForm
+   :undoc-members:
+.. autoclass:: LoginForm
+   :undoc-members:
+   :show-inheritance:
+.. autoclass:: ProfileForm
    :undoc-members:
    :show-inheritance:
 
@@ -43,30 +46,6 @@ Users' urls
 Users' tests
 ========================================
 .. automodule:: users.tests
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Users' admin
-========================================
-.. automodule:: users.admin
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Users' templates
-========================================
-.. automodule:: users.templates.users
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Users' apps
-========================================
-.. automodule:: users.apps
    :members:
    :undoc-members:
    :show-inheritance:

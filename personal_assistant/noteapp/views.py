@@ -1,3 +1,10 @@
+"""
+    The module view is content the functions that will be called when the user types the url.
+    The view function will return a response to the user.
+    The response can be a html page.
+    The view function can also call other functions to process the request.
+"""
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
@@ -24,7 +31,6 @@ def main(request):
     page_obj = paginator.get_page(request.GET.get('page'))
     tags = Tag.objects.all()
     return render(request, 'noteapp/index.html', {'page_obj': page_obj, 'tags': tags})
-
 
 
 @login_required
