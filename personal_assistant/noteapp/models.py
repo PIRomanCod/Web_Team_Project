@@ -36,7 +36,6 @@ class Tag(models.Model):
 
         :param self: Refer to the current instance of the class, and is used to access variables that belongs to the class
         :return: The name of the tag
-        :doc-author: Trelent
         """
         return self.name
 
@@ -59,6 +58,5 @@ class Note(models.Model):
 
         :param self: Represent the instance of the class
         :return: The article/name of the note
-        :doc-author: Trelent
         """
         return self.name

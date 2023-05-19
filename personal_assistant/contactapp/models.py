@@ -26,6 +26,5 @@ class Contact(models.Model):
 
         :param self: Represent the instance of the class
         :return: The name of the object
-        :doc-author: Trelent
         """
         return self.name

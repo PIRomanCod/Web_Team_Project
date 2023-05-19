@@ -30,7 +30,6 @@ class Profile(models.Model):
 
         :param self: Represent the instance of the class
         :return: The username of the user
-        :doc-author: Trelent
         """
         return self.user.username
 
@@ -45,7 +44,6 @@ class Profile(models.Model):
         :param args: Send a non-keyworded variable length argument list to the function.
         :param kwargs: Pass keyworded, variable-length argument list to a function.
         :return: The object that is being saved
-        :doc-author: Trelent
         """
         super().save()
 
