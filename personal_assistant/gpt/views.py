@@ -15,7 +15,7 @@ def tasks(request):
     :param request: Pass the request object to the view
     :return: The render template 'gpt/html.tasks'
     """
-    return render(request, 'gpt/tasks.html')
+    return render(request, 'gpt/tasks.html', context={'title': 'English AI'})
 
 
 @csrf_exempt
@@ -50,7 +50,7 @@ def chat(request, messages=[]):
                                          f'{response_role.upper()}: {response_content.strip()}'})
     if request.method == 'GET':
         messages = []
-        return render(request, 'gpt/chat_ai.html')
+        return render(request, 'gpt/chat_ai.html', context={'title': 'Chat bot'})
 
 
 @csrf_exempt
@@ -73,4 +73,4 @@ def text_correction(request):
         return JsonResponse({'response': f'Original: {message}\n'
                                          f'Correct: {chatbot_response.strip()}'})
 
-    return render(request, 'gpt/text_correction.html')
+    return render(request, 'gpt/text_correction.html', context={'title': 'Correct sentence'})

@@ -38,7 +38,8 @@ class FileViews:
         """
 
         file = File.objects.get(id=file_id)
-        return render(request, 'storageapp/deleting_warning.html', context={'file': file})
+        return render(request, 'storageapp/deleting_warning.html', context={'file': file,
+                                                                            'title': 'Deleting'})
 
     @login_required
     def delete_file(request, file_id):
@@ -89,7 +90,7 @@ class FileViews:
                                 dropbox_file_name=dropbox_file_name)
 
             return FileViews.services.render_files_list(request)
-        return render(request, 'storageapp/upload_file.html')
+        return render(request, 'storageapp/upload_file.html', context={'title': 'Upload'})
 
     @login_required
     def download_file(request, file_id):
