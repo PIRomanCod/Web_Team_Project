@@ -16,7 +16,6 @@ def main(request):
 
     :param request: Pass the http request that triggered the view
     :return: The value of the render function
-    :doc-author: Trelent
     """
     return render(request, 'newsapp/index.html',
                   context={'title': 'News',

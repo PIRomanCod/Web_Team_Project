@@ -11,7 +11,6 @@ def tags(value):
 
     :param value: Pass the note
     :return: A string of all the tags for a note
-    :doc-author: Trelent
     """
     return ', '.join([str(name) for name in value.all()])
 

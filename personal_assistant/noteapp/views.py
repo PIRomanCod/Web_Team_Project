@@ -20,7 +20,6 @@ def main(request):
 
     :param request: Get the request object
     :return: The rendered index
-    :doc-author: Trelent
     """
     tag = request.GET.get('tag')
     if tag:
@@ -42,7 +41,6 @@ def tag(request):
 
     :param request: Get the request object
     :return: The tag
-    :doc-author: Trelent
     """
     if request.method == 'POST':
         form = TagForm(request.POST)
@@ -67,7 +65,6 @@ def note(request):
 
     :param request: Get the user from the request
     :return: The form for creating a new note
-    :doc-author: Trelent
     """
     tags = Tag.objects.filter(user=request.user).all()
 
@@ -98,7 +95,6 @@ def detail(request, note_id):
     :param request: Get the current user
     :param note_id: Find the specific note that is being requested
     :return: A view with the note that was requested
-    :doc-author: Trelent
     """
     note = get_object_or_404(Note, pk=note_id, user=request.user)
     return render(request, 'noteapp/detail.html', context={"note": note})
@@ -115,7 +111,6 @@ def set_done(request, note_id):
     :param request: Get the user from the request object
     :param note_id: Find the note in the database
     :return: The redirect function, which returns an http response redirect object
-    :doc-author: Trelent
     """
     Note.objects.filter(pk=note_id, user=request.user).update(done=True)
     return redirect(to="noteapp:main")
@@ -131,7 +126,6 @@ def set_active(request, note_id):
     :param request: Get the user that is currently logged in
     :param note_id: Find the note that is being updated
     :return: The redirect function, which
-    :doc-author: Trelent
     """
     Note.objects.filter(pk=note_id, user=request.user).update(done=False)
     return redirect(to="noteapp:main")
@@ -146,7 +140,6 @@ def delete_note(request, note_id):
     :param request: Get the user who is logged in
     :param note_id: Find the note to delete
     :return: A redirect to the main page
-    :doc-author: Trelent
     """
     Note.objects.get(pk=note_id, user=request.user).delete()
     return redirect(to="noteapp:main")
@@ -163,7 +156,6 @@ def search(request):
 
     :param request: Get the current request object, which contains all of the information about the current http request
     :return: A list of notes that match the search term
-    :doc-author: Trelent
     """
     form = NoteSearchForm(request.GET)
     keyword = request.GET.get('keyword', None)
@@ -185,7 +177,6 @@ def update_note(request, note_id):
     :param request: Get the request from the user
     :param note_id: Get the note that we want to update
     :return: A redirect to the detail view
-    :doc-author: Trelent
     """
     note = get_object_or_404(Note, pk=note_id, user=request.user)
     tags = note.tags.all()

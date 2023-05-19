@@ -7,28 +7,38 @@
 
     <title>Contactapp functionality &#8212; Web Personal Assistant 1 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/alabaster.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css" />
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Noteapp functionality" href="noteapp.html" />
-    <link rel="prev" title="Newsapp functionality" href="newsapp.html" />
-   
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
-
+    <link rel="prev" title="Newsapp functionality" href="newsapp.html" /> 
   </head><body>
-  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="noteapp.html" title="Noteapp functionality"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="newsapp.html" title="Newsapp functionality"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Web Personal Assistant 1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Contactapp functionality</a></li> 
+      </ul>
+    </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          
-
           <div class="body" role="main">
             
   <section id="contactapp-functionality">
@@ -144,9 +154,6 @@ to the contact_list.html template for rendering.</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The contact_list</p>
 </dd>
-<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Trelent</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -163,9 +170,6 @@ If it’s POST, then we take data from our bound form (form) and save it to our 
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A response</p>
-</dd>
-<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Trelent</p>
 </dd>
 </dl>
 </dd></dl>
@@ -190,9 +194,6 @@ otherwise, it renders ‘contactapp/delete_contact.html</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The delete_contact</p>
 </dd>
-<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Trelent</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -216,9 +217,6 @@ If request method is GET, we instantiate ContactForm without any data passed in 
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A form to edit the contact</p>
 </dd>
-<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Trelent</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -239,9 +237,6 @@ Finally we render ‘search_contacts’ template using this context.</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A rendered template</p>
 </dd>
-<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Trelent</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -259,9 +254,6 @@ to be an empty list. Then, it iterates through all of its user’s contacts in o
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of contacts that have birthdays in the next x days</p>
-</dd>
-<dt class="field-odd">Doc-author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Trelent</p>
 </dd>
 </dl>
 </dd></dl>
@@ -337,49 +329,81 @@ python manage.py test contactapp</p>
 </section>
 
 
+            <div class="clearer"></div>
           </div>
-          
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="../index.html">Web Personal Assistant</a></h1>
-
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="all-about-me.html">All about us</a></li>
-<li class="toctree-l1"><a class="reference internal" href="settings.html">Welcome to Web Personal Assistant’s general settings</a></li>
-<li class="toctree-l1"><a class="reference internal" href="newsapp.html">Newsapp functionality</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Contactapp functionality</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#module-contactapp.models">Contactapp’s models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-contactapp.views">Contactapp’s views</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-contactapp.forms">Contactapp’s forms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-contactapp.urls">Contactapp’s urls</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#module-contactapp.tests">Contactapp’s tests</a></li>
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Contactapp functionality</a><ul>
+<li><a class="reference internal" href="#module-contactapp.models">Contactapp’s models</a><ul>
+<li><a class="reference internal" href="#contactapp.models.Contact"><code class="docutils literal notranslate"><span class="pre">Contact</span></code></a><ul>
+<li><a class="reference internal" href="#contactapp.models.Contact.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">Contact.DoesNotExist</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.models.Contact.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">Contact.MultipleObjectsReturned</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.models.Contact.address"><code class="docutils literal notranslate"><span class="pre">Contact.address</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.models.Contact.birth_date"><code class="docutils literal notranslate"><span class="pre">Contact.birth_date</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.models.Contact.email"><code class="docutils literal notranslate"><span class="pre">Contact.email</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.models.Contact.id"><code class="docutils literal notranslate"><span class="pre">Contact.id</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.models.Contact.name"><code class="docutils literal notranslate"><span class="pre">Contact.name</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.models.Contact.objects"><code class="docutils literal notranslate"><span class="pre">Contact.objects</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.models.Contact.phone_number"><code class="docutils literal notranslate"><span class="pre">Contact.phone_number</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.models.Contact.phone_regex"><code class="docutils literal notranslate"><span class="pre">Contact.phone_regex</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.models.Contact.user"><code class="docutils literal notranslate"><span class="pre">Contact.user</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.models.Contact.user_id"><code class="docutils literal notranslate"><span class="pre">Contact.user_id</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="noteapp.html">Noteapp functionality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="storageapp.html">Storageapp functionality</a></li>
-<li class="toctree-l1"><a class="reference internal" href="users.html">Users functionality</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-contactapp.views">Contactapp’s views</a><ul>
+<li><a class="reference internal" href="#contactapp.views.contact_list"><code class="docutils literal notranslate"><span class="pre">contact_list()</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.views.create_contact"><code class="docutils literal notranslate"><span class="pre">create_contact()</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.views.delete_contact"><code class="docutils literal notranslate"><span class="pre">delete_contact()</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.views.edit_contact"><code class="docutils literal notranslate"><span class="pre">edit_contact()</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.views.search_contacts"><code class="docutils literal notranslate"><span class="pre">search_contacts()</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.views.upcoming_birthdays"><code class="docutils literal notranslate"><span class="pre">upcoming_birthdays()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-contactapp.forms">Contactapp’s forms</a><ul>
+<li><a class="reference internal" href="#contactapp.forms.ContactForm"><code class="docutils literal notranslate"><span class="pre">ContactForm</span></code></a><ul>
+<li><a class="reference internal" href="#contactapp.forms.ContactForm.Meta"><code class="docutils literal notranslate"><span class="pre">ContactForm.Meta</span></code></a><ul>
+<li><a class="reference internal" href="#contactapp.forms.ContactForm.Meta.fields"><code class="docutils literal notranslate"><span class="pre">ContactForm.Meta.fields</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.forms.ContactForm.Meta.model"><code class="docutils literal notranslate"><span class="pre">ContactForm.Meta.model</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#contactapp.forms.ContactForm.base_fields"><code class="docutils literal notranslate"><span class="pre">ContactForm.base_fields</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.forms.ContactForm.declared_fields"><code class="docutils literal notranslate"><span class="pre">ContactForm.declared_fields</span></code></a></li>
+<li><a class="reference internal" href="#contactapp.forms.ContactForm.media"><code class="docutils literal notranslate"><span class="pre">ContactForm.media</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-contactapp.urls">Contactapp’s urls</a></li>
+<li><a class="reference internal" href="#module-contactapp.tests">Contactapp’s tests</a></li>
+</ul>
+</li>
 </ul>
 
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="../index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="newsapp.html" title="previous chapter">Newsapp functionality</a></li>
-      <li>Next: <a href="noteapp.html" title="next chapter">Noteapp functionality</a></li>
-  </ul></li>
-</ul>
-</div>
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="newsapp.html"
+                          title="previous chapter">Newsapp functionality</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="noteapp.html"
+                          title="next chapter">Noteapp functionality</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/contactapp.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
 <div id="searchbox" style="display: none" role="search">
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
@@ -390,32 +414,32 @@ python manage.py test contactapp</p>
     </div>
 </div>
 <script>document.getElementById('searchbox').style.display = "block"</script>
-
-
-
-
-
-
-
-
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2023, Team 1 Pyton Web 9.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 7.0.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.13</a>
-      
-      |
-      <a href="../_sources/modules/contactapp.rst.txt"
-          rel="nofollow">Page source</a>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="noteapp.html" title="Noteapp functionality"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="newsapp.html" title="Newsapp functionality"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Web Personal Assistant 1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Contactapp functionality</a></li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Team 1 Pyton Web 9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
   </body>
 </html>

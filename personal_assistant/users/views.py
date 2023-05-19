@@ -26,7 +26,6 @@ def signupuser(request):
 
     :param request: Get the request from the client
     :return: A redirect to the root page if the user is authenticated
-    :doc-author: Trelent
     """
     if request.user.is_authenticated:
         return redirect(to='root') # redirect to main page if user is authenticated
@@ -51,7 +50,6 @@ def loginuser(request):
 
     :param request: Get the request object from the view
     :return: A redirect to the root page if the user is authenticated
-    :doc-author: Trelent
     """
     if request.user.is_authenticated:
         return redirect('root') # redirect to main page if user is authenticated
@@ -75,7 +73,6 @@ def logoutuser(request):
 
     :param request: Get the current user
     :return: A redirect to the root url
-    :doc-author: Trelent
     """
     logout(request)
     return redirect(to='root') # redirect to main page if user is authenticated
@@ -90,7 +87,6 @@ def profile(request):
 
     :param request: Get the request object from the user
     :return: A rendered html page with the profile form
-    :doc-author: Trelent
     """
     if request.method == 'POST':
         profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)

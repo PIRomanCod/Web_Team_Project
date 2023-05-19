@@ -68,7 +68,7 @@
 - read fresh news
 - prepare yourself for any weather's joke
 - cry about exchange rates
-- check your salary offers and cry again
+- ????check your salary offers and cry again????
 - ??????? ask GPT chat for help ????
 - login or register for more features
 - only logined users can:

@@ -24,7 +24,7 @@ Storageapp's models
 
 Storageapp's views
 ========================================
-.. automodule:: storageapp.views.file_views
+.. automodule:: storageapp.views.files_views
 .. autoclass:: FileViews
    :members:
    :show-inheritance:

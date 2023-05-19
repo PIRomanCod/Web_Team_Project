@@ -22,7 +22,6 @@ def contact_list(request):
 
     :param request: Get the current user
     :return: The contact_list
-    :doc-author: Trelent
     """
     contacts = Contact.objects.filter(user=request.user).order_by('name')
     paginator = Paginator(contacts, 10)
@@ -41,7 +40,6 @@ def create_contact(request):
 
     :param request: Get the request from the browser
     :return: A response
-    :doc-author: Trelent
     """
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -69,7 +67,6 @@ def edit_contact(request, pk):
     :param request: Pass the request object to the view
     :param pk: Get the contact object from the database
     :return: A form to edit the contact
-    :doc-author: Trelent
     """
     contact = get_object_or_404(Contact, id=pk, user=request.user)
     if request.method == 'POST':
@@ -96,7 +93,6 @@ def delete_contact(request, pk):
     :param request: Get the request object
     :param pk: Identify the contact to be deleted
     :return: The delete_contact
-    :doc-author: Trelent
     """
     contact = get_object_or_404(Contact, id=pk, user=request.user)
     if request.method == 'POST':
@@ -118,7 +114,6 @@ def search_contacts(request):
 
     :param request: Get the search query from the url
     :return: A rendered template
-    :doc-author: Trelent
     """
     search_query = request.GET.get('search_query', '')
     user_contacts = Contact.objects.filter(user=request.user)
@@ -149,7 +144,6 @@ def upcoming_birthdays(request):
 
     :param request: Get the request object
     :return: A list of contacts that have birthdays in the next x days
-    :doc-author: Trelent
     """
     if request.method == 'POST':
         days = request.POST.get('days', 0)

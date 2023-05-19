@@ -20,7 +20,6 @@ def create_profile(sender, instance, created, **kwargs):
     :param created: Check if the user is created or not
     :param kwargs: Pass keyworded, variable-length argument list
     :return: A profile object
-    :doc-author: Trelent
     """
     if created:
         Profile.objects.create(user=instance)
@@ -38,6 +37,5 @@ def save_profile(sender, instance, **kwargs):
     :param instance: Pass the user instance to the save_profile function
     :param kwargs: Pass a variable number of keyword arguments to a function
     :return: Nothing
-    :doc-author: Trelent
     """
     instance.profile.save()
