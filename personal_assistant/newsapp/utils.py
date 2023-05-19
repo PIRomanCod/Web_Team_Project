@@ -26,7 +26,6 @@ def unian_news():
     the top 10 news articles on unian.ua
 
     :return: A list of dictionaries
-    :doc-author: Trelent
     """
     url = 'https://www.unian.ua/detail/all_news'
     response = requests.get(url)
@@ -45,7 +44,6 @@ def exchange_rate():
     then it parses this response and returns only two values: USD and EUR.
 
     :return: A list of dictionaries
-    :doc-author: Trelent
     """
     response = requests.get('https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11')
     exch_rate = response.json()
@@ -61,7 +59,6 @@ def weather_current():
     temp - temperature in Celsius degrees.
 
     :return: The current weather in the city
-    :doc-author: Trelent
     """
     city_index = f'{city},ua'
     response = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={city_index}&appid={key_api}')
