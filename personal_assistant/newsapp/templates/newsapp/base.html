@@ -82,7 +82,10 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'storageapp:files_list' %}">My Files</a>
                     </li>
-                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'gpt:tasks' %}">English AI</a>
+                    </li>
+                    {% else %}  
                     <li class="nav-item">
                         <span class="nav-link active">Login for use all features</span>
                     </li>

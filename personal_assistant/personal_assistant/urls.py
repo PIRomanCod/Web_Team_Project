@@ -29,4 +29,5 @@ urlpatterns = [
                   path('users/', include('users.urls')),
                   path('storageapp/', include('storageapp.urls')),
                   path('contacts/', include('contactapp.urls')),
+                  path('gpt/', include('gpt.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

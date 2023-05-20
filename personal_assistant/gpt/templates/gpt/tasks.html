@@ -1,0 +1,8 @@
+{% extends 'newsapp/base.html' %}
+
+{% block content %}
+<div class="col-6">
+    <a href="{% url 'gpt:text_correction' %}" class="btn btn-secondary form-control mt-1"> Correct your sentences to standard English</a>
+    <a href="{% url 'gpt:chat' %}" class="btn btn-secondary form-control mt-1">Chat with AI English teacher</a>
+</div>
+{% endblock %}

@@ -9,6 +9,7 @@
    modules/noteapp.rst
    modules/storageapp.rst
    modules/users.rst
+   modules/gpt.rst
 
 
 

@@ -1,0 +1,32 @@
+`{% extends 'newsapp/base.html' %}
+
+{% block content %}
+<div class="container-fluid" id="chatbot-response"></div>
+<div class="row">
+    <div class="col-12">
+        <input type="text" id="input-field" class="form-control" placeholder="Enter your message...">
+    </div>
+    <div class="col-12">
+        <button type="button" id="send-button" class="btn btn-primary btn-block form-control">Send</button>
+    </div>
+</div>
+<script>
+
+document.getElementById("send-button").addEventListener("click", function(){
+   var message = document.getElementById("input-field").value;
+   document.getElementById("input-field").value = "";
+   var xhr = new XMLHttpRequest();
+   xhr.open("POST", "/gpt/chat/");
+   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+   xhr.onreadystatechange = function() {
+       if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+           var response = JSON.parse(xhr.responseText).response;
+           response = response.replace(/\n/g, "<br>"); // Replace \n with <br>
+           document.getElementById("chatbot-response").innerHTML += "<p>" + response + "</p>";
+       }
+   }
+   xhr.send("message=" + encodeURIComponent(message));
+});
+</script>
+
+{% endblock %}`

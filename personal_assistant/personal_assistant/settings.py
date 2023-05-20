@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 
 import environ
+import openai
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,6 +64,7 @@ INSTALLED_APPS = [
     'newsapp',
     'storageapp',
     'storages',
+    'gpt',
 ]
 
 MIDDLEWARE = [
@@ -148,7 +150,7 @@ DROPBOX_OAUTH2_REFRESH_TOKEN=env('DROPBOX_OAUTH2_REFRESH_TOKEN')
 
 DROPBOX_ROOT_PATH = "/"
 DROPBOX_STORAGE = 'storages.backends.dropbox.DropBoxStorage'
-
+openai.api_key = env('GPT_API_KEY')
 
 STATIC_URL = "static/"
 

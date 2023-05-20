@@ -124,7 +124,8 @@ class FileServices:
                                                                           'files_types_enabled': files_types_enabled,
                                                                           'file_fields': fields,
                                                                           'all_files_types': all_files_types,
-                                                                          'message': message})
+                                                                          'message': message,
+                                                                          'title': 'My files'})
 
         files_list = (File.objects.filter(owner=request.user.id)
                       .filter(file_type__in=files_types_obj)
@@ -134,4 +135,5 @@ class FileServices:
                                                                       'files_types_enabled': files_types_enabled,
                                                                       'file_fields': fields,
                                                                       'all_files_types': all_files_types,
-                                                                      'message': message})
+                                                                      'message': message,
+                                                                      'title': 'My files'})
