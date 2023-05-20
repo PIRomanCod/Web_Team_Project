@@ -19,7 +19,9 @@
                             <select class="form-select mx-3"  name="tag" id="tag">
                                 <option value="">All</option>
                                     {% for tag in tags %}
+                                        {% if tag.user == user %}
                                     <option value="{{ tag.name }}" {% if tag.name == tag %} selected {% endif %}>{{ tag.name }}
+                                        {% endif %}
                                 </option>
                                 {% endfor %}
                             </select>
@@ -31,6 +33,24 @@
         </div>
         {% endif %}
     </nav>
+
+    <!--Блок топ-5 тегів-->
+    <div class="container mb-1"
+        <h3>Top 5 yours tags</h3>
+        <div class="form-control d-flex flex-row">
+            {% for tag in tags|toptags %}
+               <div class="flex-fill">
+                  <div class="card my-2 mx-2">
+                      <div class="card-body">
+                         <h5 class="card-title">{{ tag.name }}</h5>
+                         <p class="card-text">{{ tag.note_set.count }} notes</p>
+                      </div>
+                  </div>
+               </div>
+            {% endfor %}
+        </div>
+    </div>
+
 
     {% for note in page_obj %}
     <div class="container mb-1">
@@ -104,4 +124,5 @@
         {% endif %}
     </ul>
 </nav>
+
 {% endblock %}
