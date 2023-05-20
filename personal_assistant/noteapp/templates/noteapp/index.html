@@ -35,16 +35,16 @@
     </nav>
 
     <!--Блок топ-5 тегів-->
-    <div class="container mb-1"
-        <h3>Top 5 yours tags</h3>
+    <div class="container mb-1">
+        <h5 class="center">Top 5 yours tags:</h5>
         <div class="form-control d-flex flex-row">
             {% for tag in tags|toptags %}
             {% if tag.user == user %}
                <div class="flex-fill">
-                  <div class="card my-2 mx-2">
-                      <div class="card-body">
-                         <h5 class="card-title">{{ tag.name }}</h5>
-                         <p class="card-text">{{ tag.note_set.count }} notes</p>
+                  <div class="card me-1">
+                      <div class="container-control">
+                         <div class="item-title fs-6 mx-2">{{ tag.name }}</div>
+                         <div class="item-text mx-2">{{ tag.note_set.count }} notes</div>
                       </div>
                   </div>
                </div>
@@ -53,9 +53,10 @@
         </div>
     </div>
 
-
-    {% for note in page_obj %}
     <div class="container mb-1">
+    <h6 class="center">Notes:</h6>
+    {% for note in page_obj %}
+
         <!--Блок виводу нотаток-->
         <div class="form-control d-flex flex-row">
             {%if not note.done%}
@@ -78,8 +79,9 @@
             </div>
             {% endif %}
         </div>
-    </div>
+
     {% endfor %}
+        </div>
 </main>
 
 <!--Блок навігації по пагінації-->
