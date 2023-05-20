@@ -27,7 +27,7 @@ def contact_list(request):
     paginator = Paginator(contacts, 10)
     page_number = request.GET.get('page')
     page_contacts = paginator.get_page(page_number)
-    return render(request, 'contactapp/contact_list.html', {'contacts': page_contacts})
+    return render(request, 'contactapp/contact_list.html', {'contacts': page_contacts, 'title': 'Contact list'})
 
 
 @login_required
@@ -50,7 +50,7 @@ def create_contact(request):
             return redirect('contactapp:contact_list')
     else:
         form = ContactForm()
-    return render(request, 'contactapp/create_contact.html', context={'form': form})
+    return render(request, 'contactapp/create_contact.html', context={'form': form, 'title': 'Create contact'})
 
 
 @login_required
@@ -76,7 +76,7 @@ def edit_contact(request, pk):
             return redirect('contactapp:contact_list')
     else:
         form = ContactForm(instance=contact)
-    return render(request, 'contactapp/edit_contact.html', {'form': form, 'contact': contact})
+    return render(request, 'contactapp/edit_contact.html', {'form': form, 'contact': contact, 'title': 'Edit contact'})
 
 
 @login_required
@@ -98,7 +98,7 @@ def delete_contact(request, pk):
     if request.method == 'POST':
         contact.delete()
         return redirect('contactapp:contact_list')
-    return render(request, 'contactapp/delete_contact.html', {'contact': contact})
+    return render(request, 'contactapp/delete_contact.html', {'contact': contact, 'title': 'Delete contact'})
 
 
 @login_required
@@ -127,7 +127,8 @@ def search_contacts(request):
 
     context = {
         'search_query': search_query,
-        'search_results': search_results
+        'search_results': search_results,
+        'title': 'Search contacts'
     }
 
     return render(request, 'contactapp/search_contacts.html', context)
@@ -165,4 +166,4 @@ def upcoming_birthdays(request):
     else:
         result = []
 
-    return render(request, 'contactapp/upcoming_birthdays.html', {'contacts': result})
+    return render(request, 'contactapp/upcoming_birthdays.html', {'contacts': result, 'title': 'Upcoming Birthdays'})

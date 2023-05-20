@@ -1,4 +1,7 @@
 from django import template
+from django.db.models import Count
+
+from ..models import Tag
 
 register = template.Library()
 
@@ -15,4 +18,10 @@ def tags(value):
     return ', '.join([str(name) for name in value.all()])
 
 
+def toptags(request):
+    return Tag.objects.annotate(num_notes=Count('note')).order_by('-num_notes')[:5]
+
+
+
 register.filter('tags', tags)
+register.filter('toptags', toptags)

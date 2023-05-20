@@ -29,7 +29,7 @@ def main(request):
     paginator = Paginator(notes, 10)
     page_obj = paginator.get_page(request.GET.get('page'))
     tags = Tag.objects.all()
-    return render(request, 'noteapp/index.html', {'page_obj': page_obj, 'tags': tags})
+    return render(request, 'noteapp/index.html', {'page_obj': page_obj, 'tags': tags, 'title': 'Notes list'})
 
 
 @login_required
@@ -50,9 +50,9 @@ def tag(request):
             tag.save()
             return redirect(to="noteapp:note")
         else:
-            return render(request, 'noteapp/tag.html', context={'form': form})
+            return render(request, 'noteapp/tag.html', context={'form': form, 'title': 'Tags'})
 
-    return render(request, 'noteapp/tag.html', context={'form': TagForm()})
+    return render(request, 'noteapp/tag.html', context={'form': TagForm(), 'title': 'Tags'})
 
 
 @login_required
@@ -80,9 +80,9 @@ def note(request):
 
             return redirect(to="noteapp:main")
         else:
-            return render(request, 'noteapp/note.html',  context={'form': form, 'tags': tags})
+            return render(request, 'noteapp/note.html',  context={'form': form, 'tags': tags, 'title': 'Create note'})
 
-    return render(request, 'noteapp/note.html', context={'form': NoteForm(), 'tags': tags})
+    return render(request, 'noteapp/note.html', context={'form': NoteForm(), 'tags': tags, 'title': 'Create note'})
 
 
 @login_required
@@ -97,7 +97,7 @@ def detail(request, note_id):
     :return: A view with the note that was requested
     """
     note = get_object_or_404(Note, pk=note_id, user=request.user)
-    return render(request, 'noteapp/detail.html', context={"note": note})
+    return render(request, 'noteapp/detail.html', context={"note": note, 'title': 'Note detail'})
 
 
 @login_required
@@ -162,7 +162,7 @@ def search(request):
     notes = Note.objects.filter(user=request.user).all()
     if keyword:
         notes = notes.filter(name__icontains=keyword) | notes.filter(description__icontains=keyword)
-    return render(request, 'search.html', {'form': form, 'notes': notes})
+    return render(request, 'search.html', {'form': form, 'notes': notes, 'title': 'Search'})
 
 
 @login_required
@@ -193,5 +193,6 @@ def update_note(request, note_id):
         else:
             return render(request, 'noteapp/update_note.html', context={'form': form})
 
-    return render(request, 'noteapp/update_note.html', context={'form': NoteForm(instance=note), 'note_id': note_id})
+    return render(request, 'noteapp/update_note.html',
+                  context={'form': NoteForm(instance=note), 'note_id': note_id, 'title': 'Update note'})
 
