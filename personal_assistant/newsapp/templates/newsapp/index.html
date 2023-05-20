@@ -29,6 +29,7 @@
             {% endfor %}
             <div>
                 <div class="badge bg-dark text-wrap fs-6">Current weather:</div>
+                <form method="POST" action="">
                     {% csrf_token %}
                     <select class="d-inline-flex my-2 py-2" name="{{ form.city_choice.name }}">
                         {% for choice in form.city_choice.field.choices %}
@@ -43,12 +44,12 @@
                 {% if weather.name %}
                 <div class="text-left my-2 fs-5">{{weather.name}}: {{weather.temp}}</div>
                 <div>
-                    <img src="{{weather.icon_url}}" class="img-thumbnail" height=64>
+                    <img src="{{weather.icon_url}}" class="img-thumbnail border" height=64>
                 </div>
                 {% else %}
-                <div>{{default_weather.name}} {{default_weather.temp}}</div>
+                <div class="text-left my-2 fs-5">{{default_weather.name}} {{default_weather.temp}}</div>
                 <div>
-                    <img src="{{default_weather.icon_url}}" class="img-thumbnail" height=64>
+                    <img src="{{default_weather.icon_url}}" class="img-thumbnail border" height=64>
                 </div>
                 {% endif %}
 
