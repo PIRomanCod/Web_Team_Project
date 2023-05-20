@@ -39,6 +39,7 @@
         <h3>Top 5 yours tags</h3>
         <div class="form-control d-flex flex-row">
             {% for tag in tags|toptags %}
+            {% if tag.user == user %}
                <div class="flex-fill">
                   <div class="card my-2 mx-2">
                       <div class="card-body">
@@ -47,6 +48,7 @@
                       </div>
                   </div>
                </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
