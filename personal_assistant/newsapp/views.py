@@ -6,7 +6,10 @@ from pathlib import Path
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+
+from .forms import CityForm
 from . import utils
+
 
 
 def main(request):
@@ -17,10 +20,23 @@ def main(request):
     :param request: Pass the http request that triggered the view
     :return: The value of the render function
     """
-    return render(request, 'newsapp/index.html',
-                  context={'title': 'News',
-                           'exchange_rate': utils.exchange_rate(),
-                           'weather': utils.weather_current(),
-                           'news': utils.unian_news(),
-                           }
-                  )
+    default_weather = utils.weather_current('Kyiv')
+    form = CityForm(request.POST or None)
+    if form.is_valid():
+        city = form.cleaned_data['city_choice']
+        weather = utils.weather_current(city)
+        context = {
+            'title': 'News',
+            'form': form,
+            'weather': weather,
+            'exchange_rate': utils.exchange_rate(),
+            'news': utils.unian_news()
+        }
+    else:
+        context = {'title': 'News',
+                   'form': form,
+                   'exchange_rate': utils.exchange_rate(),
+                   'news': utils.unian_news(),
+                   'default_weather': default_weather
+                   }
+    return render(request, 'newsapp/index.html', context=context)
