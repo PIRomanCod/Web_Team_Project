@@ -1,6 +1,5 @@
 """This module contains functions for getting news, exchange rate and weather."""
 
-import configparser
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -10,12 +9,6 @@ import requests
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / '.env')
-
-file_config = Path(__file__).parent.parent.joinpath('config.ini')
-config = configparser.ConfigParser()
-config.read(file_config)
-
-city = config.get('DEV', 'city')
 
 key_api = env('OPENWEATHER_API_KEY')
 
@@ -50,7 +43,7 @@ def exchange_rate():
     return exch_rate
 
 
-def weather_current():
+def weather_current(city='Kyiv'):
     """
     The weather_current function returns a dictionary with the current weather in Kyiv.
     The dictionary contains three keys: name, icon_url and temp.
