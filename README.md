@@ -71,7 +71,8 @@
 - check your salary offers at DOU and cry again
 - login or register for more features
 - only logined users can:
-  - ask your personal English AI (GPT based) teacher for help and advise
+  - ask your personal English AI teacher (GPT based) for help and advise
+  - check correctness of your sentences by your personal English AI teacher (GPT based)
   - add contacts, notes, files
   - edit contacts, notes, files
   - delete contacts, notes, files
@@ -81,37 +82,32 @@
   - download files
   - upload files
   - look your likely tags in the notes
+  - mark your notes as active or done
+  - check when your contact has birthdays and never forget to congratulate him/her
+  - change your avatar
 - other user never can see your data
-- enjoy!
+- enjoy and not forget do donate us!
 
 
 
-# How to use documentation (it will be delete):
+# How to use documentation:
 - documentation link - http://localhost:63342/Team_project_Web/personal_assistant/docs/_build/html/index.html
-- personal_assistant/docs/modules - documentation files by modules - треба кожному свій файл перевірити 
-- \personal_assistant\docs>make.bat html - create/update documentation - команда для оновлення документації
-  - варіант для автоматичного написання документації:
-    Полегшити написання рядків документації може допомогти плагін для PyCharm 
-    Trelent - AI Docstrings on Demand. Він за допомогою AI дозволяє створювати досить 
-    хороші рядки документації для популярних мов програмування. (комбінація клавіш Alt-D на імені кожної функції)
+- to create/update documentation - \personal_assistant\docs>make.bat html (Windows) or \personal_assistant\docs>make html (Linux)
 
 
-
-# Критерії прийому (it will be delete):
-1.	Web-інтерфейс може бути реалізований на фреймворку Django.
-2.	Проєкт має бути збережений в окремому репозиторії та бути загальнодоступним (GitHub, GitLab або BitBucket).
-3.	Проєкт містить докладну інструкцію щодо встановлення та використання.
-4.	“Personal Assistant” зберігає інформацію в базі даних і може бути перезапущений без втрати даних.
-5.	Для надійності та підвищення продуктивності всю інформацію зберігати у базі даних PostgreSQL.
-6.	Всі критичні дані до доступу до бази даних та налаштування програми зберігаються в змінних середовищах і не завантажуються в репозитарій.
-7.	Проєкт повністю реалізує всі пункти вимог, описані в завданні.
-
-P.S.: Ви можете розширити функціонал проєкту на свій розсуд обов'язково проконсультувавшись з ментором перед цим. Розглядайте цей проєкт, як частину вашого портфоліо і корисний вам інструмент. З цієї причини ініціатива у розширенні та доповненні вимог до проєкту вітається. Наприклад ви можете додати файл Dockerfile, щоб програма могла бути розміщена в контейнері Docker та образ завантажений на dockerhub.
-
-
-# Links (it will be delete):
-
-https://trello.com/b/pUA5sy8P/web-personal-assistant - Board
-
-https://docs.google.com/document/d/1bUUMeaFmykmLw1PX6nAtBGu6k14mvYX8ukmBIPLw1AU/edit?usp=sharing - Questions
-
+# Used technologies:
+- Python 3.10
+- Django 4.2.1
+- BeautifulSoup 4
+- Sphinx
+- PostgreSQL 12.0
+- OpenWeatherMap API
+- DOU API
+- OpenAI API
+- DropBox API
+- Privatbank API
+- Bootstrap 5.1.3
+- HTML5
+- CSS3
+- Docker ????
+- GitHub
