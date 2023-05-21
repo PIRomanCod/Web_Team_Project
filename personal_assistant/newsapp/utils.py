@@ -5,8 +5,6 @@ import platform
 from datetime import datetime
 from pathlib import Path
 
-
-import environ
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -15,6 +13,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
+from django.conf import settings
+
 file_config = Path(__file__).parent.parent.joinpath('config.ini')
 config = configparser.ConfigParser()
 config.read(file_config)
@@ -22,16 +22,10 @@ config.read(file_config)
 LANGUAGE = config.get('DEV', 'language')
 GRADE = config.get('DEV', 'grade')
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-env = environ.Env()
-environ.Env.read_env(BASE_DIR / '.env')
-
-key_api = env('OPENWEATHER_API_KEY')
-
 if platform.system() == 'Windows':
-    path_driver = BASE_DIR.joinpath('newsapp', 'static', 'newsapp', 'driver_win', 'chromedriver.exe')
+    path_driver = settings.BASE_DIR.joinpath('newsapp', 'static', 'newsapp', 'driver_win', 'chromedriver.exe')
 elif platform.system() == 'Linux':
-    path_driver = BASE_DIR.joinpath('newsapp', 'static', 'newsapp', 'driver_linux', 'chromedriver.exe')
+    path_driver = settings.BASE_DIR.joinpath('newsapp', 'static', 'newsapp', 'driver_linux', 'chromedriver.exe')
 else:
     path_driver = None
 
@@ -39,7 +33,7 @@ service = Service(str(path_driver))
 options = webdriver.ChromeOptions()
 options.add_argument('--headless=chrome')
 
-path_dou_json = BASE_DIR.joinpath('newsapp', 'templates', 'newsapp', 'dou.json')
+path_dou_json = settings.BASE_DIR.joinpath('newsapp', 'templates', 'newsapp', 'dou.json')
 
 def unian_news():
     """
@@ -82,7 +76,7 @@ def weather_current(city='Kyiv'):
     :return: The current weather in the city
     """
     city_index = f'{city},ua'
-    response = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={city_index}&appid={key_api}')
+    response = requests.get(f'https://api.openweathermap.org/data/2.5/weather?q={city_index}&appid={settings.KEY_API}')
     res = response.json()
     weather = {'name': res.get('name'),
                'icon_url': f"https://openweathermap.org/img/wn/{res.get('weather')[0].get('icon')}@2x.png",
