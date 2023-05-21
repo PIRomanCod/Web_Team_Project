@@ -68,18 +68,19 @@
 - read fresh news
 - prepare yourself for any weather's joke
 - cry about exchange rates
-- check your salary offers and cry again
-- ??????? ask GPT chat for help ????
+- check your salary offers at DOU and cry again
 - login or register for more features
 - only logined users can:
+  - ask your personal English AI (GPT based) teacher for help and advise
   - add contacts, notes, files
   - edit contacts, notes, files
   - delete contacts, notes, files
   - search contacts, notes, files
-  - sort contacts, notes, files
-  - filter contacts, notes, files
+  - sort files
+  - filter notes, files
   - download files
   - upload files
+  - look your likely tags in the notes
 - other user never can see your data
 - enjoy!
 
