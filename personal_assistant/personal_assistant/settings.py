@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import configparser
 from pathlib import Path
 
 import environ
@@ -20,6 +20,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 env = environ.Env()
 environ.Env.read_env(BASE_DIR / '.env')
+
+file_config = Path(__file__).parent.parent.joinpath('config.ini')
+config = configparser.ConfigParser()
+config.read(file_config)
+
+LANGUAGE = config.get('DEV', 'language')
+GRADE = config.get('DEV', 'grade')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
