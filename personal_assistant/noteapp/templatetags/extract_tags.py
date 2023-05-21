@@ -19,8 +19,13 @@ def tags(value):
 
 
 def toptags(request):
-    return Tag.objects.annotate(num_notes=Count('note')).order_by('-num_notes')[:5]
+    """
+    The toptags function returns the top 5 tags, ordered by number of notes.
 
+    :param request: Pass the request object to the function
+    :return: The top 5 tags, ordered by the number of notes associated with them
+    """
+    return Tag.objects.annotate(num_notes=Count('note')).order_by('-num_notes')[:5]
 
 
 register.filter('tags', tags)

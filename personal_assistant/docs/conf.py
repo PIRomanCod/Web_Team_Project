@@ -22,7 +22,7 @@ django.setup()
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = 'Web Personal Assistant'
-copyright = '2023, Team 1 Pyton Web 9'
+copyright = '2023, Team 1 Python Web 9'
 author = 'Roman, Maksym, Stanislav, Olexandr'
 release = '1'
 
