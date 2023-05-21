@@ -1,10 +1,6 @@
 """
 In this module, the main page of the application is generated.
 """
-import json
-from pathlib import Path
-
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import CityForm

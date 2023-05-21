@@ -1,26 +1,17 @@
 """This module contains functions for getting news, exchange rate and weather."""
-import configparser
 import json
 import platform
 from datetime import datetime
-from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
+from django.conf import settings
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.ui import WebDriverWait
 
-from django.conf import settings
-
-file_config = Path(__file__).parent.parent.joinpath('config.ini')
-config = configparser.ConfigParser()
-config.read(file_config)
-
-LANGUAGE = config.get('DEV', 'language')
-GRADE = config.get('DEV', 'grade')
 
 if platform.system() == 'Windows':
     path_driver = settings.BASE_DIR.joinpath('newsapp', 'static', 'newsapp', 'driver_win', 'chromedriver.exe')
@@ -34,6 +25,7 @@ options = webdriver.ChromeOptions()
 options.add_argument('--headless=chrome')
 
 path_dou_json = settings.BASE_DIR.joinpath('newsapp', 'templates', 'newsapp', 'dou.json')
+
 
 def unian_news():
     """
@@ -65,7 +57,7 @@ def exchange_rate():
     return exch_rate
 
 
-def weather_current(city='Kyiv'):
+def weather_current(city):
     """
     The weather_current function returns a dictionary with the current weather in Kyiv.
     The dictionary contains three keys: name, icon_url and temp.
@@ -86,7 +78,7 @@ def weather_current(city='Kyiv'):
 
 
 def scrap_posts(driver):
-    driver.get("https://jobs.dou.ua/vacancies/?category=Python")
+    driver.get(f"https://jobs.dou.ua/vacancies/?category={settings.LANGUAGE}")
     WebDriverWait(driver, 10).until(ec.presence_of_element_located(
         (By.XPATH, '/html//div[@class="b-inner-page-header"]/h1'))
     )
@@ -95,7 +87,8 @@ def scrap_posts(driver):
 
 
 def scrap_salary(driver, date_salary):
-    driver.get(f"https://jobs.dou.ua/salaries/?period={date_salary}&position={GRADE}%20SE&technology={LANGUAGE}")
+    driver.get(
+        f"https://jobs.dou.ua/salaries/?period={date_salary}&position={settings.GRADE}%20SE&technology={settings.LANGUAGE}")
     WebDriverWait(driver, 10).until(ec.presence_of_element_located(
         (By.XPATH, '/html/body//div[@id="median"]/div/span'))
     )
@@ -136,8 +129,8 @@ def dou_scrap():
                 'posts': posts_volume,
                 'date_salary': date_salary,
                 'salary': salary,
-                'grade': GRADE,
-                'language': LANGUAGE}
+                'grade': settings.GRADE,
+                'language': settings.LANGUAGE}
 
     if res_json != load_res:
         with open(path_dou_json, 'w') as file:
@@ -152,7 +145,7 @@ def dou_load():
 
 
 if __name__ == '__main__':
-    # print(unian_news())
-    # print(exchange_rate())
-    # print(weather_current())
+    print(unian_news())
+    print(exchange_rate())
+    print(weather_current('Kyiv'))
     print(dou_scrap())
