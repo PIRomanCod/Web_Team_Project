@@ -2,13 +2,13 @@ import logging
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.views import View
+from django.views.generic import ListView
 
 from storageapp.services.file_services import FileServices
 from storageapp.models import File
 
 
-class FileViews(View):
+class FileViews(ListView):
     """
     This class contains views for files.
     """
