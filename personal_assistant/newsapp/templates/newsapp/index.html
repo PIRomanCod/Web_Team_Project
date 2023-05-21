@@ -29,30 +29,37 @@
             {% endfor %}
             <div>
                 <div class="badge bg-dark text-wrap fs-6">Current weather:</div>
-                <form method="POST" action="">
+                <form class="d-flex" method="POST" action="">
                     {% csrf_token %}
-                    <select class="d-inline-flex my-2 py-2" name="{{ form.city_choice.name }}">
-                        {% for choice in form.city_choice.field.choices %}
-                        <option value="{{ choice.0 }}" {% if form.city_choice.value == choice.0 %}selected{% endif %}>
+                    <select class="d-inline-flex my-2 py-2" name="{{ form_weather.city_choice.name }}">
+                        {% for choice in form_weather.city_choice.field.choices %}
+                        <option value="{{ choice.0 }}" {% if form_weather.city_choice.value == choice.0 %}selected{% endif %}>
                             {{ choice.1 }}
                         </option>
                         {% endfor %}
                     </select>
-                    <input class="btn btn-secondary mt-2" type="submit" value="Submit">
+                    <input class="btn btn-secondary mx-2 my-2" type="submit" value="Submit">
                 </form>
 
                 {% if weather.name %}
-                <div class="text-left my-2 fs-5">{{weather.name}}: {{weather.temp}}</div>
+                <div class="text-left my-2 fs-6">{{weather.name}}: {{weather.temp}}</div>
                 <div>
                     <img src="{{weather.icon_url}}" class="img-thumbnail border" height=64>
                 </div>
                 {% else %}
-                <div class="text-left my-2 fs-5">{{default_weather.name}} {{default_weather.temp}}</div>
+                <div class="text-left my-2 fs-6">{{default_weather.name}} {{default_weather.temp}}</div>
                 <div>
                     <img src="{{default_weather.icon_url}}" class="img-thumbnail border" height=64>
                 </div>
                 {% endif %}
-
+                <div>
+                    <div class="badge bg-dark text-wrap mt-2 fs-6">{{dou.language}} Developer:</div>
+                    <div class="text-left my-1 fs-6">Vacancies {{dou.posts}}:{{dou.date}}</div>
+                    <div class="text-left mt-1 fs-6">{{dou.grade}} Median Salary:</div>
+                    <div class="text-left mb-1 fs-6">${{dou.salary}} at {{dou.date_salary}}</div>
+                    <a class="btn btn-secondary" href="https://jobs.dou.ua/vacancies/?category=Python"
+                    target="_blank" rel="noopener noreferrer">To DOU</a>
+                </div>
             </div>
         </div>
     </div>
