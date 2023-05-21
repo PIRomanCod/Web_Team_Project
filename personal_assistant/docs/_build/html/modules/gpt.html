@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GPT functionality &#8212; Web Personal Assistant 1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/agogo.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Users functionality" href="users.html" /> 
+  </head><body>
+    <div class="header-wrapper" role="banner">
+      <div class="header">
+        <div class="headertitle"><a
+          href="../index.html">Web Personal Assistant 1 documentation</a></div>
+        <div class="rel" role="navigation" aria-label="related navigation">
+          <a href="users.html" title="Users functionality"
+             accesskey="P">previous</a> |
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="gpt-functionality">
+<h1>GPT functionality<a class="headerlink" href="#gpt-functionality" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p>You can chat with ChatGPT, which has set prompts for teaching you English.</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+<section id="module-gpt.views">
+<span id="gpt-s-views"></span><h2>GPT’s views<a class="headerlink" href="#module-gpt.views" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="gpt.views.chat">
+<span class="sig-prename descclassname"><span class="pre">gpt.views.</span></span><span class="sig-name descname"><span class="pre">chat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">messages</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gpt.views.chat" title="Permalink to this definition">¶</a></dt>
+<dd><p>The chat function is the main function of this file. It takes in a request object and an optional list of messages,
+and returns a JsonResponse containing the response to be sent back to the user. The chat function first checks if it has
+received a POST request or not; if it has, then it will add any new message from the user into its list of messages and
+then call conversation() with that updated list as an argument. Then, after receiving both role and content from
+conversation(), chat() adds those two values into its own message list before returning them as part of a JsonResponse.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> – Get the request from the client</p></li>
+<li><p><strong>messages</strong> – Store the messages that have been sent</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The response of the chatbot</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gpt.views.tasks">
+<span class="sig-prename descclassname"><span class="pre">gpt.views.</span></span><span class="sig-name descname"><span class="pre">tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gpt.views.tasks" title="Permalink to this definition">¶</a></dt>
+<dd><p>The tasks function is a view that renders the tasks.html template.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Pass the request object to the view</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The render template ‘gpt/html.tasks’</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="gpt.views.text_correction">
+<span class="sig-prename descclassname"><span class="pre">gpt.views.</span></span><span class="sig-name descname"><span class="pre">text_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gpt.views.text_correction" title="Permalink to this definition">¶</a></dt>
+<dd><p>The text_correction function is a view that takes in a POST request from the text_correction.html page,
+which contains the user’s inputted message. The function then passes this message to check_sentence() and returns
+the corrected sentence as well as the original sentence back to text_correction.html.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – Get the data from the user</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A json response with the original message and the corrected message</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-gpt.services.checking_sentences">
+<span id="gpt-s-services-checking-sentences"></span><h2>GPT’s services.checking_sentences<a class="headerlink" href="#module-gpt.services.checking_sentences" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="gpt.services.checking_sentences.check_sentence">
+<span class="sig-prename descclassname"><span class="pre">gpt.services.checking_sentences.</span></span><span class="sig-name descname"><span class="pre">check_sentence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">prompt</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gpt.services.checking_sentences.check_sentence" title="Permalink to this definition">¶</a></dt>
+<dd><p>The check_sentence function takes a string as an argument and returns the same string with any grammatical errors corrected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>prompt</strong> – Pass in the sentence to be corrected</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The corrected sentence</p>
+</dd>
+</dl>
+</dd></dl>
+
+<span class="target" id="module-gpt.services.conversation"></span><dl class="py function">
+<dt class="sig sig-object py" id="gpt.services.conversation.conversation">
+<span class="sig-prename descclassname"><span class="pre">gpt.services.conversation.</span></span><span class="sig-name descname"><span class="pre">conversation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">messages</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#gpt.services.conversation.conversation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The conversation function takes in a list of messages and returns the role (speaker)
+and content (message) of the response. The model used is gpt-3.5-turbo, which is
+the largest model available on OpenAI’s API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>messages</strong> – Pass in the messages that have been sent so far</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple of (role, message)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-gpt.urls">
+<span id="gpt-s-urls"></span><h2>GPT’s urls<a class="headerlink" href="#module-gpt.urls" title="Permalink to this heading">¶</a></h2>
+<p>This module contains all the urls for the gpt app.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          
+          <h3>Table of Contents</h3>
+          <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="all-about-me.html">All about us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Welcome to Web Personal Assistant’s general settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="newsapp.html">Newsapp functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contactapp.html">Contactapp functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="noteapp.html">Noteapp functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storageapp.html">Storageapp functionality</a></li>
+<li class="toctree-l1"><a class="reference internal" href="users.html">Users functionality</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">GPT functionality</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-gpt.views">GPT’s views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gpt.services.checking_sentences">GPT’s services.checking_sentences</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-gpt.urls">GPT’s urls</a></li>
+</ul>
+</li>
+</ul>
+
+          <div role="search">
+            <h3 style="margin-top: 1.5em;">Search</h3>
+            <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" />
+                <input type="submit" value="Go" />
+            </form>
+          </div>
+
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <div role="navigation" aria-label="related navigaton">
+            <a href="users.html" title="Users functionality"
+              >previous</a> |
+            <a href="../py-modindex.html" title="Python Module Index"
+              >modules</a> |
+            <a href="../genindex.html" title="General Index"
+              >index</a>
+          </div>
+          <div role="note" aria-label="source link">
+              <br/>
+              <a href="../_sources/modules/gpt.rst.txt"
+                rel="nofollow">Show Source</a>
+          </div>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023, Team 1 Python Web 9.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
