@@ -4,6 +4,7 @@
     The response can be a html page.
     The view function can also call other functions to process the request.
 """
+import logging
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
@@ -49,6 +50,7 @@ def tag(request):
             tag = form.save(commit=False)
             tag.user = request.user
             tag.save()
+            logging.info(msg=f'User: {request.user.id} added tag {tag.name}')
             return redirect(to="noteapp:note")
         else:
             return render(request, 'noteapp/tag.html', context={'form': form, 'title': 'Tags'})
@@ -78,7 +80,7 @@ def note(request):
             choice_tags = Tag.objects.filter(name__in=request.POST.getlist('tags'), user=request.user)
             for tag in choice_tags:
                 note.tags.add(tag)
-
+            logging.info(msg=f'User: {request.user.id} added new note {note.name}')
             return redirect(to="noteapp:main")
         else:
             return render(request, 'noteapp/note.html',  context={'form': form, 'tags': tags, 'title': 'Create note'})
@@ -114,6 +116,7 @@ def set_done(request, note_id):
     :return: The redirect function, which returns an http response redirect object
     """
     Note.objects.filter(pk=note_id, user=request.user).update(done=True)
+    logging.info(msg=f'User: {request.user.id} for note {note_id} set done to True')
     return redirect(to="noteapp:main")
 
 
@@ -129,6 +132,7 @@ def set_active(request, note_id):
     :return: The redirect function, which
     """
     Note.objects.filter(pk=note_id, user=request.user).update(done=False)
+    logging.info(msg=f'User: {request.user.id} for note {note_id} set done to False')
     return redirect(to="noteapp:main")
 
 
@@ -142,8 +146,12 @@ def delete_note(request, note_id):
     :param note_id: Find the note to delete
     :return: A redirect to the main page
     """
-    Note.objects.get(pk=note_id, user=request.user).delete()
-    return redirect(to="noteapp:main")
+    logging.info(msg=f'User: {request.user.id} deleted note {note_id}')
+    note = get_object_or_404(Note, id=note_id, user=request.user)
+    if request.method == 'POST':
+        note.delete()
+        return redirect(to="noteapp:main")
+    return render(request, 'noteapp/delete.html', {'note': note, 'title': 'Delete note'})
 
 
 @login_required
@@ -195,6 +203,7 @@ def update_note(request, note_id):
             note.user = request.user
             note.save()
             note.tags.set(tags)
+            logging.info(msg=f'User: {request.user.id} updated note {note.name}')
 
             return redirect(to="noteapp:detail", note_id=note_id)
         else:

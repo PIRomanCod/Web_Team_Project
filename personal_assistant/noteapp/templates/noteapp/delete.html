@@ -1,0 +1,15 @@
+{% extends "newsapp/base.html" %}
+
+{% block content %}
+    <h4 class="pt-10 text-center fs-4">Delete Note</h4>
+    <form class="form-control border" method="POST" action="{% url 'noteapp:delete' note.id %}">
+        {% csrf_token %}
+        <div class="d-flex flex-column align-items-center">
+            <div class="my-2">Are you sure you want to delete the note "{{ note.name }}"?</div>
+            <button class="btn btn-danger mx-2 col-2" type="submit">Delete</button>
+            <a class="btn btn-success mx-2 col-2 my-2" href="{% url 'noteapp:main' %}" >Return to notes list</a>
+        </div>
+
+    </form>
+{% endblock %}
+

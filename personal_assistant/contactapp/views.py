@@ -1,6 +1,8 @@
 """
 The views module contains functions that define what should happen when a user visits a certain URL.
 """
+import logging
+
 from datetime import date, timedelta
 from django.shortcuts import render
 from django.utils import timezone
@@ -51,6 +53,7 @@ def create_contact(request):
             contact = form.save(commit=False)
             contact.user = request.user
             contact.save()
+            logging.info(msg=f'User: {request.user.id} created new contact {contact.name}')
             return redirect('contactapp:contact_list')
     else:
         form = ContactForm()
@@ -77,6 +80,7 @@ def edit_contact(request, pk):
         form = ContactForm(request.POST, instance=contact)
         if form.is_valid():
             form.save()
+            logging.info(msg=f'User: {request.user.id} updated new contact {contact.name}')
             return redirect('contactapp:contact_list')
     else:
         form = ContactForm(instance=contact)
@@ -100,6 +104,7 @@ def delete_contact(request, pk):
     """
     contact = get_object_or_404(Contact, id=pk, user=request.user)
     if request.method == 'POST':
+        logging.info(msg=f'User: {request.user.id} deleted contact {contact.name}')
         contact.delete()
         return redirect('contactapp:contact_list')
     return render(request, 'contactapp/delete_contact.html', {'contact': contact, 'title': 'Delete contact'})
@@ -155,6 +160,7 @@ def upcoming_birthdays(request):
         days = int(days) if days else 0
         current_date = date.today()
         end_date = current_date + timedelta(days=days)
+        logging.info(msg=f'User: {request.user.id} for birthday list for {days}')
 
         result = []
 
@@ -169,5 +175,4 @@ def upcoming_birthdays(request):
 
     else:
         result = []
-
     return render(request, 'contactapp/upcoming_birthdays.html', {'contacts': result, 'title': 'Upcoming Birthdays'})
