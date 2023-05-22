@@ -2,13 +2,12 @@ import logging
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
 
 from storageapp.services.file_services import FileServices
 from storageapp.models import File
 
 
-class FileViews(ListView):
+class FileViews:
     """
     This class contains views for files.
     """
@@ -41,8 +40,6 @@ class FileViews(ListView):
         """
 
         file = File.objects.get(id=file_id)
-
-        logging.info(msg=f'User: {request.user.id} got to delete file: {file_id}')
         return render(request, 'storageapp/deleting_warning.html', context={'file': file,
                                                                             'title': 'Deleting'})
 
@@ -60,14 +57,11 @@ class FileViews(ListView):
         :return: render files_list.html in FileServices.render_files_list() with incoming data
         """
 
-        if request.method == 'POST':
-            file = File.objects.get(id=file_id)
-            message = FileViews.services.delete_file(file=file)
-            logging.info(msg=f'User: {request.user.id} confirmed the deletion of the file: {file_id}')
-            return FileViews.services.render_files_list(request, message=message)
+        file = File.objects.get(id=file_id)
+        message = FileViews.services.delete_file(file=file)
+        logging.info(msg=f'User: {request.user.id} confirmed the deletion of the file: {file_id}')
+        return FileViews.services.render_files_list(request, message=message)
 
-        logging.info(msg=f'User: {request.user.id} canceled the deletion of the file: {file_id}')
-        return FileViews.services.render_files_list(request)
 
     @login_required
     def upload_file(request):
