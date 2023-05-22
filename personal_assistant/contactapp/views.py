@@ -19,6 +19,8 @@ def contact_list(request):
     The contact_list function is a view that displays all contacts in the database.
     It uses the Django Paginator class to paginate results, and it passes those results
     to the contact_list.html template for rendering.
+    Decorator login_required is used to ensure that only logged-in users can access this view.
+    Function contact_list returns only contacts that belong to the user who made this request.
 
     :param request: Get the current user
     :return: The contact_list
@@ -37,6 +39,8 @@ def create_contact(request):
     The function first checks if the request method is POST, which means that the form has been submitted.
     If it's not POST, then we're creating a blank form for them to fill out and render it in our template.
     If it's POST, then we take data from our bound form (form) and save it to our database.
+    Decorator login_required is used to ensure that only logged-in users can access this view.
+    Function create_contact add the current logged-in user to the contact object before saving it to database.
 
     :param request: Get the request from the browser
     :return: A response
@@ -138,7 +142,7 @@ def search_contacts(request):
 def upcoming_birthdays(request):
     """
     The upcoming_birthdays function takes a request and returns an HTML page with the contacts that have birthdays
-    within the next x days, where x is specified by the user. The function first checks if it has received a POST request.
+    within the next x days (in 0 - 365 interval), where x is specified by the user. The function first checks if it has received a POST request.
     If so, it gets the number of days from this POST request and converts it to an integer (if possible). It then creates
     a date object for today's date and another one for end_date = current_date + timedelta(days=x). It initializes result
     to be an empty list. Then, it iterates through all of its user's contacts in order to find those whose

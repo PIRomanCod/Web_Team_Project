@@ -17,6 +17,7 @@ def main(request):
     """
     The main function is the main page of the noteapp.
     It displays all notes and tags, as well as a pagination system.
+    Tags can be clicked to filter notes by tag.
 
     :param request: Get the request object
     :return: The rendered index
@@ -149,10 +150,14 @@ def delete_note(request, note_id):
 def search(request):
     """
     The search function takes a request and returns a rendered search.html template with the form, notes, and keyword
-        variables passed to it. The function first creates an instance of NoteSearchForm using the request's GET data as
-        its argument. It then assigns the value of 'keyword' in that same GET data to a variable called keyword (or None if
-        there is no such key). Next, it queries all notes belonging to the user making this request and assigns them to
-        another variable called notes. If there is indeed a value for keyword in our GET data (i.e., if someone has entered
+        variables passed to it.
+
+        The function first creates an instance of NoteSearchForm using the request's GET data as
+        its argument. It then assigns the value of 'keyword' in that same GET data to a variable called keyword
+        (or None if there is no such key). Next, it queries all notes belonging to the user making this request
+        and assigns them to another variable called notes. If there is indeed a value for keyword in our GET data
+        (i.e., if someone has entered something into the search box), then we filter our notes queryset by the name
+        and description fields of each note.
 
     :param request: Get the current request object, which contains all of the information about the current http request
     :return: A list of notes that match the search term
@@ -170,8 +175,10 @@ def update_note(request, note_id):
     """
     The update_note function is responsible for updating a note.
     It takes in the request and the id of the note to be updated as parameters.
-    The function first gets the note object from Note model using get_object_or_404 method, which returns an error if no such object exists.
-    Then it checks whether there is a POST request or not, and if so, it creates a form instance with that data and saves it to database after checking its validity.
+    The function first gets the note object from Note model using get_object_or_404 method,
+    which returns an error if no such object exists.
+    Then it checks whether there is a POST request or not, and if so,
+    it creates a form instance with that data and saves it to database after checking its validity.
     If there was no POST request then we just render an empty form.
 
     :param request: Get the request from the user

@@ -12,7 +12,7 @@ from .models import Profile
 
 class RegisterForm(UserCreationForm):
     """
-    The class RegisterForm is used to create a form for the User model.
+    The class RegisterForm is used to create a form for the User model
     """
     username = CharField(max_length=100,
                          required=True,
@@ -28,9 +28,6 @@ class RegisterForm(UserCreationForm):
                           widget=PasswordInput())
 
     class Meta:
-        """
-        The class Meta is used to define the model and the fields of the form.
-        """
         model = User
         fields = ("username", "first_name", "last_name", "email", "password1", "password2")
 
@@ -40,9 +37,6 @@ class LoginForm(AuthenticationForm):
     The class LoginForm is used to create a form for the User model.
     """
     class Meta:
-        """
-        The class Meta is used to define the model and the fields of the form.
-        """
         model = User
         fields = ['username', 'password']
 
@@ -54,8 +48,5 @@ class ProfileForm(ModelForm):
     avatar = ImageField(widget=FileInput())
 
     class Meta:
-        """
-        The class Meta is used to define the model and the fields of the form.
-        """
         model = Profile
         fields = ['avatar']

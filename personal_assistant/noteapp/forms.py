@@ -13,9 +13,6 @@ class TagForm(ModelForm):
     name = CharField(min_length=3, max_length=25, required=True, widget=TextInput(attrs={"class": "test_class"}))
 
     class Meta:
-        """
-        The Meta class is used to specify the model and the fields that will be used in the form.
-        """
         model = models.Tag
         fields = ['name']
 
@@ -25,12 +22,9 @@ class NoteForm(ModelForm):
     The NoteForm is used to create a form for the Note model.
     """
     name = CharField(min_length=5, max_length=50, required=True, widget=TextInput())
-    description = CharField(min_length=10, max_length=150, required=True, widget=Textarea(attrs={"rows":"3"}))
+    description = CharField(min_length=10, max_length=150, required=True, widget=Textarea(attrs={"rows": "3"}))
 
     class Meta:
-        """
-        The Meta class is used to specify the model and the fields that will be used in the form.
-        """
         model = models.Note
         fields = ['name', 'description']
         exclude = ['tags']
