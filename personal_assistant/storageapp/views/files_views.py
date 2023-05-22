@@ -55,12 +55,10 @@ class FileViews:
         :return: render files_list.html in FileServices.render_files_list() with incoming data
         """
 
-        if request.method == 'POST':
-            file = File.objects.get(id=file_id)
-            message = FileViews.services.delete_file(file=file)
+        file = File.objects.get(id=file_id)
+        message = FileViews.services.delete_file(file=file)
 
-            return FileViews.services.render_files_list(request, message=message)
-        return FileViews.services.render_files_list(request)
+        return FileViews.services.render_files_list(request, message=message)
 
     @login_required
     def upload_file(request):

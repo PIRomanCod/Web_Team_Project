@@ -5,7 +5,7 @@
 <div class="d-flex flex-column align-items-center">
     <div>
         <a class="btn btn-danger mx-2" href="{% url 'storageapp:delete_file' file_id=file.id %}">Delete file</a>
-        <a  class="btn btn-success mx-2" href="{% url 'storageapp:files_list' %}" >Return to files</a>
+        <a class="btn btn-success mx-2" href="{% url 'storageapp:files_list' %}" >Return to files</a>
     </div>
 </div>
 {% endblock %}
