@@ -71,7 +71,7 @@
             </div>
             {% else %}
             <div class="flex-fill">
-                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}">"article:"<s>{{note.name}}</s></a>
+                <a class="nav-link" href="{% url 'noteapp:detail' note.id %}"><strong>Article: </strong><s>{{note.name}}</s></a>
             </div>
             <div class="d-flex align-items-center">
                 <a class="btn btn-warning align-items-center" href="{% url 'noteapp:set_active' note.id %}" role="button">Mark Active</a>
