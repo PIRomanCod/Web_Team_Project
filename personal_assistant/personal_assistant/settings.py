@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import configparser
 from pathlib import Path
+import logging
 
 import environ
 import openai
@@ -185,3 +186,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 OPENWEATHER_API_KEY = env('OPENWEATHER_API_KEY')
 
 GPT_API_KEY=env('GPT_API_KEY')
+
+logging.basicConfig(filename='personal_assistant/logger/info.log',
+                    encoding='utf-8',
+                    level=logging.INFO,
+                    format='%(levelname)s %(asctime)s %(filename)s %(funcName)s = %(message)s')

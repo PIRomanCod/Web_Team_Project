@@ -1,3 +1,5 @@
+import logging
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
@@ -55,12 +57,11 @@ class FileViews:
         :return: render files_list.html in FileServices.render_files_list() with incoming data
         """
 
-        if request.method == 'POST':
-            file = File.objects.get(id=file_id)
-            message = FileViews.services.delete_file(file=file)
+        file = File.objects.get(id=file_id)
+        message = FileViews.services.delete_file(file=file)
+        logging.info(msg=f'User: {request.user.id} confirmed the deletion of the file: {file_id}')
+        return FileViews.services.render_files_list(request, message=message)
 
-            return FileViews.services.render_files_list(request, message=message)
-        return FileViews.services.render_files_list(request)
 
     @login_required
     def upload_file(request):
@@ -80,16 +81,17 @@ class FileViews:
                 return render(request, 'storageapp/upload_file.html')
 
             dropbox_file_name = FileViews.services.save_file_dropbox_and_get_new_name(request)
-
             owner_inst, type_inst, extension_inst, file_name = FileViews.services.get_file_info(request)
 
-            File.objects.create(owner=owner_inst,
+            up_file = File.objects.create(owner=owner_inst,
                                 file_type=type_inst,
                                 file_extension=extension_inst,
                                 file_name=file_name,
                                 dropbox_file_name=dropbox_file_name)
 
+            logging.info(msg=f'User: {request.user.id} upload file: {up_file.id}')
             return FileViews.services.render_files_list(request)
+
         return render(request, 'storageapp/upload_file.html', context={'title': 'Upload'})
 
     @login_required
@@ -110,6 +112,7 @@ class FileViews:
             file = File.objects.get(id=file_id)
             url = FileViews.services.download_file(file)
 
+            logging.info(msg=f'User: {request.user.id} download file: {file_id}')
             return redirect(to=url)
 
         return FileViews.services.render_files_list(request)
@@ -133,4 +136,5 @@ class FileViews:
         if not search_result:
             message = f'I cant find something with "{word}"'
 
+        logging.info(msg=f'User: {request.user.id} get search result in files for word: {word}')
         return FileViews.services.render_files_list(request, files_list=search_result, message=message)

@@ -1,3 +1,5 @@
+import logging
+
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
@@ -50,6 +52,8 @@ def chat(request, messages=[]):
                                          f'{response_role.upper()}: {response_content.strip()}'})
     if request.method == 'GET':
         messages = []
+
+        logging.info(msg=f'User: {request.user.id} began "chat"')
         return render(request, 'gpt/chat_ai.html', context={'title': 'Chat bot'})
 
 
@@ -73,4 +77,5 @@ def text_correction(request):
         return JsonResponse({'response': f'Original: {message}\n'
                                          f'Correct: {chatbot_response.strip()}'})
 
+    logging.info(msg=f'User: {request.user.id} began "correct english sentences"')
     return render(request, 'gpt/text_correction.html', context={'title': 'Correct sentence'})
