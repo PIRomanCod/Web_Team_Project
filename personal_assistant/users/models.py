@@ -22,15 +22,6 @@ class Profile(models.Model):
     avatar = models.ImageField(default='default_avatar.png', upload_to='profile_images')
 
     def __str__(self):
-        """
-        The __str__ function is the default human-readable representation of the object.
-        This function will be called whenever you call str() on an object which uses this model,
-        or in several other similar situations (such as displaying an object in the Django admin site).
-        It should return a string representing the thing you want to see when that happens.
-
-        :param self: Represent the instance of the class
-        :return: The username of the user
-        """
         return self.user.username
 
     # resizing images

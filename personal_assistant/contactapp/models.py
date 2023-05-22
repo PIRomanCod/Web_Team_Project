@@ -8,7 +8,7 @@ from django.core.validators import RegexValidator
 
 class Contact(models.Model):
     """
-    The Contact model contains the following fields:
+    The Contact model represents a contact in the address book. It has the following fields:
     """
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
@@ -20,11 +20,4 @@ class Contact(models.Model):
     birth_date = models.DateField(blank=True, null=True, default=None)
 
     def __str__(self):
-        """
-        The __str__ function is used to return a string representation of the object.
-        This is useful for debugging and also for displaying objects in the shell.
-
-        :param self: Represent the instance of the class
-        :return: The name of the object
-        """
         return self.name
