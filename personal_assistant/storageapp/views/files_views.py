@@ -40,17 +40,16 @@ class FilesListView(BaseView, ListView):
         """
         The get_context_data function is a method of the ListView class.
         It's purpose is to add additional context variables to the template that will be rendered.
-        The function takes in two arguments, self and *args, **kwargs.
-        The self argument refers to the instance of this class (ListView).
-        The *args argument allows for an arbitrary number of positional arguments passed into this function when it's called from another location in our codebase.
-        This means that we can pass any number of positional arguments into get_context_data() when we call it elsewhere in our codebase and they will all be stored as a tuple inside
+        The function takes in two arguments, self and args, kwargs.
+        The self argument refers to the instance of this class ListView.
+        The args argument allows for an arbitrary number of positional arguments passed into this function when its called from another location in our codebase.
+        This means that we can pass any number of positional arguments into get_context_data() when we call it elsewhere in our codebase and they will all be stored as a tuple inside.
 
         :param self: Represent the instance of the class
-        :param *args: Pass an arbitrary number of arguments to a function
+        :param args: Pass an arbitrary number of arguments to a function
         :param object_list: Pass the list of files to be displayed
-        :param **kwargs: Pass keyworded, variable-length argument list to a function
-        :return: A dictionary with the following keys:
-
+        :param kwargs: Pass keyworded, variable-length argument list to a function
+        :return dict: context for the template
         """
         context = super().get_context_data(**kwargs)
 

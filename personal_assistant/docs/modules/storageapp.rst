@@ -76,6 +76,13 @@ Storageapp's services
    :undoc-members:
    :show-inheritance:
 
+Storageapp's decorators
+========================================
+.. automodule:: storageapp.services.decorators
+.. autoclass:: BaseView
+   :members:
+   :undoc-members:
+
 
 Storageapp's management commands
 ========================================
