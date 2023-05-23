@@ -2,13 +2,14 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, TemplateView
-from django.views import View
 
+
+from storageapp.services.decorators import BaseView
 from storageapp.services.file_services import FileServices, FileTypes
 from storageapp.models import File
 
 
-class FilesListView(ListView):
+class FilesListView(BaseView, ListView):
     """View for displaying a list of files."""
 
     model = File
@@ -62,7 +63,7 @@ class FilesListView(ListView):
         return context
 
 
-class FileUploadView(View):
+class FileUploadView(BaseView):
     """View for uploading a file."""
 
     template_name = 'storageapp/upload_file.html'
@@ -109,7 +110,7 @@ class FileUploadView(View):
         return redirect('storageapp:files_list')
 
 
-class FileDeleteWarningView(TemplateView):
+class FileDeleteWarningView(BaseView, TemplateView):
     """View for displaying a warning before deleting a file."""
 
     template_name = 'storageapp/deleting_warning.html'
@@ -130,7 +131,7 @@ class FileDeleteWarningView(TemplateView):
         return context
 
 
-class FileDeleteView(View):
+class FileDeleteView(BaseView):
     """View for deleting a file."""
 
     @method_decorator(login_required)
@@ -150,7 +151,7 @@ class FileDeleteView(View):
         return redirect('storageapp:files_list')
 
 
-class FileDownloadView(View):
+class FileDownloadView(BaseView):
     """View for downloading a file."""
 
     @method_decorator(login_required)
@@ -170,7 +171,7 @@ class FileDownloadView(View):
         return redirect(to=url)
 
 
-class SearchByNameView(View):
+class SearchByNameView(BaseView):
     """View for searching files by name."""
 
     @method_decorator(login_required)
