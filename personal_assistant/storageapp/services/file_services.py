@@ -3,13 +3,11 @@ This module contains the FileServices class.
 """
 
 import re
-import logging
 
-from django.shortcuts import render
 from django.contrib.auth.models import User
 from storages.backends.dropbox import DropBoxStorage
 
-from storageapp.models import File, FileTypes, FileExtensions
+from storageapp.models import FileTypes, FileExtensions
 
 
 class FileServices:
