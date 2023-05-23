@@ -1,140 +1,197 @@
-import logging
-
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
+from django.views.generic import ListView, TemplateView
+from django.views import View
 
-from storageapp.services.file_services import FileServices
+from storageapp.services.file_services import FileServices, FileTypes
 from storageapp.models import File
 
 
-class FileViews:
-    """
-    This class contains views for files.
-    """
+class FilesListView(ListView):
+    """View for displaying a list of files."""
 
-    services = FileServices
+    model = File
+    template_name = 'storageapp/files_list.html'
 
-    @login_required
-    def show_user_files(request):
+    def get_queryset(self):
         """
-        The show_user_files function is a view that renders the user's files list.
-        It takes in a request object and returns an HttpResponse object with the rendered template.
+        The get_queryset function is used to filter the queryset of files that are displayed in the table.
+        The function first gets all file types, and then filters out those that are not enabled by the user.
+        Then it orders them according to a field specified by the user.
 
-        :param request: Get the current user, and then pass it to the render_files_list function in fileviews
-        :return: render files_list.html in FileServices.render_files_list() with incoming data
+        :param self: Access the class attributes and methods
+        :return: A list of files that are owned by the user
         """
+        all_files_types, files_types_enabled, file_fields = FileServices.get_filter_and_sort_rules(self.request)
 
-        return FileViews.services.render_files_list(request)
+        field_to_order = self.request.GET.get('category', 'file_name')
+        order_rules = f'-{field_to_order}' if '-' in files_types_enabled else field_to_order
 
-    @login_required
-    def delete_file_warning(request, file_id):
+        files_list = (File.objects.filter(owner=self.request.user.id)
+                      .filter(
+                          file_type__in=[FileTypes.objects.get(name=name) for name in files_types_enabled if name != '-'])
+                      .order_by(order_rules))
+
+        return files_list
+
+    def get_context_data(self, *args, object_list=None, **kwargs):
         """
-        The delete_file_warning function is called when the user clicks on the &quot;Delete&quot; button in
-        the file_detail.html template.  The function takes a request and a file_id as parameters,
-        and returns an HTML response that renders the deleting_warning.html template with context
-        containing the File object whose id matches that of the passed-in file_id parameter.
+        The get_context_data function is a method of the ListView class.
+        It's purpose is to add additional context variables to the template that will be rendered.
+        The function takes in two arguments, self and *args, **kwargs.
+        The self argument refers to the instance of this class (ListView).
+        The *args argument allows for an arbitrary number of positional arguments passed into this function when it's called from another location in our codebase.
+        This means that we can pass any number of positional arguments into get_context_data() when we call it elsewhere in our codebase and they will all be stored as a tuple inside
 
-        :param request: Get the request object, which contains information about the current web request
+        :param self: Represent the instance of the class
+        :param *args: Pass an arbitrary number of arguments to a function
+        :param object_list: Pass the list of files to be displayed
+        :param **kwargs: Pass keyworded, variable-length argument list to a function
+        :return: A dictionary with the following keys:
+
+        """
+        context = super().get_context_data(**kwargs)
+
+        context['all_files_types'], context['files_types_enabled'], context['file_fields'] = \
+            FileServices.get_filter_and_sort_rules(self.request)
+
+        context.setdefault('message', 'Your files')
+        context.setdefault('title', 'My files')
+
+        return context
+
+
+class FileUploadView(View):
+    """View for uploading a file."""
+
+    template_name = 'storageapp/upload_file.html'
+
+    @method_decorator(login_required)
+    def get(self, request):
+        """
+        The get function is used to render the upload page.
+
+        :param self: Represent the instance of the object itself
+        :param request: Get the request object that is sent to the server
+        :return: A render function
+        """
+        return render(request, self.template_name, context={'title': 'Upload'})
+
+    @method_decorator(login_required)
+    def post(self, request):
+        """
+        The post function is called when the user submits a file to be uploaded.
+        The function first checks if there is a file in the request, and if not it returns an error message.
+        If there is a file, it calls FileServices' save_file_dropbox_and_get_new name method to upload the
+        file to dropbox and get its new name. It then gets information about the owner of the file,
+        what type of document it is (e.g., resume), what extension it has (.pdf), and what its original filename was
+        and create file-row in DB.
+
+        :param self: Represent the instance of the class
+        :param request: Get the file from the post request
+        :return: A redirect to the files_list view
+        """
+        if not request.FILES.get('file'):
+            return render(request, self.template_name)
+
+        dropbox_file_name = FileServices.save_file_dropbox_and_get_new_name(request)
+        owner_inst, type_inst, extension_inst, file_name = FileServices.get_file_info(request)
+
+        File.objects.create(
+            owner=owner_inst,
+            file_type=type_inst,
+            file_extension=extension_inst,
+            file_name=file_name,
+            dropbox_file_name=dropbox_file_name
+        )
+
+        return redirect('storageapp:files_list')
+
+
+class FileDeleteWarningView(TemplateView):
+    """View for displaying a warning before deleting a file."""
+
+    template_name = 'storageapp/deleting_warning.html'
+
+    def get_context_data(self, **kwargs):
+        """
+        The get_context_data function is a function that allows you to pass additional context variables to the template.
+        In this case, we are passing the file object and title variable.
+
+        :param self: Refer to the object itself
+        :param **kwargs: Pass keyworded, variable-length argument list to a function
+        :return: A dictionary of data that is used by the template to render the page
+        """
+        context = super().get_context_data(**kwargs)
+        file = File.objects.get(id=self.kwargs['file_id'])
+        context['file'] = file
+        context['title'] = 'Deleting'
+        return context
+
+
+class FileDeleteView(View):
+    """View for deleting a file."""
+
+    @method_decorator(login_required)
+    def post(self, request, file_id):
+        """
+        The post function is used to delete a file from the database.
+        It takes in a request and file_id as parameters, then uses the FileServices class to delete the file.
+        Finally, it redirects back to files_list.
+
+        :param self: Represent the instance of the object itself
+        :param request: Get the request from the client
+        :param file_id: Identify the file that needs to be deleted
+        :return: A redirect to the files_list view
+        """
+        file = File.objects.get(id=file_id)
+        FileServices.delete_file(file)
+        return redirect('storageapp:files_list')
+
+
+class FileDownloadView(View):
+    """View for downloading a file."""
+
+    @method_decorator(login_required)
+    def post(self, request, file_id):
+        """
+        The post function is used to download a file from the server.
+        It takes in a request and file_id as parameters, then uses the FileServices class to download the file.
+        The function returns a redirect response with url of where the downloaded file is located.
+
+        :param self: Represent the instance of the class
+        :param request: Get the request object
         :param file_id: Get the file object from the database
-        :return: render the deleting_warning.html with the context
+        :return: The url of the file
         """
-
         file = File.objects.get(id=file_id)
-        return render(request, 'storageapp/deleting_warning.html', context={'file': file,
-                                                                            'title': 'Deleting'})
+        url = FileServices.download_file(file)
+        return redirect(to=url)
 
-    @login_required
-    def delete_file(request, file_id):
+
+class SearchByNameView(View):
+    """View for searching files by name."""
+
+    @method_decorator(login_required)
+    def get(self, request):
         """
-        The delete_file function is called when the user clicks on the delete button
-        on a file. It takes in a request and an id of the file to be deleted, then it
-        gets that file from the database and calls services.delete_file() to delete it.
-        It then returns files_list which is rendered by render_files_list().
+        The get function is used to search for files in the database.
+        It takes a request object as an argument and returns a view of all files that match the user's input.
 
-
-        :param request: Get the request object, which is used to access information about the current http request
-        :param file_id: Identify the file to be deleted
-        :return: render files_list.html in FileServices.render_files_list() with incoming data
-        """
-
-        file = File.objects.get(id=file_id)
-        message = FileViews.services.delete_file(file=file)
-        logging.info(msg=f'User: {request.user.id} confirmed the deletion of the file: {file_id}')
-        return FileViews.services.render_files_list(request, message=message)
-
-
-    @login_required
-    def upload_file(request):
-        """
-        The upload_file function is responsible for handling the POST request that comes from the upload_file.html page
-        when a user submits a file to be uploaded. The function first checks if there is actually a file attached to the
-        request, and if not it renders an empty upload_file.html page so that users can try again with another file. If there
-        is indeed a file attached, then we call save_file_dropbox() in services which saves the submitted file into our Dropbox
-        account and returns its new name (which will be used later when we create an instance of File). We also get some other info
-
-        :param request: Get the file from the request
-        :return: render files_list.html in FileServices.render_files_list() with incoming data
-        """
-
-        if request.method == 'POST':
-            if not request.FILES.get('file'):
-                return render(request, 'storageapp/upload_file.html')
-
-            dropbox_file_name = FileViews.services.save_file_dropbox_and_get_new_name(request)
-            owner_inst, type_inst, extension_inst, file_name = FileViews.services.get_file_info(request)
-
-            up_file = File.objects.create(owner=owner_inst,
-                                file_type=type_inst,
-                                file_extension=extension_inst,
-                                file_name=file_name,
-                                dropbox_file_name=dropbox_file_name)
-
-            logging.info(msg=f'User: {request.user.id} upload file: {up_file.id}')
-            return FileViews.services.render_files_list(request)
-
-        return render(request, 'storageapp/upload_file.html', context={'title': 'Upload'})
-
-    @login_required
-    def download_file(request, file_id):
-        """
-        The download_file function is called when the user clicks on a file in the list of files.
-        It takes in a request and an id for the file to be downloaded, then it gets that file from
-        the database and calls download_file() from services.py to get its url, which is returned as
-        a redirect.
-
-        :param request: Get the request object, which is used to check if the method is post
-        :param file_id: Identify the file that is to be downloaded
-        :return: A redirect to the url of the file if the request method is 'POST'.
-                 Otherwise, it renders the file list.
-        """
-
-        if request.method == 'POST':
-            file = File.objects.get(id=file_id)
-            url = FileViews.services.download_file(file)
-
-            logging.info(msg=f'User: {request.user.id} download file: {file_id}')
-            return redirect(to=url)
-
-        return FileViews.services.render_files_list(request)
-
-    @login_required
-    def search_by_name(request):
-        """
-        The search_by_name function searches for files by name.
-        It takes a request object as an argument and returns the result of the search_by_name function from
-        FileViews.services module.
-
+        :param self: Represent the instance of the object itself
         :param request: Get the user input from the search bar
-        :return: render files_list.html in FileServices.render_files_list() with incoming data
+        :return: render 'storageapp/files_list.html' with search result
         """
-
         word = request.GET.get('user_input')
         message = f'Search result for "{word}":'
 
         search_result = File.objects.filter(owner=request.user.id).filter(file_name__contains=word)
 
         if not search_result:
-            message = f'I cant find something with "{word}"'
+            message = f'I can\'t find something with "{word}"'
 
-        logging.info(msg=f'User: {request.user.id} get search result in files for word: {word}')
-        return FileViews.services.render_files_list(request, files_list=search_result, message=message)
+        return FilesListView.as_view(
+            template_name='storageapp/files_list.html',
+            extra_context={'object_list': search_result, 'message': message, 'title': 'Search Files'}
+        )(request)

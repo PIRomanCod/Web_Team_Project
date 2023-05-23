@@ -187,7 +187,3 @@ OPENWEATHER_API_KEY = env('OPENWEATHER_API_KEY')
 
 GPT_API_KEY=env('GPT_API_KEY')
 
-logging.basicConfig(filename='personal_assistant/logger/info.log',
-                    encoding='utf-8',
-                    level=logging.INFO,
-                    format='%(levelname)s %(asctime)s %(filename)s %(funcName)s = %(message)s')
