@@ -21,7 +21,7 @@ class FilesListView(ListView):
         Then it orders them according to a field specified by the user.
 
         :param self: Access the class attributes and methods
-        :return: A list of files that are owned by the user,
+        :return: A list of files that are owned by the user
         """
         all_files_types, files_types_enabled, file_fields = FileServices.get_filter_and_sort_rules(self.request)
 
@@ -41,10 +41,8 @@ class FilesListView(ListView):
         It's purpose is to add additional context variables to the template that will be rendered.
         The function takes in two arguments, self and *args, **kwargs.
         The self argument refers to the instance of this class (ListView).
-        The *args argument allows for an arbitrary number of positional arguments passed into this function
-        when it's called from another location in our codebase.
-        This means that we can pass any number of positional arguments into get_context_data() when we call
-        it elsewhere in our codebase and they will all be stored as a tuple inside
+        The *args argument allows for an arbitrary number of positional arguments passed into this function when it's called from another location in our codebase.
+        This means that we can pass any number of positional arguments into get_context_data() when we call it elsewhere in our codebase and they will all be stored as a tuple inside
 
         :param self: Represent the instance of the class
         :param *args: Pass an arbitrary number of arguments to a function

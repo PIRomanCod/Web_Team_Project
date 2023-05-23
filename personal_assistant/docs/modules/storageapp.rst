@@ -25,7 +25,28 @@ Storageapp's models
 Storageapp's views
 ========================================
 .. automodule:: storageapp.views.files_views
-.. autoclass:: FileViews
+
+.. autoclass:: FilesListView
+   :members:
+   :show-inheritance:
+
+.. autoclass:: FileUploadView
+   :members:
+   :show-inheritance:
+
+.. autoclass:: FileDeleteWarningView
+   :members:
+   :show-inheritance:
+
+.. autoclass:: FileDeleteView
+   :members:
+   :show-inheritance:
+
+.. autoclass:: FileDownloadView
+   :members:
+   :show-inheritance:
+
+.. autoclass:: SearchByNameView
    :members:
    :show-inheritance:
 
