@@ -141,3 +141,4 @@ GitHub.sublime-settings
 .idea
 .env
 .gitignore
+!/personal_assistant/personal_assistant/logger/
