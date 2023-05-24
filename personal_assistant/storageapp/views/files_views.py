@@ -93,7 +93,8 @@ class FileUploadView(BaseView):
         :return: A redirect to the files_list view
         """
         if not request.FILES.get('file'):
-            return render(request, self.template_name)
+            return render(request, self.template_name, context={'message': 'You have to choice file.',
+                                                                'title': 'Upload'})
 
         dropbox_file_name = FileServices.save_file_dropbox_and_get_new_name(request)
         owner_inst, type_inst, extension_inst, file_name = FileServices.get_file_info(request)
