@@ -97,9 +97,9 @@ class FileServices:
         """
         The get_filter_and_sort_rules function is used to get the filter and sort rules for the file list view.
         It returns a tuple of three elements:
-            1) all_files_types - A list of all available file types in the database.
-            2) file_types_enabled - A list of enabled files types, as selected by user in GET request (defaults to all).
-            3) file_fields - A dictionary containing field names and their display names.
+        1) all_files_types - A list of all available file types in the database.
+        2) file_types_enabled - A list of enabled files types, as selected by user in GET request (defaults to all).
+        3) file_fields - A dictionary containing field names and their display names.
 
         :param self: Represent the instance of the class
         :param request: Get the get parameters from the request

@@ -2,13 +2,14 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, TemplateView
-from django.views import View
 
+
+from storageapp.services.decorators import BaseView
 from storageapp.services.file_services import FileServices, FileTypes
 from storageapp.models import File
 
 
-class FilesListView(ListView):
+class FilesListView(BaseView, ListView):
     """View for displaying a list of files."""
 
     model = File
@@ -39,17 +40,16 @@ class FilesListView(ListView):
         """
         The get_context_data function is a method of the ListView class.
         It's purpose is to add additional context variables to the template that will be rendered.
-        The function takes in two arguments, self and *args, **kwargs.
-        The self argument refers to the instance of this class (ListView).
-        The *args argument allows for an arbitrary number of positional arguments passed into this function when it's called from another location in our codebase.
-        This means that we can pass any number of positional arguments into get_context_data() when we call it elsewhere in our codebase and they will all be stored as a tuple inside
+        The function takes in two arguments, self and args, kwargs.
+        The self argument refers to the instance of this class ListView.
+        The args argument allows for an arbitrary number of positional arguments passed into this function when its called from another location in our codebase.
+        This means that we can pass any number of positional arguments into get_context_data() when we call it elsewhere in our codebase and they will all be stored as a tuple inside.
 
         :param self: Represent the instance of the class
-        :param *args: Pass an arbitrary number of arguments to a function
+        :param args: Pass an arbitrary number of arguments to a function
         :param object_list: Pass the list of files to be displayed
-        :param **kwargs: Pass keyworded, variable-length argument list to a function
-        :return: A dictionary with the following keys:
-
+        :param kwargs: Pass keyworded, variable-length argument list to a function
+        :return dict: context for the template
         """
         context = super().get_context_data(**kwargs)
 
@@ -62,7 +62,7 @@ class FilesListView(ListView):
         return context
 
 
-class FileUploadView(View):
+class FileUploadView(BaseView):
     """View for uploading a file."""
 
     template_name = 'storageapp/upload_file.html'
@@ -93,7 +93,8 @@ class FileUploadView(View):
         :return: A redirect to the files_list view
         """
         if not request.FILES.get('file'):
-            return render(request, self.template_name)
+            return render(request, self.template_name, context={'message': 'You have to choice file.',
+                                                                'title': 'Upload'})
 
         dropbox_file_name = FileServices.save_file_dropbox_and_get_new_name(request)
         owner_inst, type_inst, extension_inst, file_name = FileServices.get_file_info(request)
@@ -109,7 +110,7 @@ class FileUploadView(View):
         return redirect('storageapp:files_list')
 
 
-class FileDeleteWarningView(TemplateView):
+class FileDeleteWarningView(BaseView, TemplateView):
     """View for displaying a warning before deleting a file."""
 
     template_name = 'storageapp/deleting_warning.html'
@@ -130,7 +131,7 @@ class FileDeleteWarningView(TemplateView):
         return context
 
 
-class FileDeleteView(View):
+class FileDeleteView(BaseView):
     """View for deleting a file."""
 
     @method_decorator(login_required)
@@ -150,7 +151,7 @@ class FileDeleteView(View):
         return redirect('storageapp:files_list')
 
 
-class FileDownloadView(View):
+class FileDownloadView(BaseView):
     """View for downloading a file."""
 
     @method_decorator(login_required)
@@ -170,7 +171,7 @@ class FileDownloadView(View):
         return redirect(to=url)
 
 
-class SearchByNameView(View):
+class SearchByNameView(BaseView):
     """View for searching files by name."""
 
     @method_decorator(login_required)
