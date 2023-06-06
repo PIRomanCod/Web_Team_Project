@@ -14,7 +14,7 @@ class FileServices:
     """
     This class contains methods for working with files.
     """
-
+    unknown_type_id = 317
     reg_ex_extension = r'\.[^./\\]+$'
     dbx_storage = DropBoxStorage()
 
@@ -42,7 +42,7 @@ class FileServices:
             extension_inst = FileExtensions.objects.get(name=extension)
 
         except FileExtensions.DoesNotExist:
-            extension_inst = FileExtensions.objects.get(id=1)
+            extension_inst = FileExtensions.objects.get(id=cls.unknown_type_id)
 
         type_inst = extension_inst.category
         file_name = user_file_name if user_file_name else file.name

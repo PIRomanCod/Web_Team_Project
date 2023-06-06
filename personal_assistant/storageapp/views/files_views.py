@@ -5,8 +5,8 @@ from django.views.generic import ListView, TemplateView
 
 
 from storageapp.services.decorators import BaseView
-from storageapp.services.file_services import FileServices, FileTypes
-from storageapp.models import File
+from storageapp.services.file_services import FileServices
+from storageapp.models import File, FileTypes
 
 
 class FilesListView(BaseView, ListView):
