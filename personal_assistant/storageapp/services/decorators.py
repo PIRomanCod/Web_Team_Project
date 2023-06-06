@@ -22,7 +22,4 @@ class BaseView(View):
             return render(request, 'storageapp/error.html', context={'error_message': f'Something goes wrong: {e}',
                                                                     'title': 'Some error'})
 
-        print(request)
-        print(self.__class__.__name__)
-
         return response
